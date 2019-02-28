@@ -1,0 +1,48 @@
+# -----------------------------
+# Data Integration Docker stack
+# -----------------------------
+- http://docs.grafana.org/installation/docker/
+- Defined in ./dataintegration/docker-compose.yml
+- password secrets stored in ./secrets/*.txt
+
+- Storage for Timescaledb and Grafana
+
+docker volume create timescaledb-storage
+docker volume create grafana-storage
+
+- Bring up stack
+
+docker stack deploy -c docker-compose.dataintegration.yml dataintegration
+
+# Start a temporary container to connect to postgres
+docker run \
+--net=host \
+-it \
+--rm \
+-e "PGPASSWORD=password" \
+timescale/timescaledb:latest-pg10 \
+psql -h localhost -U postgres
+
+
+# ------------
+# Data parsing
+# ------------
+# Parse nav data
+./cnavreader.py instrument-files/shipdata_MGL1704/MGL-cnav.* >instrument-files/nav.csv
+
+# Parse par,temp,salinity data
+./parreader.py instrument-files/shipdata_MGL1704/MGL-papr.* >instrument-files/par.csv
+
+
+# -----------------
+# Data Import
+# -----------------
+# Fast CSV importer
+go get github.com/timescale/timescaledb-parallel-copy/cmd/timescaledb-parallel-copy
+
+PGPASSWORD=password timescaledb-parallel-copy --copy-options "NULL 'NA' CSV HEADER" -db-name gradients2 -table seaflow -file instrument-files/seaflow_MGL1704/prelim-stat.csv --truncate
+
+PGPASSWORD=password timescaledb-parallel-copy --copy-options "CSV HEADER" -db-name gradients2 -table nav -file instrument-files/nav.csv --truncate
+
+PGPASSWORD=password timescaledb-parallel-copy --copy-options "CSV HEADER" -db-name gradients2 -table par -file instrument-files/par.csv --truncate
+
