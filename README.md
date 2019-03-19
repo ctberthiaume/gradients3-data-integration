@@ -12,6 +12,19 @@ customized for the April 2019 Gradients 3 oceanographic cruise.
 * Python 3 scripts (data parsing and higher-level job wrappers)
 * Samba (realtime cruise data uploads)
 
+## Installation
+
+* Clone this git repo somewhere
+* Install Docker
+* Pull the images used in this stack. I'm not sure why this is necessary, but just deploying the stack doesn't seem to reliably pull needed images.
+
+```
+docker pull ctberthiaume/grafana:gradients3
+docker pull ctberthiaume/samba:gradients3
+docker pull ctberthiaume/ingest:gradients3
+docker pull timescale/timescaledb:1.2.1-pg10
+```
+
 ## Usage
 
 ### Bring up the stack on a single node
