@@ -11,8 +11,27 @@ docker volume create timescaledb-storage
 docker volume create grafana-storage
 
 - Bring up stack
-
+docker swarm init  # once per reboot
 docker stack deploy -c docker-compose.dataintegration.yml dataintegration
+
+- Bring up stack without querying a remote server to resolve image digest
+docker stack deploy --resolve-image never -c docker-compose.dataintegration.yml dataintegration
+
+- Restart a service
+
+docker service scale dataintegration_grafana=0 && docker service scale dataintegration_grafana=1
+
+- Bring down stack
+
+docker stack rm dataintegration
+
+- Mount a temporary container with an existing named storage volume
+
+docker run -it --rm --mount type=bind,src=$(pwd),dst=/mnt --mount type=volume,src=grafana-storage,dst=/gs ubuntu bash
+
+- Use previous ephemeral docker container to add plugin files to grafana, starting from the plugin git repo containing a dist/ directory. Restart grafana after copy.
+
+docker run -it --rm --mount type=bind,src=$(pwd),dst=/mnt --mount type=volume,src=grafana-storage,dst=/gs ubuntu bash -c "rm -rf /gs/plugins/$(basename $(pwd))/* && cp -r /mnt/dist /gs/plugins/$(basename $(pwd)) && chown -R 472:472 /gs/plugins/$(basename $(pwd))"
 
 # Start a temporary container to connect to postgres
 docker run \

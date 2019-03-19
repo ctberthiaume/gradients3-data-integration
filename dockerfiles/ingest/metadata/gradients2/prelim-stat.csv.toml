@@ -1,0 +1,76 @@
+table = "seaflow"
+null = "NA"
+[[fields]]
+index = 0
+name = "cruise"
+type = "text"
+groupby = false
+
+[[fields]]
+index = 1
+name = "file"
+type = "text"
+groupby = false
+
+[[fields]]
+index = 2
+name = "time"
+type = "time"
+
+[[fields]]
+index = 3
+name = "lat"
+type = "real"
+
+[[fields]]
+index = 4
+name = "lon"
+type = "real"
+
+[[fields]]
+index = 5
+name = "opp_evt_ratio"
+type = "real"
+
+[[fields]]
+index = 6
+name = "flow_rate"
+type = "real"
+
+[[fields]]
+index = 7
+name = "file_duration"
+type = "real"
+
+[[fields]]
+index = 8
+name = "pop"
+type = "text"
+groupby = true
+
+[[fields]]
+index = 9
+name = "n_count"
+type = "real"
+
+[[fields]]
+index = 10
+name = "abundance"
+type = "real"
+
+[[fields]]
+index = 11
+name = "fsc_small"
+type = "real"
+
+[[fields]]
+index = 12
+name = "chl_small"
+type = "real"
+
+[[fields]]
+index = 13
+name = "pe"
+type = "real"
+
+
