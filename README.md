@@ -15,8 +15,16 @@ customized for the April 2019 Gradients 3 oceanographic cruise.
 ## Usage
 
 ### Bring up the stack on a single node
+
+First copy the `secrets_template` folder to `secrets` and change
+passwords from the defaults.
+
+Then start docker services
+
+```
 docker swarm init  # once per reboot
 docker stack deploy -c docker-compose.dataintegration.yml di
+```
 
 Bring up stack without querying a remote server to resolve image digest
 
