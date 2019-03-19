@@ -19,7 +19,7 @@ services:
   timescaledb:
     # use pg10, latest supported by grafana timescaledb plugin
     #image: timescale/timescaledb:1.2.1-pg10
-    image: timescale/timescaledb:1.2.1-pg10@sha256:78e30a0db0204c8c7bd7f5269014a94c04376944eb8f518c9ed779f2188c6c86
+    image: timescale/timescaledb:1.2.1-pg10
     environment:
       POSTGRES_PASSWORD_FILE: /run/secrets/postgres_postgres_password
     networks:
@@ -46,7 +46,7 @@ services:
     volumes:
       - incoming-storage:/data
   ingest:
-    image: localingest:gradients3
+    image: ctberthiaume/ingest:gradients3
     environment:
       PGHOST: timescaledb
       PGDATABASE: gradients2  # db for current cruise, should be in dbnames.sh
