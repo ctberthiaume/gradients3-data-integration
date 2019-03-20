@@ -23,8 +23,7 @@ services:
       - grafana-storage:/var/lib/grafana
   timescaledb:
     # use pg10, latest supported by grafana timescaledb plugin
-    #image: timescale/timescaledb:1.2.1-pg10
-    image: timescale/timescaledb:1.2.1-pg10
+    image: timescale/timescaledb:1.2.2-pg10
     deploy:
       restart_policy:
         condition: any
