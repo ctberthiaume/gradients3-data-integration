@@ -3,6 +3,11 @@ services:
   grafana:
     #image: grafana/grafana:6.0.0
     image: ctberthiaume/grafana:gradients3
+    deploy:
+      restart_policy:
+        condition: any
+        delay: 5s
+        window: 60s
     environment:
       GF_SERVER_ENABLE_GZIP: 'true'
       GF_SECURITY_ADMIN_PASSWORD_FILE: /run/secrets/grafana_admin_password
@@ -20,6 +25,11 @@ services:
     # use pg10, latest supported by grafana timescaledb plugin
     #image: timescale/timescaledb:1.2.1-pg10
     image: timescale/timescaledb:1.2.1-pg10
+    deploy:
+      restart_policy:
+        condition: any
+        delay: 5s
+        window: 60s
     environment:
       POSTGRES_PASSWORD_FILE: /run/secrets/postgres_postgres_password
     networks:
@@ -32,6 +42,11 @@ services:
       - timescaledb-storage:/var/lib/postgresql/data
   samba:
     image: ctberthiaume/samba:gradients3
+    deploy:
+      restart_policy:
+        condition: any
+        delay: 5s
+        window: 60s
     environment:
       SAMBA_USER: ocean
       SAMBA_PASSWORD_FILE: /run/secrets/samba_password
@@ -47,6 +62,11 @@ services:
       - incoming-storage:/data
   ingest:
     image: ctberthiaume/ingest:gradients3
+    deploy:
+      restart_policy:
+        condition: any
+        delay: 5s
+        window: 60s
     environment:
       PGHOST: timescaledb
       PGDATABASE: gradients2  # db for current cruise, should be in dbnames.sh
