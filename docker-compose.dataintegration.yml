@@ -31,7 +31,7 @@ services:
         window: 60s
     environment:
       POSTGRES_PASSWORD_FILE: /run/secrets/postgres_postgres_password
-      TIMESCALEDB_TELEMETRY: off
+      TIMESCALEDB_TELEMETRY: 'off'
     networks:
       - backend
     ports:
@@ -61,8 +61,7 @@ services:
       volumes:
         - minio-storage:/data
   ingest:
-    #image: ctberthiaume/ingest:gradients3
-    image: ingest-minio
+    image: ctberthiaume/ingest:gradients3
     deploy:
       restart_policy:
         condition: any

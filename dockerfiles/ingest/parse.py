@@ -11,14 +11,18 @@ from minio.error import ResponseError
 @click.option('-v', '--verbose', count=True)
 def main(verbose):
     """
-    Parse files in minio write to new CSV.
+    Parse files in minio, write to new CSV.
 
-    , write new CSV to OUTPUT_DIR.
+    For each input file MINIO_ENDPOINT/MINIO_INPUT_BUCKET/<a>, copy
+    locally to OUTPUT_DIR/raw/<a>, parse with parser
+    METADATA_DIR/CURRENT_CRUISE/<a>.parser, write to
+    OUTPUT_DIR/parsed/<a>.csv and
+    MINIO_ENDPOINT/MINIO_OUTPUT_BUCKET/<a>.csv. If no matching parser
+    exists, skip.
 
-    For each input file MINIO_ENDPOINT/MINIO_INPUT_BUCKET/<a>,
-    parse with parser METADATA_DIR/CURRENT_CRUISE/<a>.parser, writing to
-    OUTPUT_DIR/<a>.csv and MINIO_ENDPOINT/MINIO_OUTPUT_BUCKET/<a>.csv. 
-    If no matching parser exists, skip.
+    Required environment variables: MINIO_ENDPOINT, MINIO_ACCESS_KEY
+    MINIO_SECRET_KEY, MINIO_INPUT_BUCKET, MINIO_PARSED_BUCKET,
+    METADATA_DIR, CURRENT_CRUISE, OUTPUT_DIR.
     """
     def info(msg):
         print(msg, file=sys.stdout)
@@ -30,14 +34,22 @@ def main(verbose):
         if verbose == 1:
             print(msg, file=file)
 
-    # Env vars
-    endpoint = os.environ['MINIO_ENDPOINT']
-    access_key = os.environ['MINIO_ACCESS_KEY']
-    secret_key = os.environ['MINIO_SECRET_KEY']
-    inbucket = os.environ['MINIO_INPUT_BUCKET']
-    outbucket = os.environ['MINIO_PARSED_BUCKET']
-    metadir = os.path.join(os.environ['METADATA_DIR'], os.environ['CURRENT_CRUISE'])
-    outputdir = os.environ['OUTPUT_DIR']
+    # Env vars, output locations
+    try:
+        endpoint = os.environ['MINIO_ENDPOINT']
+        access_key = os.environ['MINIO_ACCESS_KEY']
+        secret_key = os.environ['MINIO_SECRET_KEY']
+        inbucket = os.environ['MINIO_INPUT_BUCKET']
+        outbucket = os.environ['MINIO_PARSED_BUCKET']
+        metadir = os.path.join(os.environ['METADATA_DIR'], os.environ['CURRENT_CRUISE'])
+        outputdir = os.environ['OUTPUT_DIR']
+    except KeyError as e:
+        error('Missing env var: {}'format(str(e)))
+        sys.exit(1)
+    raw_subdir = os.path.join(outputdir, 'raw')
+    parsed_subdir = os.path.join(outputdir, 'parsed')
+    os.makedirs(raw_subdir, exist_ok=True)
+    os.makedirs(parsed_subdir, exist_ok=True)
 
     # Everything but the access/secret keys
     debug('env args: {}, {}, {}, {}, {}'.format(endpoint, inbucket, outbucket, metadir, outputdir))
@@ -59,11 +71,6 @@ def main(verbose):
 
     for base in inputs.intersection(parsers):
         debug('starting to parse {}'.format(base))
-        raw_subdir = os.path.join(outputdir, 'raw')
-        parsed_subdir = os.path.join(outputdir, 'parsed')
-        os.makedirs(raw_subdir, exist_ok=True)
-        os.makedirs(parsed_subdir, exist_ok=True)
-
         p = os.path.join(metadir, base + '.parser')
         i = os.path.join(raw_subdir, base)
         o = os.path.join(parsed_subdir, base + '.csv')

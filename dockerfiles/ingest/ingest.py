@@ -11,12 +11,13 @@ def main(verbose):
     """
     Import CSV data to Postgres database.
 
-    Given CSV file <csv> (a.csv), import into $PGDATABASE based on
-    SQL schema a.sql and table listed in TOML file spec a.toml. If
-    matching SQL and TOML are missing skip ingest for that CSV.
+    For each CSV file OUTPUT_DIR/parsed/<a.csv>, import into
+    $PGDATABASE based on SQL schema METADATA_DIR/CURRENT_CRUISE/<a.sql>
+    and table listed in TOML file METADATA_DIR/CURRENT_CRUISE/<a.toml>.
+    If matching SQL and TOML are missing skip ingest for that CSV.
 
-    Environment variables PGHOST, PGUSER, PGPASSWORD, PGDATABASE
-    should be set.
+    Required environment variables: PGHOST, PGUSER, PGPASSWORD,
+    PGDATABASE, METADATA_DIR, CURRENT_CRUISE, OUTPUT_DIR
     """
     def info(msg):
         print(msg, file=sys.stdout)

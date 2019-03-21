@@ -10,7 +10,7 @@ customized for the April 2019 Gradients 3 oceanographic cruise.
 * Grafana (time series data visualization)
 * Supercronic (Docker compatible cron for periodic processing)
 * Python 3 scripts (data parsing and higher-level job wrappers)
-* Samba (realtime cruise data uploads)
+* Minio (realtime cruise data uploads)
 
 ## Installation
 
@@ -19,10 +19,10 @@ customized for the April 2019 Gradients 3 oceanographic cruise.
 * Pull the images used in this stack. I'm not sure why this is necessary, but just deploying the stack doesn't seem to reliably pull needed images.
 
 ```
-docker pull ctberthiaume/grafana:gradients3
-docker pull ctberthiaume/samba:gradients3
+docker pull ctberthiaume/grafana:gradients3  # with 2dscatter plugin
 docker pull ctberthiaume/ingest:gradients3
-docker pull timescale/timescaledb:1.2.1-pg10
+docker pull timescale/timescaledb:1.2.2-pg10
+docker pull minio/minio:RELEASE.2019-03-20T22-38-47Z
 ```
 
 ## Usage
@@ -35,7 +35,7 @@ passwords from the defaults.
 Then start docker services
 
 ```
-docker swarm init  # once per reboot
+docker swarm init  # once
 docker stack deploy -c docker-compose.dataintegration.yml di
 ```
 
@@ -50,6 +50,8 @@ Restart a service
 Bring down stack
 
 ```docker stack rm di```
+
+Sometimes Docker leaves behind exited containers. Check with `docker container ls -a` and remove manually.
 
 ### Miscellaneous docker tasks
 
