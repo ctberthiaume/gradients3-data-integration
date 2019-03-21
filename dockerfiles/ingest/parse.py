@@ -44,7 +44,7 @@ def main(verbose):
         metadir = os.path.join(os.environ['METADATA_DIR'], os.environ['CURRENT_CRUISE'])
         outputdir = os.environ['OUTPUT_DIR']
     except KeyError as e:
-        error('Missing env var: {}'format(str(e)))
+        error('Missing env var: {}'.format(str(e)))
         sys.exit(1)
     raw_subdir = os.path.join(outputdir, 'raw')
     parsed_subdir = os.path.join(outputdir, 'parsed')

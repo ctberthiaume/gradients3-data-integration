@@ -29,8 +29,12 @@ def main(verbose):
         if verbose == 1:
             print(msg, file=file)
 
-    metadir = os.path.join(os.environ['METADATA_DIR'], os.environ['CURRENT_CRUISE'])
-    csvdir = os.path.join(os.environ['OUTPUT_DIR'], 'parsed')
+    try:
+        metadir = os.path.join(os.environ['METADATA_DIR'], os.environ['CURRENT_CRUISE'])
+        csvdir = os.path.join(os.environ['OUTPUT_DIR'], 'parsed')
+    except KeyError as e:
+        error('Missing env var: {}'.format(str(e)))
+        sys.exit(1)
 
     debug('env args: {}, {}'.format(csvdir, metadir))
 
