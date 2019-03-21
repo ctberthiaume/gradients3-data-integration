@@ -22,7 +22,8 @@ def main(verbose):
 
     Required environment variables: MINIO_ENDPOINT, MINIO_ACCESS_KEY
     MINIO_SECRET_KEY, MINIO_INPUT_BUCKET, MINIO_PARSED_BUCKET,
-    METADATA_DIR, CURRENT_CRUISE, OUTPUT_DIR.
+    METADATA_DIR, CURRENT_CRUISE, OUTPUT_DIR. DEBUG can be set to 1
+    to increase verbosity.
     """
     def info(msg):
         print(msg, file=sys.stdout)
@@ -35,6 +36,17 @@ def main(verbose):
             print(msg, file=file)
 
     # Env vars, output locations
+    # First try to get DEBUG ENV var if -v not set
+    if not verbose:
+        try:
+            verbose = os.environ['DEBUG']
+        except KeyError:
+            pass
+        else:
+            try:
+                verbose = int(verbose)
+            except TypeError:
+                verbose = 0
     try:
         endpoint = os.environ['MINIO_ENDPOINT']
         access_key = os.environ['MINIO_ACCESS_KEY']
@@ -52,7 +64,7 @@ def main(verbose):
     os.makedirs(parsed_subdir, exist_ok=True)
 
     # Everything but the access/secret keys
-    debug('env args: {}, {}, {}, {}, {}'.format(endpoint, inbucket, outbucket, metadir, outputdir))
+    debug('env args: {}, {}, {}, {}, {}, {}'.format(endpoint, inbucket, outbucket, metadir, outputdir, verbose))
 
     # Make minio client
     client = Minio(endpoint, access_key=access_key, secret_key=secret_key, secure=False)

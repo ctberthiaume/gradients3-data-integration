@@ -17,7 +17,8 @@ def main(verbose):
     If matching SQL and TOML are missing skip ingest for that CSV.
 
     Required environment variables: PGHOST, PGUSER, PGPASSWORD,
-    PGDATABASE, METADATA_DIR, CURRENT_CRUISE, OUTPUT_DIR
+    PGDATABASE, METADATA_DIR, CURRENT_CRUISE, OUTPUT_DIR.  DEBUG can be
+    set to 1 to increase verbosity.
     """
     def info(msg):
         print(msg, file=sys.stdout)
@@ -29,6 +30,18 @@ def main(verbose):
         if verbose == 1:
             print(msg, file=file)
 
+    # Env vars
+    # First try to get DEBUG ENV var if -v not set
+    if not verbose:
+        try:
+            verbose = os.environ['DEBUG']
+        except KeyError:
+            pass
+        else:
+            try:
+                verbose = int(verbose)
+            except TypeError:
+                verbose = 0
     try:
         metadir = os.path.join(os.environ['METADATA_DIR'], os.environ['CURRENT_CRUISE'])
         csvdir = os.path.join(os.environ['OUTPUT_DIR'], 'parsed')
@@ -36,7 +49,7 @@ def main(verbose):
         error('Missing env var: {}'.format(str(e)))
         sys.exit(1)
 
-    debug('env args: {}, {}'.format(csvdir, metadir))
+    debug('env args: {}, {}, {}'.format(csvdir, metadir, verbose))
 
     for f in os.listdir(csvdir):
         base = f.rsplit('.', 1)[0]

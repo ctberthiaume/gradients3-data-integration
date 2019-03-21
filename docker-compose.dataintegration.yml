@@ -83,6 +83,7 @@ services:
       DBNAMES_FILE: /app/dbnames.txt  # file with cruise DBNAMES array
       METADATA_DIR: /app/metadata  # don't change unless changing source dir layout
       OUTPUT_DIR: /mnt/outputs  # don't change unless changing downstream-storage mount point
+      DEBUG: 0  # set verbosity of parse and ingest python scripts
     networks:
       - backend
     secrets:
