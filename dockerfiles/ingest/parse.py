@@ -3,48 +3,79 @@ import click
 import os
 import subprocess
 import sys
+from minio import Minio
+from minio.error import ResponseError
 
 
 @click.command()
-@click.option('-i', '--inputdir', required=True, type=click.Path(exists=True),
-    help='Directory with input files')
-@click.option('-m', '--metadir', required=True, type=click.Path(exists=True),
-    help='Directory with parser executables')
-@click.option('-o', '--outputdir', required=True, type=click.Path(exists=True),
-    help='Directory for parsed CSV files')
-@click.option('-v', '--verbose', is_flag=True)
-def main(inputdir, metadir, outputdir, verbose):
+@click.option('-v', '--verbose', count=True)
+def main(verbose):
     """
-    Parse files in <inputdir>, write new CSV to <outputdir>.
+    Parse files in minio write to new CSV.
 
-    For each input file <inputdir>/<a>, parse with parser
-    <metadir>/<a>.parser, writing to <outputdir>/<a>.csv. If no
-    matching parser exists, skip.
+    , write new CSV to OUTPUT_DIR.
+
+    For each input file MINIO_ENDPOINT/MINIO_INPUT_BUCKET/<a>,
+    parse with parser METADATA_DIR/CURRENT_CRUISE/<a>.parser, writing to
+    OUTPUT_DIR/<a>.csv and MINIO_ENDPOINT/MINIO_OUTPUT_BUCKET/<a>.csv. 
+    If no matching parser exists, skip.
     """
-    def log(msg, file=sys.stdout):
-        if verbose:
+    def info(msg):
+        print(msg, file=sys.stdout)
+
+    def error(msg):
+        print(msg, file=sys.stderr)
+
+    def debug(msg, file=sys.stdout):
+        if verbose == 1:
             print(msg, file=file)
 
-    log('args: {}, {}, {}'.format(inputdir, metadir, outputdir))
+    # Env vars
+    endpoint = os.environ['MINIO_ENDPOINT']
+    access_key = os.environ['MINIO_ACCESS_KEY']
+    secret_key = os.environ['MINIO_SECRET_KEY']
+    inbucket = os.environ['MINIO_INPUT_BUCKET']
+    outbucket = os.environ['MINIO_PARSED_BUCKET']
+    metadir = os.path.join(os.environ['METADATA_DIR'], os.environ['CURRENT_CRUISE'])
+    outputdir = os.environ['OUTPUT_DIR']
 
+    # Everything but the access/secret keys
+    debug('env args: {}, {}, {}, {}, {}'.format(endpoint, inbucket, outbucket, metadir, outputdir))
+
+    # Make minio client
+    client = Minio(endpoint, access_key=access_key, secret_key=secret_key, secure=False)
+
+    # Find matching input files and parsers
+    # Download then parse the matched input files
     inputs, parsers = set(), set()
-
-    for f in os.listdir(inputdir):
-        if os.path.isfile(os.path.join(inputdir, f)):
-            inputs.add(f)
-            log('added {} to inputs'.format(f))
+    for obj in client.list_objects(inbucket):
+        inputs.add(obj.object_name)
+        debug('added {} to inputs'.format(obj.object_name))
 
     for f in os.listdir(metadir):
         if os.path.isfile(os.path.join(metadir, f)) and f.endswith('.parser'):
             parsers.add(f.rsplit('.', 1)[0])
-            log('added {} to parsers'.format(f))
+            debug('added {} to parsers'.format(f))
 
     for base in inputs.intersection(parsers):
-        log('considering common base {}'.format(base))
+        debug('starting to parse {}'.format(base))
+        raw_subdir = os.path.join(outputdir, 'raw')
+        parsed_subdir = os.path.join(outputdir, 'parsed')
+        os.makedirs(raw_subdir, exist_ok=True)
+        os.makedirs(parsed_subdir, exist_ok=True)
+
         p = os.path.join(metadir, base + '.parser')
-        i = os.path.join(inputdir, base)
-        o = os.path.join(outputdir, base + '.csv')
-        log('calling <{} {} {}>'.format(p, i, o))
+        i = os.path.join(raw_subdir, base)
+        o = os.path.join(parsed_subdir, base + '.csv')
+        debug('downloading {}:{}/{} to {}'.format(endpoint, inbucket, base, i))
+
+        try:
+            client.fget_object(inbucket, base, i)
+        except ResponseError as err:
+            error(err)
+            continue
+
+        debug('calling <{} {} {}>'.format(p, i, o))
         try:
             output = subprocess.check_output(
                 '{} {} {}'.format(p, i, o),
@@ -54,10 +85,15 @@ def main(inputdir, metadir, outputdir, verbose):
                 encoding='utf-8'
             )
         except subprocess.CalledProcessError as e:
-            click.echo('parsing {} finished with exit code {}'.format(base, e.returncode), err=True)
-            click.echo(e.output, err=True)
+            error('parsing {} finished with exit code {}'.format(base, e.returncode))
+            error(e.output)
         else:
-            click.echo('parsed "{}"'.format(base))
+            info('parsed "{}"'.format(base))
+            debug('uploading {} to {}:{}/{}'.format(o, endpoint, outbucket, os.path.basename(o)))
+            try:
+                client.fput_object(outbucket, os.path.basename(o), o)
+            except ResponseError as err:
+                error(err)
 
 
 if __name__ == '__main__':

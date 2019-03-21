@@ -6,12 +6,8 @@ import sys
 import toml
 
 @click.command()
-@click.option('-c', '--csvdir', type=click.Path(exists=True), nargs=1, required=True,
-    help='Directory with input CSV to import')
-@click.option('-m', '--metadir', type=click.Path(exists=True), nargs=1, required=True,
-    help='Directory with SQL schema and TOML spec files for each CSV file.')
-@click.option('-v', '--verbose', is_flag=True)
-def main(csvdir, metadir, verbose):
+@click.option('-v', '--verbose', count=True)
+def main(verbose):
     """
     Import CSV data to Postgres database.
 
@@ -22,11 +18,20 @@ def main(csvdir, metadir, verbose):
     Environment variables PGHOST, PGUSER, PGPASSWORD, PGDATABASE
     should be set.
     """
-    def log(msg, file=sys.stdout):
-        if verbose:
+    def info(msg):
+        print(msg, file=sys.stdout)
+
+    def error(msg):
+        print(msg, file=sys.stderr)
+
+    def debug(msg, file=sys.stdout):
+        if verbose == 1:
             print(msg, file=file)
 
-    log('args: {}, {}'.format(csvdir, metadir))
+    metadir = os.path.join(os.environ['METADATA_DIR'], os.environ['CURRENT_CRUISE'])
+    csvdir = os.path.join(os.environ['OUTPUT_DIR'], 'parsed')
+
+    debug('env args: {}, {}'.format(csvdir, metadir))
 
     for f in os.listdir(csvdir):
         base = f.rsplit('.', 1)[0]
@@ -34,10 +39,10 @@ def main(csvdir, metadir, verbose):
         sql = os.path.join(metadir, base + '.sql')
         spec = os.path.join(metadir, base + '.toml')
         if not (os.path.isfile(csv) and os.path.isfile(sql) and os.path.isfile(spec)):
-            print('Skipping {}'.format(f))
+            debug('Skipping {}'.format(f))
             continue
 
-        print('Importing {}'.format(f))
+        debug('Importing {}'.format(f))
         try:
             output = subprocess.check_output(
                 'psql < {}'.format(sql),
@@ -46,11 +51,11 @@ def main(csvdir, metadir, verbose):
                 universal_newlines=True,
                 encoding='utf-8'
             )
-            print('Loaded SQL script for {}'.format(f))
-            log(output)
+            info('Loaded SQL script for {}'.format(f))
+            debug(output)
         except subprocess.CalledProcessError as e:
-            print('SQL script for {} finished with exit code {}'.format(f, e.returncode), file=sys.stderr)
-            print(e.output, file=sys.stderr)
+            error('SQL script for {} finished with exit code {}'.format(f, e.returncode))
+            error(e.output)
             continue
 
         with open(spec, mode='r', encoding='utf-8') as specfh:
@@ -71,11 +76,11 @@ def main(csvdir, metadir, verbose):
                 universal_newlines=True,
                 encoding='utf-8'
             )
-            print('Ingested {}'.format(f))
-            log(output)
+            info('Ingested {}'.format(f))
+            debug(output)
         except subprocess.CalledProcessError as e:
-            print('Ingest of {} finished with exit code {}'.format(f, e.returncode), file=sys.stderr)
-            print(e.output, file=sys.stderr)
+            error('Ingest of {} finished with exit code {}'.format(f, e.returncode))
+            error(e.output)
             continue
 
 

@@ -1,3 +1,4 @@
 click ~= 7.0.0
-toml ~= 0.10.0
+minio ~= 4.0.0
 pendulum ~= 2.0.0
+toml ~= 0.10.0
