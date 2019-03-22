@@ -11,6 +11,7 @@ customized for the April 2019 Gradients 3 oceanographic cruise.
 * Supercronic (Docker compatible cron for periodic processing)
 * Python 3 scripts (data parsing and higher-level job wrappers)
 * Minio (realtime cruise data uploads)
+* Borg for backups
 
 ## Installation
 
@@ -21,6 +22,7 @@ customized for the April 2019 Gradients 3 oceanographic cruise.
 ```
 docker pull ctberthiaume/grafana:gradients3  # with 2dscatter plugin
 docker pull ctberthiaume/ingest:gradients3
+docker pull ctberthiaume/backup:gradients3
 docker pull timescale/timescaledb:1.2.2-pg10
 docker pull minio/minio:RELEASE.2019-03-20T22-38-47Z
 ```
