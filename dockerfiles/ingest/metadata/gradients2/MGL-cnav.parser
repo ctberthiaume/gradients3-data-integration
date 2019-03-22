@@ -14,7 +14,7 @@ def main(infile, outfile):
     with open(infile, mode='r', encoding='utf-8') as fin:
         with open(outfile, mode='w', encoding='utf-8') as fout:
             fout.write(','.join(header) + '\n')
-            for line in fin:
+            for line in subsample(gpggafilter(fin), 10):
                 try:
                     outputs = parse_cnav_gpgga(line)
                 except Exception as e:
@@ -22,6 +22,22 @@ def main(infile, outfile):
                 else:
                     if outputs:
                         fout.write(','.join(outputs) + '\n')
+
+
+def gpggafilter(lines):
+    for line in lines:
+        cols = line.split('\t')
+        if len(cols) == 3 and cols[2].startswith('$GPGGA'):
+            yield line
+
+
+def subsample(lines, n):
+    """subsample every n line from lines"""
+    i = 1
+    for line in lines:
+        if i % n == 0:
+            yield line
+        i += 1
 
 
 def parse_cnav_gpgga(line):
@@ -56,7 +72,7 @@ def ggalat2dd(coord, ewns):
     minutes = float(coord[2:])
     if degrees > 90 or minutes > 60:
         raise ValueError("Invalid GGA latitude string '{}'".format(coord))
-    if ewns is 'N':
+    if ewns == 'N':
         sign = 1
     else:
         sign = -1
@@ -73,7 +89,7 @@ def ggalon2dd(coord, ewns):
     minutes = float(coord[3:])
     if degrees > 180 or minutes > 60:
         raise ValueError("Invalid GGA longitude string '{}'".format(coord))
-    if ewns is 'E':
+    if ewns == 'E':
         sign = 1
     else:
         sign = -1

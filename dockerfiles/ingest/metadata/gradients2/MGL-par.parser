@@ -14,7 +14,7 @@ def main(infile, outfile):
     with open(infile, mode='r', encoding='utf-8') as fin:
         with open(outfile, mode='w', encoding='utf-8') as fout:
             fout.write(','.join(header) + '\n')
-            for line in fin:
+            for line in subsample(fin, 10):
                 try:
                     outputs = parse_par(line)
                 except Exception as e:
@@ -23,6 +23,13 @@ def main(infile, outfile):
                     if outputs:
                         fout.write(','.join(outputs) + '\n')
 
+def subsample(lines, n):
+    """subsample every n line from lines"""
+    i = 1
+    for line in lines:
+        if i % n == 0:
+            yield line
+        i += 1
 
 def parse_par(line):
     cols = line.rstrip().split('\t')
