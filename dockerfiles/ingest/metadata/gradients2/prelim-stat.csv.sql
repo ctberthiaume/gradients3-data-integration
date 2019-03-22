@@ -17,9 +17,9 @@ CREATE TABLE IF NOT EXISTS seaflow (
 
 SELECT create_hypertable('seaflow', 'time', if_not_exists := true);
 
-CREATE OR REPLACE VIEW seaflow_15m AS
+CREATE OR REPLACE VIEW seaflow_1m AS
   SELECT
-    time_bucket('15m', seaflow.time) AS time,
+    time_bucket('1m', seaflow.time) AS time,
     pop,
     avg(lat) as lat,
     avg(lon) as lon,
@@ -35,7 +35,7 @@ CREATE OR REPLACE VIEW seaflow_15m AS
   GROUP BY 1, 2
   ORDER BY 1;
 
-CREATE OR REPLACE VIEW seaflow_15m_geo AS
+CREATE OR REPLACE VIEW seaflow_geo AS
   SELECT
     a.time,
     a.lat AS seaflow_lat,
@@ -51,7 +51,7 @@ CREATE OR REPLACE VIEW seaflow_15m_geo AS
     a.pop,
     b.lat,
     b.lon
-  FROM seaflow_15m AS a
-  INNER JOIN geo_15m AS b
+  FROM seaflow_1m AS a
+  INNER JOIN geo_1m AS b
   ON a.time = b.time
   ORDER BY 1;
