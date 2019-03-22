@@ -3,7 +3,6 @@ MAINTAINER Chris Berthiaume <chrisbee@uw.edu>
 
 # rsync isn't needed, but installing it just in case
 RUN apt-get update \
-    && apt-get upgrade -y \
     && apt-get install -y python3-pip postgresql-client-10 nano curl rsync \
     && rm -rf /var/lib/apt/lists/*
 

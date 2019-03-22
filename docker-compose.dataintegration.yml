@@ -94,7 +94,32 @@ services:
     volumes:
       - downstream-storage:/mnt/outputs
       - ./dockerfiles/ingest/:/app/
-    
+  backup:
+    image: ctberthiaume/backup:gradients3
+    deploy:
+      restart_policy:
+        condition: any
+        delay: 5s
+        window: 60s
+    environment:
+      MINIO_ACCESS_KEY_FILE: /run/secrets/minio_access_key  # minio admin access key
+      MINIO_SECRET_KEY_FILE: /run/secrets/minio_secret_key  # minio admin secret key
+      MINIO_ENDPOINT: minio:9000
+      FILECACHE_DIR: /backup/minio_cache
+      BORG_PASSPHRASE_FILE: /run/secrets/borg_passphrase
+      BORG_REPO: /backup/minio_borg_repo
+      GRAFANADB: /var/lib/grafana/grafana.db
+    networks:
+      - backend
+    secrets:
+      - borg_passphrase
+      - minio_access_key
+      - minio_secret_key
+    volumes:
+      - ./dockerfiles/backup/:/app
+      - backup-storage:/backup
+      - grafana-storage:/var/lib/grafana
+
 volumes:
   grafana-storage:
     external: true
@@ -103,6 +128,8 @@ volumes:
   downstream-storage:
     external: true
   minio-storage:
+    external: true
+  backup-storage:
     external: true
 
 networks:
@@ -121,3 +148,5 @@ secrets:
     file: ./secrets/minio_access_key.txt
   minio_secret_key:
     file: ./secrets/minio_secret_key.txt
+  borg_passphrase:
+    file: ./secrets/borg_passphrase.txt

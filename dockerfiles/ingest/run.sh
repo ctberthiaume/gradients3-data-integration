@@ -52,7 +52,7 @@ echo "$MINIO_ENDPOINT - ready, status $minio_status"
 # Create minio host config
 # Make sure default minio bucket is created
 set +o history
-mc config host add minio http://minio:9000 "$MINIO_ACCESS_KEY" "$MINIO_SECRET_KEY" --api "s3v4"
+mc config host add minio "http://$MINIO_ENDPOINT" "$MINIO_ACCESS_KEY" "$MINIO_SECRET_KEY" --api "s3v4"
 set -o history
 mc ls minio/
 mc mb --ignore-existing minio/"$MINIO_INPUT_BUCKET"
