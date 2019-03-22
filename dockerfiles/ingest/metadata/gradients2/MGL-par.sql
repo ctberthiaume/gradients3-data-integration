@@ -7,9 +7,9 @@ CREATE TABLE IF NOT EXISTS par (
 
 SELECT create_hypertable('par', 'time', if_not_exists := true);
 
-CREATE OR REPLACE VIEW par_15m AS
+CREATE OR REPLACE VIEW par_1m AS
   SELECT
-    time_bucket('15m', par.time) AS time,
+    time_bucket('1m', par.time) AS time,
     avg(par) as par,
     avg(temp) as temp,
     avg(salinity) as salinity
@@ -17,7 +17,7 @@ CREATE OR REPLACE VIEW par_15m AS
   GROUP BY 1
   ORDER BY 1;
 
-CREATE OR REPLACE VIEW par_15m_geo AS
+CREATE OR REPLACE VIEW par_geo AS
   SELECT
     a.time,
     a.par,
@@ -25,7 +25,7 @@ CREATE OR REPLACE VIEW par_15m_geo AS
     a.salinity,
     b.lat,
     b.lon
-  FROM par_15m AS a
-  INNER JOIN geo_15m AS b
+  FROM par_1m AS a
+  INNER JOIN geo_1m AS b
   ON a.time = b.time
   ORDER BY 1;

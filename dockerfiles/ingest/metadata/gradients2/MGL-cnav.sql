@@ -6,9 +6,9 @@ CREATE TABLE IF NOT EXISTS geo (
 
 SELECT create_hypertable('geo', 'time', if_not_exists := true);
 
-CREATE OR REPLACE VIEW geo_15m AS
+CREATE OR REPLACE VIEW geo_1m AS
   SELECT
-    time_bucket('15m', geo.time) AS time,
+    time_bucket('1m', geo.time) AS time,
     avg(lat) as lat,
     avg(lon) as lon
   FROM geo

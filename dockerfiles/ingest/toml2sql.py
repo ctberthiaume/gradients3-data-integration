@@ -33,7 +33,7 @@ def create_table(data):
     return os.linesep.join(sql_lines)
 
 
-def create_time_bucket_view(data, bucket_width='15m'):
+def create_time_bucket_view(data, bucket_width='1m'):
     real_fields = [x['name'] for x in data['fields'] if x['type'] == 'real']
     group_fields = [x['name'] for x in data['fields'] if x['type'] == 'text' and x['groupby']]
     sql_lines = ['CREATE OR REPLACE VIEW {}_{} AS'.format(data['table'], bucket_width)]
@@ -57,10 +57,10 @@ def create_time_bucket_view(data, bucket_width='15m'):
     return os.linesep.join(sql_lines)
 
 
-def create_geo_join_view(data, bucket_width='15m'):
+def create_geo_join_view(data, bucket_width='1m'):
     real_fields = [x['name'] for x in data['fields'] if x['type'] == 'real']
     group_fields = [x['name'] for x in data['fields'] if x['type'] == 'text' and x['groupby']]
-    sql_lines = ['CREATE OR REPLACE VIEW {}_{}_geo AS'.format(data['table'], bucket_width)]
+    sql_lines = ['CREATE OR REPLACE VIEW {}_geo AS'.format(data['table'])]
     sql_lines.append('  SELECT')
     sql_lines.append("    a.time")
     for i, rf in enumerate(real_fields):
