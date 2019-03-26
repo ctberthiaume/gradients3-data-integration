@@ -34,6 +34,7 @@ fi
 # Do the backup
 # No need for borg files cache since we're re-downloading the buckets each time
 borg create \
+    --show-version \
     --stats \
     --list \
     --files-cache=disabled \
@@ -47,7 +48,11 @@ if [ $exitcode -ne 0 ]; then
 fi
 
 # Prune the repo
-borg prune --stats --list --keep-hourly 24 --keep-daily 30
+borg prune \
+    --stats \
+    --list \
+    --keep-hourly 24 \
+    --keep-daily 30
 exitcode=$?
 echo "borg prune finished with rc=$exitcode"
 if [ $exitcode -ne 0 ]; then
