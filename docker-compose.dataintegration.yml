@@ -10,9 +10,14 @@ services:
         window: 60s
     environment:
       GF_SERVER_ENABLE_GZIP: 'true'
-      GF_SECURITY_ADMIN_PASSWORD_FILE: /run/secrets/grafana_admin_password
+      GF_SECURITY_ADMIN_PASSWORD__FILE: /run/secrets/grafana_admin_password
       GF_USERS_ALLOW_SIGN_UP: 'true'
       GF_USERS_VIEWERS_CAN_EDIT: 'true'
+      GF_AUTH_ANONYMOUS_ENABLED: 'true'
+      GF_AUTH_ANONYMOUS_ORG_NAME: Main Org.
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Viewer
+      GF_ANALYTICS_REPORTING_ENABLED: 'false'
+      GF_ANALYTICS_CHECK_FOR_UPDATES: 'false'
     networks:
       - backend
     ports:
@@ -21,6 +26,7 @@ services:
       - grafana_admin_password
     volumes:
       - grafana-storage:/var/lib/grafana
+      - grafana-config:/etc/grafana
   timescaledb:
     # use pg10, latest supported by grafana timescaledb plugin
     image: timescale/timescaledb:1.2.2-pg10
@@ -94,6 +100,8 @@ services:
     volumes:
       - downstream-storage:/mnt/outputs
       - ./dockerfiles/ingest/:/app/
+      - grafana-storage:/var/lib/grafana
+      - grafana-config:/etc/grafana
   backup:
     image: ctberthiaume/backup:gradients3
     deploy:
@@ -122,6 +130,8 @@ services:
 
 volumes:
   grafana-storage:
+    external: true
+  grafana-config:
     external: true
   timescaledb-storage:
     external: true
