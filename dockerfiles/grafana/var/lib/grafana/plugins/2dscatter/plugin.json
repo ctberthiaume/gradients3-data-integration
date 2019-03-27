@@ -1,0 +1,27 @@
+{
+  "type": "panel",
+  "name": "2DScatter",
+  "id": "armbrustlab-2dscatter-panel",
+
+  "info": {
+    "description": "2D scatter plots panel plugin for Grafana",
+    "author": {
+      "name": "chrisbee@uw.edu"
+    },
+    "keywords": [ "flot", "scatter", "panel" ],
+    "logos": {
+      "small": "img/plotly_logo.svg",
+      "large": "img/plotly_logo.svg"
+    },
+    "links": [
+      {"name": "Project Page", "url": "https://github.com/ctberthiaume/armbrustlab-2dscatter-panel.git"}
+    ],
+    "version": "0.1.0",
+    "updated": "2019-03-11"
+  },
+
+  "dependencies": {
+    "grafanaVersion": "6.x.x",
+    "plugins": [ ]
+  }
+}

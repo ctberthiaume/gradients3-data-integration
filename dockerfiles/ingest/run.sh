@@ -63,19 +63,4 @@ mc ls --recursive minio/
 # This script creates dbs, read_only role, and sets permissions
 /app/makedb.sh
 
-# Create Grafana datasource config yaml with substituted db
-# credentials. Will need to restart Grafana service if this
-# file gets updated.
-sed -e "s/ROUSER/$ROUSER/g" -e "s/ROPASSWORD/$ROPASSWORD/g" \
-    /app/grafana-provisioning/datasources/datasource.yaml >/etc/grafana/provisioning/datasources/datasource.yaml
-
-# Install dashboards. Restart if this is the first time the
-# providers.yaml has been installed.
-cp /app/grafana-provisioning/dashboards/providers.yaml /etc/grafana/provisioning/dashboards/
-if [[ ! -d /var/lib/grafana/dashboards ]]; then
-    mkdir /var/lib/grafana/dashboards
-fi
-cp /app/grafana-provisioning/dashboards/gradients2.json /var/lib/grafana/dashboards/
-
-
 exec /usr/local/bin/supercronic /app/crontab

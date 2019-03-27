@@ -1,8 +1,7 @@
 version: "3.7"
 services:
   grafana:
-    #image: grafana/grafana:6.0.0
-    image: ctberthiaume/grafana:gradients3
+    image: grafana/grafana:6.0.0
     deploy:
       restart_policy:
         condition: any
@@ -18,15 +17,19 @@ services:
       GF_AUTH_ANONYMOUS_ORG_ROLE: Viewer
       GF_ANALYTICS_REPORTING_ENABLED: 'false'
       GF_ANALYTICS_CHECK_FOR_UPDATES: 'false'
+      ROUSER: ocean  # read-only user name for postgres
+      ROPASSWORD__FILE: /run/secrets/postgres_ro_password  # postgres read-only user password
     networks:
       - backend
     ports:
       - "3000:3000"
     secrets:
       - grafana_admin_password
+      - postgres_ro_password
     volumes:
       - grafana-storage:/var/lib/grafana
       - grafana-config:/etc/grafana
+      - ./dockerfiles/grafana/:/app
   timescaledb:
     # use pg10, latest supported by grafana timescaledb plugin
     image: timescale/timescaledb:1.2.2-pg10

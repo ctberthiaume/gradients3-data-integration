@@ -41,13 +41,19 @@ docker swarm init  # once
 docker stack deploy -c docker-compose.dataintegration.yml di
 ```
 
+To finish provisioning Grafana with any custom dashboards, datasources, plugins
+located in ./dockerfiles/grafana/{etc,var}, run bash as root on the Grafana container
+and run `/app/provision.sh`.
+
+```docker exec -it --user root <container_id> bash -c '/app/provision.sh'```
+
+Then restart Grafana if necessary
+
+```docker service scale di_grafana=0 && docker service scale di_grafana=1```
+
 Bring up stack without querying a remote server to resolve image digest
 
 ```docker stack deploy --resolve-image never -c docker-compose.dataintegration.yml di```
-
-Restart a service
-
-```docker service scale di_grafana=0 && docker service scale di_grafana=1```
 
 Bring down stack
 
