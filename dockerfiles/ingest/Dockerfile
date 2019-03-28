@@ -1,5 +1,4 @@
 FROM ubuntu:18.04
-MAINTAINER Chris Berthiaume <chrisbee@uw.edu>
 
 # rsync isn't needed, but installing it just in case
 RUN apt-get update \

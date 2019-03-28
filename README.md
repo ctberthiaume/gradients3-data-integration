@@ -51,9 +51,35 @@ Then restart Grafana if necessary
 
 ```docker service scale di_grafana=0 && docker service scale di_grafana=1```
 
+The official Timescaledb image warns that there aren't enough background workers.
+See https://docs.timescale.com/v1.2/getting-started/configuring#workers.
+To fix this update `/var/lib/postgresql/data/postgresql.conf` with the following values
+
+```
+max_worker_processes = 12
+max_parallel_workers = 3
+timescaledb.max_background_workers = 7
+```
+
+This can be done with `dockerfiles/timescaledb/provision.sh`
+
+```
+docker exec -it <container_id> bash -c '/app/provision.sh'
+```
+
+Then restart Timescaledb
+
+```docker service scale di_timescaledb=0 && docker service scale di_timescaledb=1```
+
 Bring up stack without querying a remote server to resolve image digest
 
 ```docker stack deploy --resolve-image never -c docker-compose.dataintegration.yml di```
+
+To change the current cruise name
+
+```docker service update --env-add CURRENT_CRUISE=gradients1 di_ingest```
+
+This will restart the ingest service with a new CURRENT_CRUISE env var
 
 Bring down stack
 

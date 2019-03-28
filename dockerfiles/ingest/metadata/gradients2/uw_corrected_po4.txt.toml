@@ -1,4 +1,4 @@
-table = "geo"
+table = "po4"
 [[fields]]
 index = 0
 name = "time"
@@ -6,12 +6,7 @@ type = "time"
 
 [[fields]]
 index = 1
-name = "lat"
-type = "real"
-
-[[fields]]
-index = 2
-name = "lon"
+name = "PO4"
 type = "real"
 
 

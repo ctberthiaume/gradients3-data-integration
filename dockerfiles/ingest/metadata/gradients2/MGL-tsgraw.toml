@@ -1,0 +1,32 @@
+table = "tsgraw"
+[[fields]]
+index = 0
+name = "time"
+type = "time"
+
+[[fields]]
+index = 1
+name = "temp1"
+type = "real"
+
+[[fields]]
+index = 2
+name = "conductivity"
+type = "real"
+
+[[fields]]
+index = 3
+name = "salinity"
+type = "real"
+
+[[fields]]
+index = 4
+name = "sound_velocity"
+type = "real"
+
+[[fields]]
+index = 5
+name = "temp2"
+type = "real"
+
+

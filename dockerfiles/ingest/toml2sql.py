@@ -7,16 +7,17 @@ import toml
 lu = { 'text': 'TEXT', 'real': 'DOUBLE PRECISION', 'time': 'TIMESTAMPTZ NOT NULL' }
 
 @click.command()
-@click.option('--geo-join/--no-geo-join', default=True)
+@click.option('--no-geo-join', default=False, is_flag=True, show_default=True,
+    help="Don't produce the joined view to lat/lon, for example if this is the lat/lon data")
 @click.argument('input', type=click.Path(exists=True), nargs=1)
-def main(geo_join, input):
+def main(no_geo_join, input):
     with open(input, newline=None, encoding='utf-8') as f:
         toml_text = f.read()
     data = toml.loads(toml_text)
     print(create_table(data))
     print('')
     print(create_time_bucket_view(data))
-    if geo_join:
+    if not no_geo_join:
         print('')
         print(create_geo_join_view(data))
 

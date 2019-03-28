@@ -9,26 +9,20 @@ import sys
 @click.argument('infile', type=click.Path(exists=True), nargs=1)
 @click.argument('outfile', type=click.Path(), nargs=1)
 def main(infile, outfile):
-    header = ['time', 'lat', 'lon']
+    header = ['time', 'temp1', 'conductivity', 'salinity', 'sound_velocity', 'temp2']
 
     with open(infile, mode='r', encoding='utf-8') as fin:
         with open(outfile, mode='w', encoding='utf-8') as fout:
             fout.write(','.join(header) + '\n')
-            for line in subsample(gpggafilter(fin), 10):
+            # About every minute
+            for line in subsample(fin, 6):
                 try:
-                    outputs = parse_cnav_gpgga(line)
+                    outputs = parse_line(line)
                 except Exception as e:
                     print(os.linesep.join(["Error with line:", line.rstrip(), str(e), '']), file=sys.stderr)
                 else:
                     if outputs:
                         fout.write(','.join(outputs) + '\n')
-
-
-def gpggafilter(lines):
-    for line in lines:
-        cols = line.split('\t')
-        if len(cols) == 3 and cols[2].startswith('$GPGGA'):
-            yield line
 
 
 def subsample(lines, n):
@@ -40,17 +34,18 @@ def subsample(lines, n):
         i += 1
 
 
-def parse_cnav_gpgga(line):
+def parse_line(line):
     cols = line.rstrip().split('\t')
+    if len(cols) != 3:
+        raise Exception('Incorrect column number found')
     data = cols[-1].split(',')
-    if data[0] == '$GPGGA':
-        time = parse_time(cols[1])
-        lat, ns = data[2:4]
-        lon, ew = data[4:6]
-        latdd = ggalat2dd(lat, ns)
-        londd = ggalon2dd(lon, ew)
-        return [time.isoformat(), latdd, londd]
-    return None
+    if len(data) != 5:
+        raise Exception('Incorrect data columns number found')
+    time = parse_time(cols[1])
+    vals = [d.split('=')[1].strip().rstrip() for d in data]
+    for v in vals:
+        _ = float(v)
+    return [time.isoformat()] + vals
 
 
 def parse_time(t):

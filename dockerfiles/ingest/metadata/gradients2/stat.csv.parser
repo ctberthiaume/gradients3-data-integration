@@ -1,0 +1,46 @@
+#!/usr/bin/env python3
+import click
+import os
+import pendulum
+import sys
+
+
+@click.command()
+@click.argument('infile', type=click.Path(exists=True), nargs=1)
+@click.argument('outfile', type=click.Path(), nargs=1)
+def main(infile, outfile):
+    header = ['time', 'lat', 'lon', 'opp_evt_ratio', 'flow_rate', 'file_duration', 'pop', 'n_count', 'abundance', 'fsc_small', 'chl_small', 'pe']
+
+    with open(infile, mode='r', encoding='utf-8') as fin:
+        with open(outfile, mode='w', encoding='utf-8') as fout:
+            fout.write(','.join(header) + '\n')
+            header_seen = False
+            for line in fin:
+                if not header_seen:
+                    header_seen = True
+                    continue
+                try:
+                    outputs = parse_line(line)
+                except Exception as e:
+                    print(os.linesep.join(["Error with line:", line.rstrip(), str(e), '']), file=sys.stderr)
+                else:
+                    if outputs:
+                        fout.write(','.join(outputs) + '\n')
+
+
+def parse_line(line):
+    fields = line.rstrip().split(',')
+    if len(fields) != 14:
+        raise Exception('Incorrect column number found')
+    date = pendulum.parse(fields[2])
+    # Skip first two columns of cruise and file
+    # field 8 is a text field 'pop'
+    # 'NA' is a valid null value, so don't try to cast in that case
+    # ignore pop text column 8
+    _ = [float(x) for x in fields[3:8] + fields[9:] if x != 'NA']
+
+    return [date.isoformat()] + fields[3:]
+
+
+if __name__ == '__main__':
+    main()

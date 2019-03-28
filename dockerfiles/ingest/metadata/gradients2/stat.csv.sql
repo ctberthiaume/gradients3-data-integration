@@ -1,6 +1,4 @@
 CREATE TABLE IF NOT EXISTS seaflow (
-  cruise TEXT,
-  file TEXT,
   time TIMESTAMPTZ NOT NULL,
   lat DOUBLE PRECISION,
   lon DOUBLE PRECISION,

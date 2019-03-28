@@ -9,20 +9,21 @@ import sys
 @click.argument('infile', type=click.Path(exists=True), nargs=1)
 @click.argument('outfile', type=click.Path(), nargs=1)
 def main(infile, outfile):
-    header = ['time', 'par', 'temp', 'salinity']
+    header = ['time', 'heading_true_north', 'knots', 'kmh']
 
     with open(infile, mode='r', encoding='utf-8') as fin:
         with open(outfile, mode='w', encoding='utf-8') as fout:
             fout.write(','.join(header) + '\n')
-            # About every minute
+            # Sample once a minute
             for line in subsample(fin, 60):
                 try:
-                    outputs = parse_par(line)
+                    outputs = parse_line(line)
                 except Exception as e:
                     print(os.linesep.join(['Error with line:', line.rstrip(), str(e), '']), file=sys.stderr)
                 else:
                     if outputs:
                         fout.write(','.join(outputs) + '\n')
+
 
 def subsample(lines, n):
     """subsample every n line from lines"""
@@ -32,18 +33,21 @@ def subsample(lines, n):
             yield line
         i += 1
 
-def parse_par(line):
+
+def parse_line(line):
     cols = line.rstrip().split('\t')
     if len(cols) != 3:
         raise Exception('Incorrect column number found')
     data = cols[-1].split(',')
-    if len(data) != 3:
-        raise Exception('Incorrect data column number found')
+    if len(data) != 9:
+        raise Exception('Incorrect column number found')
     time = parse_time(cols[1])
-    par, temp, sal = [s.strip() for s in cols[-1].split(',')]
-    # Are these floats?
-    _, _, _ = float(par), float(temp), float(sal)
-    return [time.isoformat(), par, temp, sal]
+    track = data[1]
+    knots = data[5]
+    kmh = data[7]
+    _ = [float(x) for x in [track, knots, kmh]]
+    return [time.isoformat(), track, knots, kmh]
+    return None
 
 
 def parse_time(t):
@@ -53,6 +57,7 @@ def parse_time(t):
     dt = pendulum.datetime(int(y), 1, 1, hour=int(h), minute=int(m), second=second, microsecond=microsecond)
     dt = dt.add(days=int(doy)-1)
     return dt
+
 
 
 if __name__ == '__main__':

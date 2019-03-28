@@ -11,7 +11,7 @@ def main(verbose):
     """
     Import CSV data to Postgres database.
 
-    For each CSV file OUTPUT_DIR/parsed/<a.csv>, import into
+    For each CSV file OUTPUT_DIR/parsed/CURRENT_CRUISE/<a.csv>, import into
     $PGDATABASE based on SQL schema METADATA_DIR/CURRENT_CRUISE/<a.sql>
     and table listed in TOML file METADATA_DIR/CURRENT_CRUISE/<a.toml>.
     If matching SQL and TOML are missing skip ingest for that CSV.
@@ -43,15 +43,18 @@ def main(verbose):
             except TypeError:
                 verbose = 0
     try:
-        metadir = os.path.join(os.environ['METADATA_DIR'], os.environ['CURRENT_CRUISE'])
-        csvdir = os.path.join(os.environ['OUTPUT_DIR'], 'parsed')
+        cruise = os.environ['CURRENT_CRUISE']
+        metadir = os.path.join(os.environ['METADATA_DIR'], cruise)
+        csvdir = os.path.join(os.environ['OUTPUT_DIR'], cruise, 'parsed')
     except KeyError as e:
         error('Missing env var: {}'.format(str(e)))
         sys.exit(1)
 
-    debug('env args: {}, {}, {}'.format(csvdir, metadir, verbose))
+    debug('env args: {}, {}, {}, {}'.format(csvdir, metadir, cruise, verbose))
 
     for f in os.listdir(csvdir):
+        if not f.endswith('.csv'):
+            continue
         base = f.rsplit('.', 1)[0]
         csv = os.path.join(csvdir, f)
         sql = os.path.join(metadir, base + '.sql')
@@ -98,6 +101,7 @@ def main(verbose):
             debug(output)
         except subprocess.CalledProcessError as e:
             error('Ingest of {} finished with exit code {}'.format(f, e.returncode))
+            error(copy_cmd)
             error(e.output)
             continue
 

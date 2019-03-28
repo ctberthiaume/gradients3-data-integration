@@ -1,3 +1,0 @@
-#!/bin/bash -e
-cp "$1" "$2".tmp
-mv "$2".tmp "$2"
