@@ -81,6 +81,12 @@ To change the current cruise name
 
 This will restart the ingest service with a new CURRENT_CRUISE env var
 
+To change the polling frequency of the ingest service, update `dockerfiles/ingest/crontab`
+and then send SIGUSR2 signal to the main process in ingest (supercronic).
+This will restart the service
+
+```docker kill --signal SIGUSR2 container```
+
 Bring down stack
 
 ```docker stack rm di```
