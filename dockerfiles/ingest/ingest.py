@@ -17,7 +17,7 @@ def main(verbose):
     If matching SQL and TOML are missing skip ingest for that CSV.
 
     Required environment variables: PGHOST, PGUSER, PGPASSWORD,
-    PGDATABASE, METADATA_DIR, CURRENT_CRUISE, OUTPUT_DIR.  DEBUG can be
+    METADATA_DIR, CURRENT_CRUISE, OUTPUT_DIR.  DEBUG can be
     set to 1 to increase verbosity.
     """
     def info(msg):
@@ -66,7 +66,7 @@ def main(verbose):
         debug('Importing {}'.format(f))
         try:
             output = subprocess.check_output(
-                'psql < {}'.format(sql),
+                'psql $CURRENT_CRUISE < {}'.format(sql),
                 stderr=subprocess.STDOUT,
                 shell=True,
                 universal_newlines=True,
@@ -88,7 +88,7 @@ def main(verbose):
         }
         copy_cmd = 'timescaledb-parallel-copy --truncate --workers 2 --batch-size 5000 --verbose \
             --connection "host=$PGHOST user=$PGUSER sslmode=disable" \
-            --db-name $PGDATABASE --table {table} --file {file} --copy-options "{copyoptions}"'.format(**format_args)
+            --db-name $CURRENT_CRUISE --table {table} --file {file} --copy-options "{copyoptions}"'.format(**format_args)
         try:
             output = subprocess.check_output(
                 copy_cmd,

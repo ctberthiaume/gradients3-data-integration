@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 # Load secrets from files with this script in Docker secrets
 # fashion.
@@ -36,5 +36,17 @@ mc ls --recursive minio/
 
 # This script creates dbs, read_only role, and sets permissions
 /app/makedb.sh
+
+# Check that CURRENT_CRUISE is in DBNAMES
+# Set PGDATABASE to CURRENT_CRUISE
+matchfound=0
+for DBNAME in "${DBNAMES[@]}"; do
+    [[ "$CURRENT_CRUISE" == "$DBNAME" ]] && matchfound=1
+done
+if [ "$matchfound" -ne 1 ]; then
+    echo "CURRENT_CRUISE value $CURRENT_CRUISE is not in DBNAMES"
+    exit 1
+fi
+export PGDATABASE=CURRENT_CRUISE
 
 exec /usr/local/bin/supercronic /app/crontab

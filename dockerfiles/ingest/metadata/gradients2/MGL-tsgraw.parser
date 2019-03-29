@@ -14,8 +14,9 @@ def main(infile, outfile):
     with open(infile, mode='r', encoding='utf-8') as fin:
         with open(outfile, mode='w', encoding='utf-8') as fout:
             fout.write(','.join(header) + '\n')
-            # About every minute
-            for line in subsample(fin, 6):
+            # Data file is about every 10 second read every 2 lines
+            # to sample 3 times a minute
+            for line in subsample(fin, 2):
                 try:
                     outputs = parse_line(line)
                 except Exception as e:

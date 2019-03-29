@@ -17,22 +17,48 @@ type = "real"
 
 [[fields]]
 index = 3
-name = "conductivity"
+name = "opp_evt_ratio"
 type = "real"
 
 [[fields]]
 index = 4
-name = "salinity"
+name = "flow_rate"
 type = "real"
 
 [[fields]]
 index = 5
-name = "ocean_tmp"
+name = "file_duration"
 type = "real"
 
 [[fields]]
 index = 6
-name = "par"
+name = "pop"
+type = "text"
+groupby = true
+
+[[fields]]
+index = 7
+name = "n_count"
+type = "real"
+
+[[fields]]
+index = 8
+name = "abundance"
+type = "real"
+
+[[fields]]
+index = 9
+name = "fsc_small"
+type = "real"
+
+[[fields]]
+index = 10
+name = "chl_small"
+type = "real"
+
+[[fields]]
+index = 11
+name = "pe"
 type = "real"
 
 

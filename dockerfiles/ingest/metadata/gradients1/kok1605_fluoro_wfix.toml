@@ -1,0 +1,12 @@
+table = "chl_fluor"
+[[fields]]
+index = 0
+name = "time"
+type = "time"
+
+[[fields]]
+index = 1
+name = "chl_fluor"
+type = "real"
+
+

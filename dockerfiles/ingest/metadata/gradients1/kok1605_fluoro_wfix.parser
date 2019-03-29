@@ -9,18 +9,22 @@ import sys
 @click.argument('infile', type=click.Path(exists=True), nargs=1)
 @click.argument('outfile', type=click.Path(), nargs=1)
 def main(infile, outfile):
-    header = ['time', 'heading_true_north', 'knots', 'kmh']
+    header = ['time', 'chl_fluor']
 
     with open(infile, mode='r', encoding='utf-8') as fin:
         with open(outfile, mode='w', encoding='utf-8') as fout:
             fout.write(','.join(header) + '\n')
-            # Data file is about every 1 second read every 20 lines
+            header_seen = False
+            # Data file is about every 5 second read every 4 lines
             # to sample 3 times a minute
-            for line in subsample(fin, 20):
+            for line in subsample(fin, 4):
+                if not header_seen:
+                    header_seen = True
+                    continue
                 try:
                     outputs = parse_line(line)
                 except Exception as e:
-                    print(os.linesep.join(['Error with line:', line.rstrip(), str(e), '']), file=sys.stderr)
+                    print(os.linesep.join(["Error with line:", line.rstrip(), str(e), '']), file=sys.stderr)
                 else:
                     if outputs:
                         fout.write(','.join(outputs) + '\n')
@@ -36,29 +40,20 @@ def subsample(lines, n):
 
 
 def parse_line(line):
-    cols = line.rstrip().split('\t')
-    if len(cols) != 3:
+    fields = line.rstrip().split()
+    if len(fields) != 11:
         raise Exception('Incorrect column number found')
-    data = cols[-1].split(',')
-    if len(data) != 9:
-        raise Exception('Incorrect column number found')
-    time = parse_time(cols[1])
-    track = data[1]
-    knots = data[5]
-    kmh = data[7]
-    _ = [float(x) for x in [track, knots, kmh]]
-    return [time.isoformat(), track, knots, kmh]
-    return None
+    date = parse_time(*fields[:6])
+    _ = float(fields[-2])
+    return [date.isoformat(), fields[-2]]
 
 
-def parse_time(t):
-    y, doy, h, m, s = t.split(':')
-    second = int(float(s))
-    microsecond = int((float(s) - second) * 1000000)
+def parse_time(y, doy, h, m, s, ms):
+    second = int(s)
+    microsecond = int(ms) * 1000
     dt = pendulum.datetime(int(y), 1, 1, hour=int(h), minute=int(m), second=second, microsecond=microsecond)
     dt = dt.add(days=int(doy)-1)
     return dt
-
 
 
 if __name__ == '__main__':

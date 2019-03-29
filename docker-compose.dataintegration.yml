@@ -80,7 +80,6 @@ services:
     environment:
       CURRENT_CRUISE: gradients2  # current cruise name, subfolder of metadata, should be in DBNAMES_FILE
       PGHOST: timescaledb
-      PGDATABASE: gradients2  # db for current cruise, should be in dbnames.sh
       PGUSER: postgres  # admin user name
       ROUSER: ocean  # read-only user name
       PGPASSWORD_FILE: /run/secrets/postgres_postgres_password  # postgres admin password
