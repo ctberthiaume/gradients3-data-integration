@@ -1,4 +1,5 @@
 table = "po4"
+null = "NaN"
 [[fields]]
 index = 0
 name = "time"

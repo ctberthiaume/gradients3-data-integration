@@ -8,15 +8,3 @@ type = "time"
 index = 1
 name = "par"
 type = "real"
-
-[[fields]]
-index = 2
-name = "temp"
-type = "real"
-
-[[fields]]
-index = 3
-name = "salinity"
-type = "real"
-
-

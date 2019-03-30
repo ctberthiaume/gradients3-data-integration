@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS seaflow (
+CREATE TABLE IF NOT EXISTS seaflow_raw (
   time TIMESTAMPTZ NOT NULL,
   lat DOUBLE PRECISION,
   lon DOUBLE PRECISION,
@@ -13,11 +13,11 @@ CREATE TABLE IF NOT EXISTS seaflow (
   pe DOUBLE PRECISION
 );
 
-SELECT create_hypertable('seaflow', 'time', if_not_exists := true);
+SELECT create_hypertable('seaflow_raw', 'time', if_not_exists := true);
 
-CREATE OR REPLACE VIEW seaflow_1m AS
+CREATE OR REPLACE VIEW seaflow AS
   SELECT
-    time_bucket('1m', seaflow.time) AS time,
+    time_bucket('1m', seaflow_raw.time) AS time,
     pop,
     avg(lat) as lat,
     avg(lon) as lon,
@@ -29,7 +29,7 @@ CREATE OR REPLACE VIEW seaflow_1m AS
     avg(fsc_small) as fsc_small,
     avg(chl_small) as chl_small,
     avg(pe) as pe
-  FROM seaflow
+  FROM seaflow_raw
   GROUP BY 1, 2
   ORDER BY 1;
 
@@ -49,7 +49,7 @@ CREATE OR REPLACE VIEW seaflow_geo AS
     a.pop,
     b.lat,
     b.lon
-  FROM seaflow_1m AS a
-  INNER JOIN geo_1m AS b
+  FROM seaflow AS a
+  INNER JOIN geo AS b
   ON a.time = b.time
   ORDER BY 1;

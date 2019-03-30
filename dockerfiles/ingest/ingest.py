@@ -88,7 +88,7 @@ def main(verbose):
         }
         copy_cmd = 'timescaledb-parallel-copy --truncate --workers 2 --batch-size 5000 --verbose \
             --connection "host=$PGHOST user=$PGUSER sslmode=disable" \
-            --db-name $CURRENT_CRUISE --table {table} --file {file} --copy-options "{copyoptions}"'.format(**format_args)
+            --db-name $CURRENT_CRUISE --table {table}_raw --file {file} --copy-options "{copyoptions}"'.format(**format_args)
         try:
             output = subprocess.check_output(
                 copy_cmd,

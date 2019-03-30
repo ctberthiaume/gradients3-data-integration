@@ -1,4 +1,5 @@
 table = "acs"
+null = "NaN"
 [[fields]]
 index = 0
 name = "time"

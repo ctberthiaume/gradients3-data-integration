@@ -23,23 +23,23 @@ def main(no_geo_join, input):
 
 
 def create_table(data):
-    sql_lines = ['CREATE TABLE IF NOT EXISTS {} ('.format(data['table'])]
+    sql_lines = ['CREATE TABLE IF NOT EXISTS {}_raw ('.format(data['table'])]
     for i, f in enumerate(data['fields']):
         sql_lines.append('  {} {}'.format(f['name'], lu[f['type']]))
         if i < len(data['fields']) - 1:
             sql_lines[-1] += ','
     sql_lines.append(');')
     sql_lines.append('')
-    sql_lines.append("SELECT create_hypertable('{}', 'time', if_not_exists := true);".format(data['table']))
+    sql_lines.append("SELECT create_hypertable('{}_raw', 'time', if_not_exists := true);".format(data['table']))
     return os.linesep.join(sql_lines)
 
 
 def create_time_bucket_view(data, bucket_width='1m'):
     real_fields = [x['name'] for x in data['fields'] if x['type'] == 'real']
     group_fields = [x['name'] for x in data['fields'] if x['type'] == 'text' and x['groupby']]
-    sql_lines = ['CREATE OR REPLACE VIEW {}_{} AS'.format(data['table'], bucket_width)]
+    sql_lines = ['CREATE OR REPLACE VIEW {} AS'.format(data['table'])]
     sql_lines.append('  SELECT')
-    sql_lines.append("    time_bucket('{}', {}.time) AS time".format(bucket_width, data['table']))
+    sql_lines.append("    time_bucket('{}', {}_raw.time) AS time".format(bucket_width, data['table']))
 
     for i, gf in enumerate(group_fields):
         sql_lines[-1] += ','
@@ -49,7 +49,7 @@ def create_time_bucket_view(data, bucket_width='1m'):
         sql_lines[-1] += ','
         sql_lines.append(f'    avg({rf}) as {rf}')
     
-    sql_lines.append('  FROM {}'.format(data['table']))
+    sql_lines.append('  FROM {}_raw'.format(data['table']))
     sql_lines.append('  GROUP BY 1')
     if group_fields:
         for i in range(len(group_fields)):
@@ -79,8 +79,8 @@ def create_geo_join_view(data, bucket_width='1m'):
     sql_lines.append('    b.lat')
     sql_lines[-1] += ','
     sql_lines.append('    b.lon')
-    sql_lines.append('  FROM {}_{} AS a'.format(data['table'], bucket_width))
-    sql_lines.append('  INNER JOIN geo_{} AS b'.format(bucket_width))
+    sql_lines.append('  FROM {} AS a'.format(data['table']))
+    sql_lines.append('  INNER JOIN geo AS b'.format(bucket_width))
     sql_lines.append('  ON a.time = b.time')
     sql_lines.append('  ORDER BY 1;')
     return os.linesep.join(sql_lines)

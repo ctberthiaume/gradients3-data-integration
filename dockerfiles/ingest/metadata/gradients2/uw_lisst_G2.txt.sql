@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS lisst (
+CREATE TABLE IF NOT EXISTS lisst_raw (
   time TIMESTAMPTZ NOT NULL,
   V135um DOUBLE PRECISION,
   V160um DOUBLE PRECISION,
@@ -32,11 +32,11 @@ CREATE TABLE IF NOT EXISTS lisst (
   Cmd_lg DOUBLE PRECISION
 );
 
-SELECT create_hypertable('lisst', 'time', if_not_exists := true);
+SELECT create_hypertable('lisst_raw', 'time', if_not_exists := true);
 
-CREATE OR REPLACE VIEW lisst_1m AS
+CREATE OR REPLACE VIEW lisst AS
   SELECT
-    time_bucket('1m', lisst.time) AS time,
+    time_bucket('1m', lisst_raw.time) AS time,
     avg(V135um) as V135um,
     avg(V160um) as V160um,
     avg(V189um) as V189um,
@@ -67,7 +67,7 @@ CREATE OR REPLACE VIEW lisst_1m AS
     avg(Cmd_sm) as Cmd_sm,
     avg(Cmd_med) as Cmd_med,
     avg(Cmd_lg) as Cmd_lg
-  FROM lisst
+  FROM lisst_raw
   GROUP BY 1
   ORDER BY 1;
 
@@ -106,7 +106,7 @@ CREATE OR REPLACE VIEW lisst_geo AS
     a.Cmd_lg,
     b.lat,
     b.lon
-  FROM lisst_1m AS a
-  INNER JOIN geo_1m AS b
+  FROM lisst AS a
+  INNER JOIN geo AS b
   ON a.time = b.time
   ORDER BY 1;

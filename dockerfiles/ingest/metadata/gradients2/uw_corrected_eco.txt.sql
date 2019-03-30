@@ -1,19 +1,19 @@
-CREATE TABLE IF NOT EXISTS eco (
+CREATE TABLE IF NOT EXISTS eco_raw (
   time TIMESTAMPTZ NOT NULL,
   CHL DOUBLE PRECISION,
   Scattering DOUBLE PRECISION,
   CDOM DOUBLE PRECISION
 );
 
-SELECT create_hypertable('eco', 'time', if_not_exists := true);
+SELECT create_hypertable('eco_raw', 'time', if_not_exists := true);
 
-CREATE OR REPLACE VIEW eco_1m AS
+CREATE OR REPLACE VIEW eco AS
   SELECT
-    time_bucket('1m', eco.time) AS time,
+    time_bucket('1m', eco_raw.time) AS time,
     avg(CHL) as CHL,
     avg(Scattering) as Scattering,
     avg(CDOM) as CDOM
-  FROM eco
+  FROM eco_raw
   GROUP BY 1
   ORDER BY 1;
 
@@ -25,7 +25,7 @@ CREATE OR REPLACE VIEW eco_geo AS
     a.CDOM,
     b.lat,
     b.lon
-  FROM eco_1m AS a
-  INNER JOIN geo_1m AS b
+  FROM eco AS a
+  INNER JOIN geo AS b
   ON a.time = b.time
   ORDER BY 1;

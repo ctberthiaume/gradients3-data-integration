@@ -9,7 +9,7 @@ import sys
 @click.argument('infile', type=click.Path(exists=True), nargs=1)
 @click.argument('outfile', type=click.Path(), nargs=1)
 def main(infile, outfile):
-    header = ['time', 'par', 'temp', 'salinity']
+    header = ['time', 'par']
 
     with open(infile, mode='r', encoding='utf-8') as fin:
         with open(outfile, mode='w', encoding='utf-8') as fout:
@@ -41,10 +41,9 @@ def parse_par(line):
     if len(data) != 3:
         raise Exception('Incorrect data column number found')
     time = parse_time(cols[1])
-    par, temp, sal = [s.strip() for s in cols[-1].split(',')]
-    # Are these floats?
-    _, _, _ = float(par), float(temp), float(sal)
-    return [time.isoformat(), par, temp, sal]
+    par = data[0].strip()
+    _ = float(par)
+    return [time.isoformat(), par]
 
 
 def parse_time(t):
