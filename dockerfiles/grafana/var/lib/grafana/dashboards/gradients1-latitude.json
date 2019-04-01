@@ -15,8 +15,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 2,
-  "iteration": 1554151171844,
+  "id": 5,
+  "iteration": 1554158027663,
   "links": [],
   "panels": [
     {
@@ -24,15 +24,15 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Gradients2",
+      "datasource": "Gradients1",
       "fill": 1,
       "gridPos": {
         "h": 8,
-        "w": 20,
+        "w": 12,
         "x": 0,
         "y": 0
       },
-      "id": 42,
+      "id": 2,
       "legend": {
         "avg": false,
         "current": false,
@@ -68,7 +68,201 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(par) AS \"par N\"\nFROM par\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(lat) AS \"lat\"\nFROM geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "lat"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "avg"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "lat"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "geo",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamptz",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "timestamptz",
+              "name": "",
+              "params": [
+                "\"time\"",
+                "<=",
+                "'$turnaround'"
+              ],
+              "type": "expression"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [
+            {
+              "params": [
+                "$__interval",
+                "none"
+              ],
+              "type": "time"
+            }
+          ],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(lat) AS \"lat\"\nFROM geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "refId": "B",
+          "select": [
+            [
+              {
+                "params": [
+                  "lat"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "avg"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "lat"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "geo",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamptz",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "timestamptz",
+              "name": "",
+              "params": [
+                "\"time\"",
+                ">=",
+                "'$turnaround'"
+              ],
+              "type": "expression"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Latitude",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Gradients1",
+      "fill": 1,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 4,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "paceLength": 10,
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [
+            {
+              "params": [
+                "$__interval",
+                "none"
+              ],
+              "type": "time"
+            }
+          ],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(par) AS \"par N\"\nFROM tsg_par\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -92,7 +286,7 @@
               }
             ]
           ],
-          "table": "par",
+          "table": "tsg_par",
           "timeColumn": "\"time\"",
           "timeColumnType": "timestamptz",
           "where": [
@@ -126,7 +320,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(par) AS \"par S\"\nFROM par\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(par) AS \"par S\"\nFROM tsg_par\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
           "refId": "B",
           "select": [
             [
@@ -150,7 +344,7 @@
               }
             ]
           ],
-          "table": "par",
+          "table": "tsg_par",
           "timeColumn": "\"time\"",
           "timeColumnType": "timestamptz",
           "where": [
@@ -176,7 +370,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "PAR by time",
+      "title": "Par",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -214,403 +408,15 @@
       }
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Gradients2",
+      "datasource": "Gradients1",
       "fill": 1,
       "gridPos": {
         "h": 8,
-        "w": 10,
+        "w": 8,
         "x": 0,
         "y": 8
       },
-      "id": 44,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "paceLength": 10,
-      "percentage": false,
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "format": "time_series",
-          "group": [
-            {
-              "params": [
-                "$__interval",
-                "none"
-              ],
-              "type": "time"
-            }
-          ],
-          "metricColumn": "none",
-          "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(lat) AS \"lat N\"\nFROM geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "lat"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "avg"
-                ],
-                "type": "aggregate"
-              },
-              {
-                "params": [
-                  "lat N"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "table": "geo",
-          "timeColumn": "\"time\"",
-          "timeColumnType": "timestamptz",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            },
-            {
-              "datatype": "timestamptz",
-              "name": "",
-              "params": [
-                "\"time\"",
-                "<=",
-                "'$turnaround'"
-              ],
-              "type": "expression"
-            }
-          ]
-        },
-        {
-          "format": "time_series",
-          "group": [
-            {
-              "params": [
-                "$__interval",
-                "none"
-              ],
-              "type": "time"
-            }
-          ],
-          "metricColumn": "none",
-          "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(lat) AS \"lat S\"\nFROM geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
-          "refId": "B",
-          "select": [
-            [
-              {
-                "params": [
-                  "lat"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "avg"
-                ],
-                "type": "aggregate"
-              },
-              {
-                "params": [
-                  "lat S"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "table": "geo",
-          "timeColumn": "\"time\"",
-          "timeColumnType": "timestamptz",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            },
-            {
-              "datatype": "timestamptz",
-              "name": "",
-              "params": [
-                "\"time\"",
-                ">=",
-                "'$turnaround'"
-              ],
-              "type": "expression"
-            }
-          ]
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Latitude by time",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Gradients2",
-      "fill": 1,
-      "gridPos": {
-        "h": 8,
-        "w": 10,
-        "x": 10,
-        "y": 8
-      },
-      "id": 46,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "paceLength": 10,
-      "percentage": false,
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "format": "time_series",
-          "group": [
-            {
-              "params": [
-                "$__interval",
-                "none"
-              ],
-              "type": "time"
-            }
-          ],
-          "metricColumn": "none",
-          "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(knots) AS \"knots N\"\nFROM track\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "knots"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "avg"
-                ],
-                "type": "aggregate"
-              },
-              {
-                "params": [
-                  "knots N"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "table": "track",
-          "timeColumn": "\"time\"",
-          "timeColumnType": "timestamptz",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            },
-            {
-              "datatype": "timestamptz",
-              "name": "",
-              "params": [
-                "\"time\"",
-                "<=",
-                "'$turnaround'"
-              ],
-              "type": "expression"
-            }
-          ]
-        },
-        {
-          "format": "time_series",
-          "group": [
-            {
-              "params": [
-                "$__interval",
-                "none"
-              ],
-              "type": "time"
-            }
-          ],
-          "metricColumn": "none",
-          "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(knots) AS \"knots S\"\nFROM track\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
-          "refId": "B",
-          "select": [
-            [
-              {
-                "params": [
-                  "knots"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "avg"
-                ],
-                "type": "aggregate"
-              },
-              {
-                "params": [
-                  "knots S"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "table": "track",
-          "timeColumn": "\"time\"",
-          "timeColumnType": "timestamptz",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            },
-            {
-              "datatype": "timestamptz",
-              "name": "",
-              "params": [
-                "\"time\"",
-                ">=",
-                "'$turnaround'"
-              ],
-              "type": "expression"
-            }
-          ]
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Speed by time",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "datasource": "Gradients2",
-      "fill": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 7,
-        "x": 0,
-        "y": 16
-      },
-      "id": 14,
+      "id": 6,
       "lines": false,
       "linewidth": 1,
       "links": [],
@@ -634,7 +440,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(lat) AS \"lat\"\nFROM tsgraw_geo\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(lat) AS \"lat\"\nFROM tsg_par_geo\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -658,7 +464,7 @@
               }
             ]
           ],
-          "table": "tsgraw_geo",
+          "table": "tsg_par_geo",
           "timeColumn": "\"time\"",
           "timeColumnType": "timestamptz",
           "where": [
@@ -682,13 +488,13 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(temp2) AS \"temp N\"\nFROM tsgraw_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
-          "refId": "C",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(ocean_tmp) AS \"temp N\"\nFROM tsg_par_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "refId": "B",
           "select": [
             [
               {
                 "params": [
-                  "temp2"
+                  "ocean_tmp"
                 ],
                 "type": "column"
               },
@@ -706,7 +512,7 @@
               }
             ]
           ],
-          "table": "tsgraw_geo",
+          "table": "tsg_par_geo",
           "timeColumn": "\"time\"",
           "timeColumnType": "timestamptz",
           "where": [
@@ -740,13 +546,13 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(temp2) AS \"temp S\"\nFROM tsgraw_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
-          "refId": "B",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(ocean_tmp) AS \"temp S\"\nFROM tsg_par_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "refId": "C",
           "select": [
             [
               {
                 "params": [
-                  "temp2"
+                  "ocean_tmp"
                 ],
                 "type": "column"
               },
@@ -764,7 +570,7 @@
               }
             ]
           ],
-          "table": "tsgraw_geo",
+          "table": "tsg_par_geo",
           "timeColumn": "\"time\"",
           "timeColumnType": "timestamptz",
           "where": [
@@ -797,20 +603,21 @@
         {
           "format": "short",
           "logBase": 1,
+          "max": "30",
           "show": true
         }
       ]
     },
     {
-      "datasource": "Gradients2",
-      "fill": 0,
+      "datasource": "Gradients1",
+      "fill": 1,
       "gridPos": {
         "h": 8,
-        "w": 7,
-        "x": 7,
-        "y": 16
+        "w": 8,
+        "x": 8,
+        "y": 8
       },
-      "id": 16,
+      "id": 8,
       "lines": false,
       "linewidth": 1,
       "links": [],
@@ -834,7 +641,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(lat) AS \"lat\"\nFROM tsgraw_geo\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(lat) AS \"lat\"\nFROM tsg_par_geo\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -858,7 +665,7 @@
               }
             ]
           ],
-          "table": "tsgraw_geo",
+          "table": "tsg_par_geo",
           "timeColumn": "\"time\"",
           "timeColumnType": "timestamptz",
           "where": [
@@ -882,7 +689,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(salinity) AS \"salinity N\"\nFROM tsgraw_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(salinity) AS \"salinity N\"\nFROM tsg_par_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
           "refId": "B",
           "select": [
             [
@@ -906,7 +713,7 @@
               }
             ]
           ],
-          "table": "tsgraw_geo",
+          "table": "tsg_par_geo",
           "timeColumn": "\"time\"",
           "timeColumnType": "timestamptz",
           "where": [
@@ -940,7 +747,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(salinity) AS \"salinity S\"\nFROM tsgraw_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(salinity) AS \"salinity S\"\nFROM tsg_par_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
           "refId": "C",
           "select": [
             [
@@ -964,7 +771,7 @@
               }
             ]
           ],
-          "table": "tsgraw_geo",
+          "table": "tsg_par_geo",
           "timeColumn": "\"time\"",
           "timeColumnType": "timestamptz",
           "where": [
@@ -998,21 +805,21 @@
           "format": "short",
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "33.5",
           "show": true
         }
       ]
     },
     {
-      "datasource": "Gradients2",
-      "fill": 0,
+      "datasource": "Gradients1",
+      "fill": 1,
       "gridPos": {
         "h": 8,
-        "w": 6,
-        "x": 14,
-        "y": 16
+        "w": 8,
+        "x": 16,
+        "y": 8
       },
-      "id": 40,
+      "id": 10,
       "lines": false,
       "linewidth": 1,
       "links": [],
@@ -1036,7 +843,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(lat) AS \"lat\"\nFROM tsgraw_geo\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(lat) AS \"lat\"\nFROM tsg_par_geo\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -1060,7 +867,7 @@
               }
             ]
           ],
-          "table": "tsgraw_geo",
+          "table": "tsg_par_geo",
           "timeColumn": "\"time\"",
           "timeColumnType": "timestamptz",
           "where": [
@@ -1084,8 +891,8 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(conductivity) AS \"conductivity N\"\nFROM tsgraw_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
-          "refId": "D",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(conductivity) AS \"conductivity N\"\nFROM tsg_par_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "refId": "B",
           "select": [
             [
               {
@@ -1108,7 +915,7 @@
               }
             ]
           ],
-          "table": "tsgraw_geo",
+          "table": "tsg_par_geo",
           "timeColumn": "\"time\"",
           "timeColumnType": "timestamptz",
           "where": [
@@ -1142,8 +949,8 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(conductivity) AS \"conductivity S\"\nFROM tsgraw_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
-          "refId": "E",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(conductivity) AS \"conductivity S\"\nFROM tsg_par_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "refId": "C",
           "select": [
             [
               {
@@ -1166,7 +973,7 @@
               }
             ]
           ],
-          "table": "tsgraw_geo",
+          "table": "tsg_par_geo",
           "timeColumn": "\"time\"",
           "timeColumnType": "timestamptz",
           "where": [
@@ -1200,21 +1007,20 @@
           "format": "short",
           "logBase": 1,
           "max": null,
-          "min": null,
           "show": true
         }
       ]
     },
     {
-      "datasource": "Gradients2",
-      "fill": 0,
+      "datasource": "Gradients1",
+      "fill": 1,
       "gridPos": {
         "h": 8,
-        "w": 10,
+        "w": 12,
         "x": 0,
-        "y": 24
+        "y": 16
       },
-      "id": 10,
+      "id": 12,
       "lines": false,
       "linewidth": 1,
       "links": [],
@@ -1238,7 +1044,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(lat) AS \"lat\"\nFROM seaflow_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'prochloro'\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(lat) AS \"lat\"\nFROM seaflow_geo\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -1270,16 +1076,6 @@
               "name": "$__timeFilter",
               "params": [],
               "type": "macro"
-            },
-            {
-              "datatype": "text",
-              "name": "",
-              "params": [
-                "pop",
-                "=",
-                "'prochloro'"
-              ],
-              "type": "expression"
             }
           ]
         },
@@ -1422,7 +1218,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Prochlorococcus Abundance",
+      "title": "Prochlorococcus abundance",
       "type": "armbrustlab-2dscatter-panel",
       "xaxis": {
         "show": true
@@ -1431,21 +1227,20 @@
         {
           "format": "short",
           "logBase": 1,
-          "max": "300",
           "show": true
         }
       ]
     },
     {
-      "datasource": "Gradients2",
-      "fill": 0,
+      "datasource": "Gradients1",
+      "fill": 1,
       "gridPos": {
         "h": 8,
-        "w": 10,
-        "x": 10,
-        "y": 24
+        "w": 12,
+        "x": 12,
+        "y": 16
       },
-      "id": 18,
+      "id": 14,
       "lines": false,
       "linewidth": 1,
       "links": [],
@@ -1643,7 +1438,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Prochlorococcus Forward Scatter",
+      "title": "Prochlorococcus forward scatter",
       "type": "armbrustlab-2dscatter-panel",
       "xaxis": {
         "show": true
@@ -1657,15 +1452,15 @@
       ]
     },
     {
-      "datasource": "Gradients2",
-      "fill": 0,
+      "datasource": "Gradients1",
+      "fill": 1,
       "gridPos": {
         "h": 8,
-        "w": 10,
+        "w": 12,
         "x": 0,
-        "y": 32
+        "y": 24
       },
-      "id": 32,
+      "id": 16,
       "lines": false,
       "linewidth": 1,
       "links": [],
@@ -1689,7 +1484,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(lat) AS \"lat\"\nFROM seaflow_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'synecho'\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(lat) AS \"lat\"\nFROM seaflow_geo\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -1721,16 +1516,6 @@
               "name": "$__timeFilter",
               "params": [],
               "type": "macro"
-            },
-            {
-              "datatype": "text",
-              "name": "",
-              "params": [
-                "pop",
-                "=",
-                "'synecho'"
-              ],
-              "type": "expression"
             }
           ]
         },
@@ -1873,7 +1658,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Synechococcus Abundance",
+      "title": "Synechococcus abundance",
       "type": "armbrustlab-2dscatter-panel",
       "xaxis": {
         "show": true
@@ -1882,21 +1667,20 @@
         {
           "format": "short",
           "logBase": 1,
-          "max": null,
           "show": true
         }
       ]
     },
     {
-      "datasource": "Gradients2",
-      "fill": 0,
+      "datasource": "Gradients1",
+      "fill": 1,
       "gridPos": {
         "h": 8,
-        "w": 10,
-        "x": 10,
-        "y": 32
+        "w": 12,
+        "x": 12,
+        "y": 24
       },
-      "id": 34,
+      "id": 18,
       "lines": false,
       "linewidth": 1,
       "links": [],
@@ -1920,7 +1704,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(lat) AS \"lat\"\nFROM seaflow_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'synecho'\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(lat) AS \"lat\"\nFROM seaflow_geo\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -1952,16 +1736,6 @@
               "name": "$__timeFilter",
               "params": [],
               "type": "macro"
-            },
-            {
-              "datatype": "text",
-              "name": "",
-              "params": [
-                "pop",
-                "=",
-                "'synecho'"
-              ],
-              "type": "expression"
             }
           ]
         },
@@ -2104,7 +1878,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Synechococcus Forward Scatter",
+      "title": "Synechococcus forward scatter",
       "type": "armbrustlab-2dscatter-panel",
       "xaxis": {
         "show": true
@@ -2113,481 +1887,18 @@
         {
           "format": "short",
           "logBase": 1,
-          "max": null,
           "show": true
         }
       ]
     },
     {
-      "datasource": "Gradients2",
-      "fill": 0,
+      "datasource": "Gradients1",
+      "fill": 1,
       "gridPos": {
         "h": 8,
-        "w": 10,
+        "w": 12,
         "x": 0,
-        "y": 40
-      },
-      "id": 36,
-      "lines": false,
-      "linewidth": 1,
-      "links": [],
-      "pointradius": 1,
-      "points": true,
-      "range": {
-        "from": null,
-        "to": null
-      },
-      "targets": [
-        {
-          "format": "time_series",
-          "group": [
-            {
-              "params": [
-                "$__interval",
-                "none"
-              ],
-              "type": "time"
-            }
-          ],
-          "metricColumn": "none",
-          "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(lat) AS \"lat\"\nFROM seaflow_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'picoeuk'\nGROUP BY 1\nORDER BY 1",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "lat"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "avg"
-                ],
-                "type": "aggregate"
-              },
-              {
-                "params": [
-                  "lat"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "table": "seaflow_geo",
-          "timeColumn": "\"time\"",
-          "timeColumnType": "timestamptz",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            },
-            {
-              "datatype": "text",
-              "name": "",
-              "params": [
-                "pop",
-                "=",
-                "'picoeuk'"
-              ],
-              "type": "expression"
-            }
-          ]
-        },
-        {
-          "format": "time_series",
-          "group": [
-            {
-              "params": [
-                "$__interval",
-                "none"
-              ],
-              "type": "time"
-            }
-          ],
-          "metricColumn": "none",
-          "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(abundance) AS \"pico N\"\nFROM seaflow_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'picoeuk' AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
-          "refId": "B",
-          "select": [
-            [
-              {
-                "params": [
-                  "abundance"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "avg"
-                ],
-                "type": "aggregate"
-              },
-              {
-                "params": [
-                  "pico N"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "table": "seaflow_geo",
-          "timeColumn": "\"time\"",
-          "timeColumnType": "timestamptz",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            },
-            {
-              "datatype": "text",
-              "name": "",
-              "params": [
-                "pop",
-                "=",
-                "'picoeuk'"
-              ],
-              "type": "expression"
-            },
-            {
-              "datatype": "timestamptz",
-              "name": "",
-              "params": [
-                "\"time\"",
-                "<=",
-                "'$turnaround'"
-              ],
-              "type": "expression"
-            }
-          ]
-        },
-        {
-          "format": "time_series",
-          "group": [
-            {
-              "params": [
-                "$__interval",
-                "none"
-              ],
-              "type": "time"
-            }
-          ],
-          "metricColumn": "none",
-          "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(abundance) AS \"pico S\"\nFROM seaflow_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'picoeuk' AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
-          "refId": "C",
-          "select": [
-            [
-              {
-                "params": [
-                  "abundance"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "avg"
-                ],
-                "type": "aggregate"
-              },
-              {
-                "params": [
-                  "pico S"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "table": "seaflow_geo",
-          "timeColumn": "\"time\"",
-          "timeColumnType": "timestamptz",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            },
-            {
-              "datatype": "text",
-              "name": "",
-              "params": [
-                "pop",
-                "=",
-                "'picoeuk'"
-              ],
-              "type": "expression"
-            },
-            {
-              "datatype": "timestamptz",
-              "name": "",
-              "params": [
-                "\"time\"",
-                ">=",
-                "'$turnaround'"
-              ],
-              "type": "expression"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Picoeukaryotes Abundance",
-      "type": "armbrustlab-2dscatter-panel",
-      "xaxis": {
-        "show": true
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "logBase": 1,
-          "max": null,
-          "show": true
-        }
-      ]
-    },
-    {
-      "datasource": "Gradients2",
-      "fill": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 10,
-        "x": 10,
-        "y": 40
-      },
-      "id": 38,
-      "lines": false,
-      "linewidth": 1,
-      "links": [],
-      "pointradius": 1,
-      "points": true,
-      "range": {
-        "from": null,
-        "to": null
-      },
-      "targets": [
-        {
-          "format": "time_series",
-          "group": [
-            {
-              "params": [
-                "$__interval",
-                "none"
-              ],
-              "type": "time"
-            }
-          ],
-          "metricColumn": "none",
-          "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(lat) AS \"lat\"\nFROM seaflow_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'picoeuk'\nGROUP BY 1\nORDER BY 1",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "lat"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "avg"
-                ],
-                "type": "aggregate"
-              },
-              {
-                "params": [
-                  "lat"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "table": "seaflow_geo",
-          "timeColumn": "\"time\"",
-          "timeColumnType": "timestamptz",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            },
-            {
-              "datatype": "text",
-              "name": "",
-              "params": [
-                "pop",
-                "=",
-                "'picoeuk'"
-              ],
-              "type": "expression"
-            }
-          ]
-        },
-        {
-          "format": "time_series",
-          "group": [
-            {
-              "params": [
-                "$__interval",
-                "none"
-              ],
-              "type": "time"
-            }
-          ],
-          "metricColumn": "none",
-          "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(fsc_small) AS \"pico N\"\nFROM seaflow_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'picoeuk' AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
-          "refId": "B",
-          "select": [
-            [
-              {
-                "params": [
-                  "fsc_small"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "avg"
-                ],
-                "type": "aggregate"
-              },
-              {
-                "params": [
-                  "pico N"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "table": "seaflow_geo",
-          "timeColumn": "\"time\"",
-          "timeColumnType": "timestamptz",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            },
-            {
-              "datatype": "text",
-              "name": "",
-              "params": [
-                "pop",
-                "=",
-                "'picoeuk'"
-              ],
-              "type": "expression"
-            },
-            {
-              "datatype": "timestamptz",
-              "name": "",
-              "params": [
-                "\"time\"",
-                "<=",
-                "'$turnaround'"
-              ],
-              "type": "expression"
-            }
-          ]
-        },
-        {
-          "format": "time_series",
-          "group": [
-            {
-              "params": [
-                "$__interval",
-                "none"
-              ],
-              "type": "time"
-            }
-          ],
-          "metricColumn": "none",
-          "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(fsc_small) AS \"pico S\"\nFROM seaflow_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'picoeuk' AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
-          "refId": "C",
-          "select": [
-            [
-              {
-                "params": [
-                  "fsc_small"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "avg"
-                ],
-                "type": "aggregate"
-              },
-              {
-                "params": [
-                  "pico S"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "table": "seaflow_geo",
-          "timeColumn": "\"time\"",
-          "timeColumnType": "timestamptz",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            },
-            {
-              "datatype": "text",
-              "name": "",
-              "params": [
-                "pop",
-                "=",
-                "'picoeuk'"
-              ],
-              "type": "expression"
-            },
-            {
-              "datatype": "timestamptz",
-              "name": "",
-              "params": [
-                "\"time\"",
-                ">=",
-                "'$turnaround'"
-              ],
-              "type": "expression"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Picoeukaryotes Forward Scatter",
-      "type": "armbrustlab-2dscatter-panel",
-      "xaxis": {
-        "show": true
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "logBase": 1,
-          "max": null,
-          "show": true
-        }
-      ]
-    },
-    {
-      "datasource": "Gradients2",
-      "fill": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 7,
-        "x": 0,
-        "y": 48
+        "y": 32
       },
       "id": 20,
       "lines": false,
@@ -2613,7 +1924,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(lat) AS \"lat\"\nFROM eco_geo\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(lat) AS \"lat\"\nFROM seaflow_geo\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -2637,7 +1948,7 @@
               }
             ]
           ],
-          "table": "eco_geo",
+          "table": "seaflow_geo",
           "timeColumn": "\"time\"",
           "timeColumnType": "timestamptz",
           "where": [
@@ -2661,13 +1972,13 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(chl) AS \"chl\"\nFROM eco_geo\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(abundance) AS \"pico N\"\nFROM seaflow_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'picoeuks' AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
           "refId": "B",
           "select": [
             [
               {
                 "params": [
-                  "chl"
+                  "abundance"
                 ],
                 "type": "column"
               },
@@ -2679,61 +1990,13 @@
               },
               {
                 "params": [
-                  "chl"
+                  "pico N"
                 ],
                 "type": "alias"
               }
             ]
           ],
-          "table": "eco_geo",
-          "timeColumn": "\"time\"",
-          "timeColumnType": "timestamptz",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        },
-        {
-          "format": "time_series",
-          "group": [
-            {
-              "params": [
-                "$__interval",
-                "none"
-              ],
-              "type": "time"
-            }
-          ],
-          "metricColumn": "none",
-          "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(chl) AS \"chl2\"\nFROM eco_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" > '$turnaround'\nGROUP BY 1\nORDER BY 1",
-          "refId": "C",
-          "select": [
-            [
-              {
-                "params": [
-                  "chl"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "avg"
-                ],
-                "type": "aggregate"
-              },
-              {
-                "params": [
-                  "chl2"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "table": "eco_geo",
+          "table": "seaflow_geo",
           "timeColumn": "\"time\"",
           "timeColumnType": "timestamptz",
           "where": [
@@ -2743,146 +2006,14 @@
               "type": "macro"
             },
             {
-              "datatype": "timestamptz",
+              "datatype": "text",
               "name": "",
               "params": [
-                "\"time\"",
-                ">",
-                "'$turnaround'"
+                "pop",
+                "=",
+                "'picoeuks'"
               ],
               "type": "expression"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "ECO chl",
-      "type": "armbrustlab-2dscatter-panel",
-      "xaxis": {
-        "show": true
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "logBase": 1,
-          "show": true
-        }
-      ]
-    },
-    {
-      "datasource": "Gradients2",
-      "fill": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 6,
-        "x": 7,
-        "y": 48
-      },
-      "id": 22,
-      "lines": false,
-      "linewidth": 2,
-      "links": [],
-      "pointradius": 1,
-      "points": true,
-      "range": {
-        "from": null,
-        "to": null
-      },
-      "targets": [
-        {
-          "format": "time_series",
-          "group": [
-            {
-              "params": [
-                "$__interval",
-                "none"
-              ],
-              "type": "time"
-            }
-          ],
-          "metricColumn": "none",
-          "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(lat) AS \"lat\"\nFROM eco_geo\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "lat"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "avg"
-                ],
-                "type": "aggregate"
-              },
-              {
-                "params": [
-                  "lat"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "table": "eco_geo",
-          "timeColumn": "\"time\"",
-          "timeColumnType": "timestamptz",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        },
-        {
-          "format": "time_series",
-          "group": [
-            {
-              "params": [
-                "$__interval",
-                "none"
-              ],
-              "type": "time"
-            }
-          ],
-          "metricColumn": "none",
-          "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(cdom) AS \"cdom N\"\nFROM eco_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
-          "refId": "B",
-          "select": [
-            [
-              {
-                "params": [
-                  "cdom"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "avg"
-                ],
-                "type": "aggregate"
-              },
-              {
-                "params": [
-                  "cdom N"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "table": "eco_geo",
-          "timeColumn": "\"time\"",
-          "timeColumnType": "timestamptz",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
             },
             {
               "datatype": "timestamptz",
@@ -2909,13 +2040,13 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(cdom) AS \"cdom S\"\nFROM eco_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(abundance) AS \"pico S\"\nFROM seaflow_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'picoeuks' AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
           "refId": "C",
           "select": [
             [
               {
                 "params": [
-                  "cdom"
+                  "abundance"
                 ],
                 "type": "column"
               },
@@ -2927,13 +2058,13 @@
               },
               {
                 "params": [
-                  "cdom S"
+                  "pico S"
                 ],
                 "type": "alias"
               }
             ]
           ],
-          "table": "eco_geo",
+          "table": "seaflow_geo",
           "timeColumn": "\"time\"",
           "timeColumnType": "timestamptz",
           "where": [
@@ -2941,6 +2072,16 @@
               "name": "$__timeFilter",
               "params": [],
               "type": "macro"
+            },
+            {
+              "datatype": "text",
+              "name": "",
+              "params": [
+                "pop",
+                "=",
+                "'picoeuks'"
+              ],
+              "type": "expression"
             },
             {
               "datatype": "timestamptz",
@@ -2957,7 +2098,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "ECO CDOM",
+      "title": "Picoeukaryotes abundance",
       "type": "armbrustlab-2dscatter-panel",
       "xaxis": {
         "show": true
@@ -2971,215 +2112,15 @@
       ]
     },
     {
-      "datasource": "Gradients2",
-      "fill": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 7,
-        "x": 13,
-        "y": 48
-      },
-      "id": 24,
-      "lines": true,
-      "linewidth": 0,
-      "links": [],
-      "pointradius": 1,
-      "points": true,
-      "range": {
-        "from": null,
-        "to": null
-      },
-      "targets": [
-        {
-          "format": "time_series",
-          "group": [
-            {
-              "params": [
-                "$__interval",
-                "none"
-              ],
-              "type": "time"
-            }
-          ],
-          "metricColumn": "none",
-          "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(lat) AS \"lat\"\nFROM eco_geo\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "lat"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "avg"
-                ],
-                "type": "aggregate"
-              },
-              {
-                "params": [
-                  "lat"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "table": "eco_geo",
-          "timeColumn": "\"time\"",
-          "timeColumnType": "timestamptz",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        },
-        {
-          "format": "time_series",
-          "group": [
-            {
-              "params": [
-                "$__interval",
-                "none"
-              ],
-              "type": "time"
-            }
-          ],
-          "metricColumn": "none",
-          "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(scattering) AS \"scattering N\"\nFROM eco_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
-          "refId": "B",
-          "select": [
-            [
-              {
-                "params": [
-                  "scattering"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "avg"
-                ],
-                "type": "aggregate"
-              },
-              {
-                "params": [
-                  "scattering N"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "table": "eco_geo",
-          "timeColumn": "\"time\"",
-          "timeColumnType": "timestamptz",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            },
-            {
-              "datatype": "timestamptz",
-              "name": "",
-              "params": [
-                "\"time\"",
-                "<=",
-                "'$turnaround'"
-              ],
-              "type": "expression"
-            }
-          ]
-        },
-        {
-          "format": "time_series",
-          "group": [
-            {
-              "params": [
-                "$__interval",
-                "none"
-              ],
-              "type": "time"
-            }
-          ],
-          "metricColumn": "none",
-          "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(scattering) AS \"scattering S\"\nFROM eco_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
-          "refId": "C",
-          "select": [
-            [
-              {
-                "params": [
-                  "scattering"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "avg"
-                ],
-                "type": "aggregate"
-              },
-              {
-                "params": [
-                  "scattering S"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "table": "eco_geo",
-          "timeColumn": "\"time\"",
-          "timeColumnType": "timestamptz",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            },
-            {
-              "datatype": "timestamptz",
-              "name": "",
-              "params": [
-                "\"time\"",
-                ">=",
-                "'$turnaround'"
-              ],
-              "type": "expression"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "ECO Scattering",
-      "type": "armbrustlab-2dscatter-panel",
-      "xaxis": {
-        "show": true
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "logBase": 1,
-          "show": true
-        }
-      ]
-    },
-    {
-      "datasource": "Gradients2",
+      "datasource": "Gradients1",
       "fill": 1,
       "gridPos": {
         "h": 8,
-        "w": 7,
-        "x": 0,
-        "y": 56
+        "w": 12,
+        "x": 12,
+        "y": 32
       },
-      "id": 26,
+      "id": 22,
       "lines": false,
       "linewidth": 1,
       "links": [],
@@ -3203,7 +2144,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(lat) AS \"lat\"\nFROM acs_geo\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(lat) AS \"lat\"\nFROM seaflow_geo\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -3227,7 +2168,7 @@
               }
             ]
           ],
-          "table": "acs_geo",
+          "table": "seaflow_geo",
           "timeColumn": "\"time\"",
           "timeColumnType": "timestamptz",
           "where": [
@@ -3251,13 +2192,233 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(chl) AS \"chl N\"\nFROM acs_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(fsc_small) AS \"pico N\"\nFROM seaflow_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'picoeuks' AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
           "refId": "B",
           "select": [
             [
               {
                 "params": [
-                  "chl"
+                  "fsc_small"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "avg"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "pico N"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "seaflow_geo",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamptz",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "text",
+              "name": "",
+              "params": [
+                "pop",
+                "=",
+                "'picoeuks'"
+              ],
+              "type": "expression"
+            },
+            {
+              "datatype": "timestamptz",
+              "name": "",
+              "params": [
+                "\"time\"",
+                "<=",
+                "'$turnaround'"
+              ],
+              "type": "expression"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [
+            {
+              "params": [
+                "$__interval",
+                "none"
+              ],
+              "type": "time"
+            }
+          ],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(fsc_small) AS \"pico S\"\nFROM seaflow_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'picoeuks' AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "refId": "C",
+          "select": [
+            [
+              {
+                "params": [
+                  "fsc_small"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "avg"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "pico S"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "seaflow_geo",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamptz",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "text",
+              "name": "",
+              "params": [
+                "pop",
+                "=",
+                "'picoeuks'"
+              ],
+              "type": "expression"
+            },
+            {
+              "datatype": "timestamptz",
+              "name": "",
+              "params": [
+                "\"time\"",
+                ">=",
+                "'$turnaround'"
+              ],
+              "type": "expression"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Picoeukaryotes forward scatter",
+      "type": "armbrustlab-2dscatter-panel",
+      "xaxis": {
+        "show": true
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "logBase": 1,
+          "show": true
+        }
+      ]
+    },
+    {
+      "datasource": "Gradients1",
+      "fill": 1,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 40
+      },
+      "id": 24,
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "pointradius": 1,
+      "points": true,
+      "range": {
+        "from": null,
+        "to": null
+      },
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [
+            {
+              "params": [
+                "$__interval",
+                "none"
+              ],
+              "type": "time"
+            }
+          ],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(lat) AS \"lat\"\nFROM chl_fluor_geo\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "lat"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "avg"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "lat"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "chl_fluor_geo",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamptz",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [
+            {
+              "params": [
+                "$__interval",
+                "none"
+              ],
+              "type": "time"
+            }
+          ],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(chl_fluor) AS \"chl N\"\nFROM chl_fluor_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "refId": "B",
+          "select": [
+            [
+              {
+                "params": [
+                  "chl_fluor"
                 ],
                 "type": "column"
               },
@@ -3275,7 +2436,7 @@
               }
             ]
           ],
-          "table": "acs_geo",
+          "table": "chl_fluor_geo",
           "timeColumn": "\"time\"",
           "timeColumnType": "timestamptz",
           "where": [
@@ -3309,13 +2470,13 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(chl) AS \"chl S\"\nFROM acs_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(chl_fluor) AS \"chl S\"\nFROM chl_fluor_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
           "refId": "C",
           "select": [
             [
               {
                 "params": [
-                  "chl"
+                  "chl_fluor"
                 ],
                 "type": "column"
               },
@@ -3333,7 +2494,7 @@
               }
             ]
           ],
-          "table": "acs_geo",
+          "table": "chl_fluor_geo",
           "timeColumn": "\"time\"",
           "timeColumnType": "timestamptz",
           "where": [
@@ -3357,407 +2518,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "ACS Chl",
-      "type": "armbrustlab-2dscatter-panel",
-      "xaxis": {
-        "show": true
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "logBase": 1,
-          "show": true
-        }
-      ]
-    },
-    {
-      "datasource": "Gradients2",
-      "fill": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 6,
-        "x": 7,
-        "y": 56
-      },
-      "id": 28,
-      "lines": false,
-      "linewidth": 1,
-      "links": [],
-      "pointradius": 1,
-      "points": true,
-      "range": {
-        "from": null,
-        "to": null
-      },
-      "targets": [
-        {
-          "format": "time_series",
-          "group": [
-            {
-              "params": [
-                "$__interval",
-                "none"
-              ],
-              "type": "time"
-            }
-          ],
-          "metricColumn": "none",
-          "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(lat) AS \"lat\"\nFROM acs_geo\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "lat"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "avg"
-                ],
-                "type": "aggregate"
-              },
-              {
-                "params": [
-                  "lat"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "table": "acs_geo",
-          "timeColumn": "\"time\"",
-          "timeColumnType": "timestamptz",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        },
-        {
-          "format": "time_series",
-          "group": [
-            {
-              "params": [
-                "$__interval",
-                "none"
-              ],
-              "type": "time"
-            }
-          ],
-          "metricColumn": "none",
-          "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(cp650) AS \"cp650 N\"\nFROM acs_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
-          "refId": "B",
-          "select": [
-            [
-              {
-                "params": [
-                  "cp650"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "avg"
-                ],
-                "type": "aggregate"
-              },
-              {
-                "params": [
-                  "cp650 N"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "table": "acs_geo",
-          "timeColumn": "\"time\"",
-          "timeColumnType": "timestamptz",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            },
-            {
-              "datatype": "timestamptz",
-              "name": "",
-              "params": [
-                "\"time\"",
-                "<=",
-                "'$turnaround'"
-              ],
-              "type": "expression"
-            }
-          ]
-        },
-        {
-          "format": "time_series",
-          "group": [
-            {
-              "params": [
-                "$__interval",
-                "none"
-              ],
-              "type": "time"
-            }
-          ],
-          "metricColumn": "none",
-          "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(cp650) AS \"cp650 S\"\nFROM acs_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
-          "refId": "C",
-          "select": [
-            [
-              {
-                "params": [
-                  "cp650"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "avg"
-                ],
-                "type": "aggregate"
-              },
-              {
-                "params": [
-                  "cp650 S"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "table": "acs_geo",
-          "timeColumn": "\"time\"",
-          "timeColumnType": "timestamptz",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            },
-            {
-              "datatype": "timestamptz",
-              "name": "",
-              "params": [
-                "\"time\"",
-                ">=",
-                "'$turnaround'"
-              ],
-              "type": "expression"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "ACS cp650",
-      "type": "armbrustlab-2dscatter-panel",
-      "xaxis": {
-        "show": true
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "logBase": 1,
-          "show": true
-        }
-      ]
-    },
-    {
-      "datasource": "Gradients2",
-      "fill": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 7,
-        "x": 13,
-        "y": 56
-      },
-      "id": 30,
-      "lines": false,
-      "linewidth": 1,
-      "links": [],
-      "pointradius": 1,
-      "points": true,
-      "range": {
-        "from": null,
-        "to": null
-      },
-      "targets": [
-        {
-          "format": "time_series",
-          "group": [
-            {
-              "params": [
-                "$__interval",
-                "none"
-              ],
-              "type": "time"
-            }
-          ],
-          "metricColumn": "none",
-          "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(lat) AS \"lat\"\nFROM po4_geo\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "lat"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "avg"
-                ],
-                "type": "aggregate"
-              },
-              {
-                "params": [
-                  "lat"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "table": "po4_geo",
-          "timeColumn": "\"time\"",
-          "timeColumnType": "timestamptz",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        },
-        {
-          "format": "time_series",
-          "group": [
-            {
-              "params": [
-                "$__interval",
-                "none"
-              ],
-              "type": "time"
-            }
-          ],
-          "metricColumn": "none",
-          "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(po4) AS \"po4 N\"\nFROM po4_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
-          "refId": "B",
-          "select": [
-            [
-              {
-                "params": [
-                  "po4"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "avg"
-                ],
-                "type": "aggregate"
-              },
-              {
-                "params": [
-                  "po4 N"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "table": "po4_geo",
-          "timeColumn": "\"time\"",
-          "timeColumnType": "timestamptz",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            },
-            {
-              "datatype": "timestamptz",
-              "name": "",
-              "params": [
-                "\"time\"",
-                "<=",
-                "'$turnaround'"
-              ],
-              "type": "expression"
-            }
-          ]
-        },
-        {
-          "format": "time_series",
-          "group": [
-            {
-              "params": [
-                "$__interval",
-                "none"
-              ],
-              "type": "time"
-            }
-          ],
-          "metricColumn": "none",
-          "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(po4) AS \"po4 S\"\nFROM po4_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
-          "refId": "C",
-          "select": [
-            [
-              {
-                "params": [
-                  "po4"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "avg"
-                ],
-                "type": "aggregate"
-              },
-              {
-                "params": [
-                  "po4 S"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "table": "po4_geo",
-          "timeColumn": "\"time\"",
-          "timeColumnType": "timestamptz",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            },
-            {
-              "datatype": "timestamptz",
-              "name": "",
-              "params": [
-                "\"time\"",
-                ">=",
-                "'$turnaround'"
-              ],
-              "type": "expression"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "PO4",
+      "title": "Chl",
       "type": "armbrustlab-2dscatter-panel",
       "xaxis": {
         "show": true
@@ -3778,32 +2539,29 @@
   "templating": {
     "list": [
       {
-        "allValue": null,
         "current": {
-          "text": "2017-06-03T06:30:00Z",
-          "value": "2017-06-03T06:30:00Z"
+          "text": "2016-04-26T22:18:00Z",
+          "value": "2016-04-26T22:18:00Z"
         },
         "hide": 0,
-        "includeAll": false,
         "label": "Timestamp of North/South track change",
-        "multi": false,
         "name": "turnaround",
         "options": [
           {
             "selected": true,
-            "text": "2017-06-03T06:30:00Z",
-            "value": "2017-06-03T06:30:00Z"
+            "text": "2016-04-26T22:18:00Z",
+            "value": "2016-04-26T22:18:00Z"
           }
         ],
-        "query": "2017-06-03T06:30:00Z",
+        "query": "2016-04-26T22:18:00Z",
         "skipUrlSync": false,
-        "type": "custom"
+        "type": "constant"
       }
     ]
   },
   "time": {
-    "from": "2017-05-30T22:47:20.771Z",
-    "to": "2017-06-13T21:33:49.109Z"
+    "from": "2016-04-19T10:58:12.112Z",
+    "to": "2016-05-04T22:12:59.149Z"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -3831,7 +2589,7 @@
     ]
   },
   "timezone": "utc",
-  "title": "Gradients2 by Latitude",
-  "uid": "89vZ22rmk",
-  "version": 17
+  "title": "Gradients1 by Latitude",
+  "uid": "laSbXHemz",
+  "version": 11
 }
