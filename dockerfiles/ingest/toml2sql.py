@@ -66,7 +66,7 @@ def create_geo_join_view(data, bucket_width='1m'):
     sql_lines.append("    a.time")
     for i, rf in enumerate(real_fields):
         sql_lines[-1] += ','
-        if rf == 'lat' or rf == 'lon':
+        if rf.lower() == 'lat' or rf.lower() == 'lon':
             sql_lines.append('    a.{} AS {}_{}'.format(rf, data['table'], rf))
         else:
             sql_lines.append(f'    a.{rf}')

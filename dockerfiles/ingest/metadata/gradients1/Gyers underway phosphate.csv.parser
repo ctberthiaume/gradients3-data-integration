@@ -9,7 +9,7 @@ import sys
 @click.argument('infile', type=click.Path(exists=True), nargs=1)
 @click.argument('outfile', type=click.Path(), nargs=1)
 def main(infile, outfile):
-    header = ['time', 'lat', 'lon', 'opp_evt_ratio', 'flow_rate', 'file_duration', 'pop', 'n_count', 'abundance', 'fsc_small', 'chl_small', 'pe']
+    header = ['time', 'sample', 'depth', 'lat', 'lon', 'po4']
 
     with open(infile, mode='r', encoding='utf-8') as fin:
         with open(outfile, mode='w', encoding='utf-8') as fout:
@@ -30,16 +30,17 @@ def main(infile, outfile):
 
 def parse_line(line):
     fields = line.rstrip().split(',')
-    if len(fields) != 14:
+    if len(fields) != 7:
         raise Exception('Incorrect column number found')
-    date = pendulum.parse(fields[2])
-    # Skip first two columns of cruise and file
-    # field 8 is a text field 'pop'
-    # 'NA' is a valid null value, so don't try to cast in that case
-    # ignore pop text column 8
-    _ = [float(x) for x in fields[3:8] + fields[9:] if x != 'NA']
+    timestr = fields[2]  # hope it's UTC!
+    datestr = fields[3]  # dom-month-year
+    hours, minutes = [int(x) for x in timestr.split(':')]
+    dom, month, year = [int(x) for x in datestr.split('-')]
+    date = pendulum.datetime(year, month, dom, hour=hours, minute=minutes, tz='UTC')
+    _ = [float(x) for x in fields[:2]]
+    _ = [float(x) for x in fields[4:]]
 
-    return [date.isoformat()] + fields[3:]
+    return [date.isoformat()] + fields[:2] + fields[4:]
 
 
 if __name__ == '__main__':

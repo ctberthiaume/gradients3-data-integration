@@ -20,7 +20,7 @@ customized for the April 2019 Gradients 3 oceanographic cruise.
 * Pull the images used in this stack. I'm not sure why this is necessary, but just deploying the stack doesn't seem to reliably pull needed images.
 
 ```
-docker pull ctberthiaume/grafana:gradients3  # with 2dscatter plugin
+docker pull grafana/grafana:6.0.0
 docker pull ctberthiaume/ingest:gradients3
 docker pull ctberthiaume/backup:gradients3
 docker pull timescale/timescaledb:1.2.2-pg10
@@ -42,14 +42,10 @@ docker stack deploy -c docker-compose.dataintegration.yml di
 ```
 
 To finish provisioning Grafana with any custom dashboards, datasources, plugins
-located in ./dockerfiles/grafana/{etc,var}, run bash as root on the Grafana container
-and run `/app/provision.sh`.
+located in `./dockerfiles/grafana/{etc,var}`, run bash as root on the Grafana container
+and run `/app/provision.sh`. Assuming the stack is named `di` this runs the provisioning script and restarts Grafana.
 
-```docker exec -it --user root <container_id> bash -c '/app/provision.sh'```
-
-Then restart Grafana if necessary
-
-```docker service scale di_grafana=0 && docker service scale di_grafana=1```
+```docker exec -it --user root $(docker ps | grep di_grafana | awk '{print $1}') bash -c '/app/provision.sh' && docker service scale di_grafana=0 && docker service scale di_grafana=1```
 
 The official Timescaledb image warns that there aren't enough background workers.
 See https://docs.timescale.com/v1.2/getting-started/configuring#workers.
@@ -64,12 +60,8 @@ timescaledb.max_background_workers = 7
 This can be done with `dockerfiles/timescaledb/provision.sh`
 
 ```
-docker exec -it <container_id> bash -c '/app/provision.sh'
+docker exec -it $(docker ps | grep di_timescaledb | awk '{print $1}') bash -c '/app/provision.sh' && docker service scale di_timescaledb=0 && docker service scale di_timescaledb=1
 ```
-
-Then restart Timescaledb
-
-```docker service scale di_timescaledb=0 && docker service scale di_timescaledb=1```
 
 Bring up stack without querying a remote server to resolve image digest
 

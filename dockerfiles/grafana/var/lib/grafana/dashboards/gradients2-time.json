@@ -15,8 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 6,
-  "iteration": 1554151191881,
+  "iteration": 1554246494844,
   "links": [],
   "panels": [
     {
@@ -1379,7 +1378,7 @@
           "format": "short",
           "label": null,
           "logBase": 1,
-          "max": null,
+          "max": "200",
           "min": null,
           "show": true
         },
@@ -1446,13 +1445,13 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(fsc_small) AS \"pro N\"\nFROM seaflow\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'prochloro' AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(diam_mid) AS \"pro N\"\nFROM seaflow\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'prochloro' AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
           "refId": "A",
           "select": [
             [
               {
                 "params": [
-                  "fsc_small"
+                  "diam_mid"
                 ],
                 "type": "column"
               },
@@ -1514,13 +1513,13 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(fsc_small) AS \"pro S\"\nFROM seaflow\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'prochloro' AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(diam_mid) AS \"pro S\"\nFROM seaflow\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'prochloro' AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
           "refId": "B",
           "select": [
             [
               {
                 "params": [
-                  "fsc_small"
+                  "diam_mid"
                 ],
                 "type": "column"
               },
@@ -1574,7 +1573,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Prochlorococcus Forward Scatter",
+      "title": "Prochlorococcus Diameter",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1874,13 +1873,13 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(fsc_small) AS \"syn N\"\nFROM seaflow\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'synecho' AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(diam_mid) AS \"syn N\"\nFROM seaflow\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'synecho' AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
           "refId": "A",
           "select": [
             [
               {
                 "params": [
-                  "fsc_small"
+                  "diam_mid"
                 ],
                 "type": "column"
               },
@@ -1942,13 +1941,13 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(fsc_small) AS \"syn S\"\nFROM seaflow\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'synecho' AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(diam_mid) AS \"syn S\"\nFROM seaflow\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'synecho' AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
           "refId": "B",
           "select": [
             [
               {
                 "params": [
-                  "fsc_small"
+                  "diam_mid"
                 ],
                 "type": "column"
               },
@@ -2002,7 +2001,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Synechoococcus Forward Scatter",
+      "title": "Synechoococcus Diameter",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -2021,7 +2020,7 @@
           "format": "short",
           "label": null,
           "logBase": 1,
-          "max": null,
+          "max": "1.25",
           "min": null,
           "show": true
         },
@@ -2302,13 +2301,13 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(fsc_small) AS \"pico N\"\nFROM seaflow\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'picoeuk' AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(diam_mid) AS \"pico N\"\nFROM seaflow\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'picoeuk' AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
           "refId": "A",
           "select": [
             [
               {
                 "params": [
-                  "fsc_small"
+                  "diam_mid"
                 ],
                 "type": "column"
               },
@@ -2370,13 +2369,13 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(fsc_small) AS \"pico S\"\nFROM seaflow\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'picoeuk' AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(diam_mid) AS \"pico S\"\nFROM seaflow\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'picoeuk' AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
           "refId": "B",
           "select": [
             [
               {
                 "params": [
-                  "fsc_small"
+                  "diam_mid"
                 ],
                 "type": "column"
               },
@@ -2430,7 +2429,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Picoeukaryotes Forward Scatter",
+      "title": "Picoeukaryotes Diameter",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -2449,7 +2448,7 @@
           "format": "short",
           "label": null,
           "logBase": 1,
-          "max": null,
+          "max": "3",
           "min": null,
           "show": true
         },
@@ -3630,6 +3629,200 @@
         "align": false,
         "alignLevel": null
       }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Gradients2",
+      "fill": 1,
+      "gridPos": {
+        "h": 9,
+        "w": 8,
+        "x": 0,
+        "y": 63
+      },
+      "id": 41,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "paceLength": 10,
+      "percentage": false,
+      "pointradius": 1,
+      "points": true,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [
+            {
+              "params": [
+                "$__interval",
+                "none"
+              ],
+              "type": "time"
+            }
+          ],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(biosat) AS \"biosat N\"\nFROM o2ar\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "biosat"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "avg"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "biosat N"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "o2ar",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamptz",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "timestamptz",
+              "name": "",
+              "params": [
+                "\"time\"",
+                "<=",
+                "'$turnaround'"
+              ],
+              "type": "expression"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [
+            {
+              "params": [
+                "$__interval",
+                "none"
+              ],
+              "type": "time"
+            }
+          ],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(biosat) AS \"biosat S\"\nFROM o2ar\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "refId": "B",
+          "select": [
+            [
+              {
+                "params": [
+                  "biosat"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "avg"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "biosat S"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "o2ar",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamptz",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "timestamptz",
+              "name": "",
+              "params": [
+                "\"time\"",
+                ">=",
+                "'$turnaround'"
+              ],
+              "type": "expression"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Surface O2/Ar meas/sat ratio",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     }
   ],
   "refresh": false,
@@ -3692,5 +3885,5 @@
   "timezone": "utc",
   "title": "Gradients2 by Time",
   "uid": "SFhdQo6ik",
-  "version": 14
+  "version": 2
 }

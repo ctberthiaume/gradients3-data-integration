@@ -4,12 +4,13 @@ import os
 import pendulum
 import sys
 
+month_table = { 'Apr': '04', 'May': '05' }
 
 @click.command()
 @click.argument('infile', type=click.Path(exists=True), nargs=1)
 @click.argument('outfile', type=click.Path(), nargs=1)
 def main(infile, outfile):
-    header = ['time', 'lat', 'lon', 'opp_evt_ratio', 'flow_rate', 'file_duration', 'pop', 'n_count', 'abundance', 'fsc_small', 'chl_small', 'pe']
+    header = ['time', 'lat', 'lon', 'temp', 'salinity', 'bio_sat', 'NCP', 'O2gasex']
 
     with open(infile, mode='r', encoding='utf-8') as fin:
         with open(outfile, mode='w', encoding='utf-8') as fout:
@@ -29,16 +30,21 @@ def main(infile, outfile):
 
 
 def parse_line(line):
-    fields = line.rstrip().split(',')
-    if len(fields) != 14:
+    fields = line.rstrip().split()
+    if len(fields) != 9:
         raise Exception('Incorrect column number found')
-    date = pendulum.parse(fields[2])
-    # 'NA' is a valid null value, so don't try to cast in that case
-    # ignore pop text column 8
-    [float(x)  for x in fields[3:8] + fields[9:] if x != 'NA']
-    _ = [float(x) for x in fields[3:8] + fields[9:]]
 
-    return [date.isoformat()] + fields[3:]
+    datestr1 = fields[0]  # dom-month_abrev-year
+    datestr2 = fields[1]  # time, hopefully UTC!
+    dom, month, year = datestr1.split('-')
+    # In this file month is Apr or May
+    month = month_table[month]
+    iso8601 = '{}-{}-{}T{}Z'.format(year, month, dom, datestr2)
+    date = pendulum.parse(iso8601)
+
+    # Null is represented by 'NaN' which Python float() understands
+    _ = [float(x) for x in fields[2:]]
+    return [date.isoformat()] + fields[2:]
 
 
 if __name__ == '__main__':

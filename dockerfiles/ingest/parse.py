@@ -103,7 +103,7 @@ def main(verbose):
         debug('calling <{} {} {}>'.format(p, i, o))
         try:
             output = subprocess.check_output(
-                '{} {} {}'.format(p, i, o),
+                '"{}" "{}" "{}"'.format(p, i, o),
                 stderr=subprocess.STDOUT,
                 shell=True,
                 universal_newlines=True,

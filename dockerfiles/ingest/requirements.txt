@@ -2,4 +2,4 @@ click == 7.0
 minio == 4.0.13
 pendulum == 2.0.4
 toml == 0.10.0
-tsdataformat == 1.1.1
+tsdataformat == 1.1.2

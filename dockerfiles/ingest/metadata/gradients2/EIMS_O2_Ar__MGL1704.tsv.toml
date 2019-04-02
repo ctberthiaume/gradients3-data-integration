@@ -1,0 +1,33 @@
+table = "o2ar"
+null = "NaN"
+[[fields]]
+index = 0
+name = "time"
+type = "time"
+
+[[fields]]
+index = 1
+name = "Lat"
+type = "real"
+
+[[fields]]
+index = 2
+name = "Lon"
+type = "real"
+
+[[fields]]
+index = 3
+name = "Temp"
+type = "real"
+
+[[fields]]
+index = 4
+name = "Sal"
+type = "real"
+
+[[fields]]
+index = 5
+name = "Biosat"
+type = "real"
+
+
