@@ -15,7 +15,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "iteration": 1554246612491,
+  "id": 3,
+  "iteration": 1554250716068,
   "links": [],
   "panels": [
     {
@@ -3756,7 +3757,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "PO4",
+      "title": "Underway Phosphate",
       "type": "armbrustlab-2dscatter-panel",
       "xaxis": {
         "show": true
@@ -3956,7 +3957,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Surface O2/Ar meas/sat ratio",
+      "title": "Surface O2/Ar meas/sat ratio - Juranek",
       "type": "armbrustlab-2dscatter-panel",
       "xaxis": {
         "show": true
@@ -4032,5 +4033,5 @@
   "timezone": "utc",
   "title": "Gradients2 by Latitude",
   "uid": "89vZ22rmk",
-  "version": 2
+  "version": 3
 }

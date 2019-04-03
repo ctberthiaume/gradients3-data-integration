@@ -15,7 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "iteration": 1554246494844,
+  "iteration": 1554250573246,
   "links": [],
   "panels": [
     {
@@ -3593,7 +3593,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "PO4",
+      "title": "Underway Phosphate",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -3787,7 +3787,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Surface O2/Ar meas/sat ratio",
+      "title": "Surface O2/Ar meas/sat ratio - Juranek",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -3885,5 +3885,5 @@
   "timezone": "utc",
   "title": "Gradients2 by Time",
   "uid": "SFhdQo6ik",
-  "version": 2
+  "version": 3
 }
