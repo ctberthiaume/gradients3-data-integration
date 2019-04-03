@@ -66,7 +66,7 @@ def main(verbose):
         debug('Importing {}'.format(f))
         try:
             output = subprocess.check_output(
-                'psql $CURRENT_CRUISE < {}'.format(sql),
+                'psql $CURRENT_CRUISE < "{}"'.format(sql),
                 stderr=subprocess.STDOUT,
                 shell=True,
                 universal_newlines=True,
