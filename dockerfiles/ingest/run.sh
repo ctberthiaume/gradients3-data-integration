@@ -31,6 +31,13 @@ for DBNAME in "${DBNAMES[@]}"; do
     mc mb --ignore-existing minio/"$MINIO_INPUT_BUCKET/$DBNAME/"
     mc mb --ignore-existing minio/"$MINIO_PARSED_BUCKET/$DBNAME/"
 done
+# Make a catchall bucket for easy file storage during the cruise
+# NOTE: The final / is necessary to make a minio bucket!
+mc mb --ignore-existing minio/"$MINIO_MISC_BUCKET/"
+# Some guidance on this bucket's purpose
+echo "this bucket is for data files that won't be automatically parsed" | \
+mc pipe  minio/"$MINIO_MISC_BUCKET"/this-bucket-is-for-data-files-that-wont-be-automatically-parsed
+
 mc ls minio/
 mc ls --recursive minio/
 

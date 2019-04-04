@@ -89,6 +89,7 @@ services:
       MINIO_ENDPOINT: minio:9000
       MINIO_INPUT_BUCKET: input-data  # bucket for unparsed input data files
       MINIO_PARSED_BUCKET: parsed-data  # bucket for parsed data files
+      MINIO_MISC_BUCKET: other-data  # bucket for data to keep but not parse
       DBNAMES_FILE: /app/dbnames.txt  # file with cruise DBNAMES array
       METADATA_DIR: /app/metadata  # don't change unless changing source dir layout
       OUTPUT_DIR: /mnt/outputs  # don't change unless changing downstream-storage mount point
