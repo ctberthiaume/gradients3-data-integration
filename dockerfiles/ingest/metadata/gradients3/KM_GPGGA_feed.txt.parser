@@ -36,13 +36,15 @@ def subsample(lines, n):
 
 
 def parse_line(line):
-    cols = line.rstrip().split('\t')
-    if len(cols) != 3:
+    cols = line.rstrip().split()
+    if len(cols) != 7:
         raise Exception('Incorrect column number found')
     data = cols[-1].split(',')
     if len(data) != 15:
         raise Exception('Incorrect column number found')
-    time = parse_time(cols[1])
+    if data[0] != '$GPGGA':
+        raise Exception('Incorrect NMEA talker/type designator')
+    time = parse_time(*cols[:6])
     lat, ns = data[2:4]
     lon, ew = data[4:6]
     sats = data[6]
@@ -54,11 +56,8 @@ def parse_line(line):
     return None
 
 
-def parse_time(t):
-    y, doy, h, m, s = t.split(':')
-    second = int(float(s))
-    microsecond = int((float(s) - second) * 1000000)
-    dt = pendulum.datetime(int(y), 1, 1, hour=int(h), minute=int(m), second=second, microsecond=microsecond)
+def parse_time(y, doy, h, m, s, ms):
+    dt = pendulum.datetime(int(y), 1, 1, hour=int(h), minute=int(m), second=int(s), microsecond=1000*int(ms))
     dt = dt.add(days=int(doy)-1)
     return dt
 

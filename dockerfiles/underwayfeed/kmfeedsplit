@@ -1,0 +1,23 @@
+#!/bin/bash
+# Capture and split KiloMoana underway feed on stdin
+
+GPGGAFILE=${GPGGAFILE:-KM_GPGGA_feed.txt}
+GPVTGFILE=${GPVTGFILE:-KM_GPVTG_feed.txt}
+FLORFILE=${FLORFILE:-KM_flor_feed.txt}
+METFILE=${METFILE:-KM_met_feed.txt}
+UTHSLFILE=${UTHSLFILE:-KM_uthsl_feed.txt}
+
+awk \
+    -v gpgga=$GPGGAFILE \
+    -v gpvtg=$GPVTGFILE \
+    -v flor=$FLORFILE \
+    -v met=$METFILE \
+    -v uthsl=$UTHSLFILE \
+    '
+    /^[^$]/ {date=$1 " " $2 " " $3 " " $4 " " $5 " " $6};
+    $7 == "uthsl" {print $0 >> uthsl; next};
+    $7 == "flor" {print $0 >> flor; next};
+    $7 == "met" {print $0 >> met; next};
+    /^\$GPGGA/ {print date, $0 >> gpgga; next};
+    /^\$GPVTG/ {print date, $0 >>gpvtg; next};
+    '
