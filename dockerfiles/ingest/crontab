@@ -1,2 +1,2 @@
 # Ingest every fifteen minutes
-0 */3 * * * * * /app/parse_and_ingest.sh
+0 */5 * * * * * /app/parse_and_ingest.sh
