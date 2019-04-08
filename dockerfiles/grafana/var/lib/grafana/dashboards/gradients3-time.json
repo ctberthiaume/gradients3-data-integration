@@ -15,8 +15,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 1,
-  "iteration": 1554757505157,
+  "id": 5,
+  "iteration": 1554766274620,
   "links": [],
   "panels": [
     {
@@ -176,7 +176,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "PAR",
+      "title": "PAR (mVolts)",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -564,7 +564,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Speed",
+      "title": "Speed (knots)",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -758,7 +758,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Salinity",
+      "title": "Salinity (PSU)",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -952,7 +952,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Conductivity",
+      "title": "Conductivity (S/m)",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1437,5 +1437,5 @@
   "timezone": "utc",
   "title": "Gradients3 by Time",
   "uid": "CEPLgPemk",
-  "version": 2
+  "version": 13
 }
