@@ -10,7 +10,7 @@ OUTDIR="$OUTPUT_DIR/$MINIO_BINNED_BUCKET"
 echo "time,lat,lon,alt,sat" >"$OUTDIR/nav.csv"
 psql -t -A -F"," -c "
 SELECT
-    time_bucket('1h', geo_raw.time) AS time,
+    time_bucket('30m', geo_raw.time) AS time,
     avg(lat) as lat,
     avg(lon) as lon,
     avg(alt) as alt,
@@ -23,7 +23,7 @@ ORDER BY 1;
 echo "time,knots" >"$OUTDIR/track.csv"
 psql -t -A -F"," -c "
 SELECT
-    time_bucket('1h', track_raw.time) AS time,
+    time_bucket('30m', track_raw.time) AS time,
     avg(knots) as knots
 FROM track_raw
 GROUP BY 1
@@ -33,7 +33,7 @@ ORDER BY 1;
 echo "time,ocean_temp,conductivity,salinity,remote_temp" >"$OUTDIR/uthsl.csv"
 psql -t -A -F"," -c "
 SELECT
-    time_bucket('1h', uthsl_raw.time) AS time,
+    time_bucket('30m', uthsl_raw.time) AS time,
     avg(ocean_temp) as ocean_temp,
     avg(conductivity) as conductivity,
     avg(salinity) as salinity,
@@ -46,7 +46,7 @@ ORDER BY 1;
 echo "time,par" >"$OUTDIR/par.csv"
 psql -t -A -F"," -c "
 SELECT
-    time_bucket('1h', par_raw.time) AS time,
+    time_bucket('30m', par_raw.time) AS time,
     avg(par) as par
 FROM par_raw
 GROUP BY 1
@@ -56,7 +56,7 @@ ORDER BY 1;
 echo "time,flor" >"$OUTDIR/flor.csv"
 psql -t -A -F"," -c "
 SELECT
-    time_bucket('1h', flor_raw.time) AS time,
+    time_bucket('30m', flor_raw.time) AS time,
     avg(flor) as flor
 FROM flor_raw
 GROUP BY 1
@@ -66,7 +66,7 @@ ORDER BY 1;
 echo "time,pop,lat,lon,temp,salinity,conductivity,par,stream_pressure,file_duration,event_rate,opp_evt_ratio,n_count,chl_small,pe,fsc_small,diam_mid,Qc_mid,quantile,flow_rate,abundance" >"$OUTDIR/seaflow740.csv"
 # psql -t -A -F"," -c "
 # SELECT
-#     time_bucket('1h', seaflow740_raw.time) AS time,
+#     time_bucket('30m', seaflow740_raw.time) AS time,
 #     pop,
 #     avg(lat) as lat,
 #     avg(lon) as lon,
@@ -96,7 +96,7 @@ echo "time,pop,lat,lon,temp,salinity,conductivity,par,stream_pressure,file_durat
 echo "time,pop,lat,lon,temp,salinity,conductivity,par,stream_pressure,file_duration,event_rate,opp_evt_ratio,n_count,chl_small,pe,fsc_small,diam_mid,Qc_mid,quantile,flow_rate,abundance" >"$OUTDIR/seaflow751.csv"
 # psql -t -A -F"," -c "
 # SELECT
-#     time_bucket('1h', seaflow751_raw.time) AS time,
+#     time_bucket('30m', seaflow751_raw.time) AS time,
 #     pop,
 #     avg(lat) as lat,
 #     avg(lon) as lon,
