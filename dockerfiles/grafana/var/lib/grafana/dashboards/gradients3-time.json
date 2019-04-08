@@ -15,8 +15,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 5,
-  "iteration": 1554351642684,
+  "id": 1,
+  "iteration": 1554756853019,
   "links": [],
   "panels": [
     {
@@ -1406,8 +1406,8 @@
     ]
   },
   "time": {
-    "from": "2017-06-17T00:03:49.000Z",
-    "to": "2017-06-17T00:40:00.000Z"
+    "from": "2019-04-06T01:32:13.859Z",
+    "to": "2019-04-09T19:23:18.423Z"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -1437,5 +1437,5 @@
   "timezone": "utc",
   "title": "Gradients3 by Time",
   "uid": "CEPLgPemk",
-  "version": 10
+  "version": 1
 }
