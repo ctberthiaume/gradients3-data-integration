@@ -34,6 +34,8 @@ done
 # Make a catchall bucket for easy file storage during the cruise
 # NOTE: The final / is necessary to make a minio bucket!
 mc mb --ignore-existing minio/"$MINIO_MISC_BUCKET/"
+# Time-binned summary bucket
+mc mb --ignore-existing minio/"$MINIO_BINNED_BUCKET/"
 # Some guidance on this bucket's purpose
 echo "this bucket is for data files that won't be automatically parsed" | \
 mc pipe  minio/"$MINIO_MISC_BUCKET"/this-bucket-is-for-data-files-that-wont-be-automatically-parsed
