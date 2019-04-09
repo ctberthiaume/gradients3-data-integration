@@ -66,14 +66,8 @@ ORDER BY 1;
 echo "time,pop,lat,lon,temp,salinity,conductivity,par,stream_pressure,file_duration,event_rate,opp_evt_ratio,n_count,chl_small,pe,fsc_small,diam_mid,Qc_mid,quantile,flow_rate,abundance" >"$OUTDIR/seaflow740.csv"
 # psql -t -A -F"," -c "
 # SELECT
-#     time_bucket('30m', seaflow740_raw.time) AS time,
+#     time_bucket('1m', seaflow740_raw.time) AS time,
 #     pop,
-#     avg(lat) as lat,
-#     avg(lon) as lon,
-#     avg(temp) as temp,
-#     avg(salinity) as salinity,
-#     avg(conductivity) as conductivity,
-#     avg(par) as par,
 #     avg(stream_pressure) as stream_pressure,
 #     avg(file_duration) as file_duration,
 #     avg(event_rate) as event_rate,
@@ -96,14 +90,8 @@ echo "time,pop,lat,lon,temp,salinity,conductivity,par,stream_pressure,file_durat
 echo "time,pop,lat,lon,temp,salinity,conductivity,par,stream_pressure,file_duration,event_rate,opp_evt_ratio,n_count,chl_small,pe,fsc_small,diam_mid,Qc_mid,quantile,flow_rate,abundance" >"$OUTDIR/seaflow751.csv"
 # psql -t -A -F"," -c "
 # SELECT
-#     time_bucket('30m', seaflow751_raw.time) AS time,
+#     time_bucket('1m', seaflow751_raw.time) AS time,
 #     pop,
-#     avg(lat) as lat,
-#     avg(lon) as lon,
-#     avg(temp) as temp,
-#     avg(salinity) as salinity,
-#     avg(conductivity) as conductivity,
-#     avg(par) as par,
 #     avg(stream_pressure) as stream_pressure,
 #     avg(file_duration) as file_duration,
 #     avg(event_rate) as event_rate,
