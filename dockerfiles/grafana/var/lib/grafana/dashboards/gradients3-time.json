@@ -15,8 +15,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 5,
-  "iteration": 1554766274620,
+  "id": 1,
+  "iteration": 1554788218396,
   "links": [],
   "panels": [
     {
@@ -27,7 +27,7 @@
       "datasource": "Gradients3",
       "fill": 1,
       "gridPos": {
-        "h": 7,
+        "h": 4,
         "w": 24,
         "x": 0,
         "y": 0
@@ -221,10 +221,10 @@
       "datasource": "Gradients3",
       "fill": 1,
       "gridPos": {
-        "h": 8,
+        "h": 4,
         "w": 12,
         "x": 0,
-        "y": 7
+        "y": 4
       },
       "id": 2,
       "legend": {
@@ -415,10 +415,10 @@
       "datasource": "Gradients3",
       "fill": 1,
       "gridPos": {
-        "h": 8,
+        "h": 4,
         "w": 12,
         "x": 12,
-        "y": 7
+        "y": 4
       },
       "id": 6,
       "legend": {
@@ -609,10 +609,10 @@
       "datasource": "Gradients3",
       "fill": 1,
       "gridPos": {
-        "h": 8,
+        "h": 4,
         "w": 12,
         "x": 0,
-        "y": 15
+        "y": 8
       },
       "id": 10,
       "legend": {
@@ -803,10 +803,10 @@
       "datasource": "Gradients3",
       "fill": 1,
       "gridPos": {
-        "h": 8,
+        "h": 4,
         "w": 12,
         "x": 12,
-        "y": 15
+        "y": 8
       },
       "id": 12,
       "legend": {
@@ -997,10 +997,10 @@
       "datasource": "Gradients3",
       "fill": 1,
       "gridPos": {
-        "h": 8,
+        "h": 4,
         "w": 12,
         "x": 0,
-        "y": 23
+        "y": 12
       },
       "id": 14,
       "legend": {
@@ -1191,10 +1191,10 @@
       "datasource": "Gradients3",
       "fill": 1,
       "gridPos": {
-        "h": 8,
+        "h": 4,
         "w": 12,
         "x": 12,
-        "y": 23
+        "y": 12
       },
       "id": 8,
       "legend": {
@@ -1437,5 +1437,5 @@
   "timezone": "utc",
   "title": "Gradients3 by Time",
   "uid": "CEPLgPemk",
-  "version": 13
+  "version": 4
 }
