@@ -35,7 +35,12 @@ def subsample(lines, n):
 
 def parse_line(line):
     cols = line.rstrip().split()
-    if len(cols) != 26:
+    # This feed is space separated with padding for alignment, and
+    # sometimes column 24 comes and goes, either blank or R-. These
+    # two factors make column counting difficult. Rather than count
+    # columns, just make sure there are at least 19 columns since we
+    # only need columns 1-6 and 19.
+    if len(cols) < 19:
         raise Exception('Incorrect column number found')
     if cols[6] != 'met':
         raise Exception('Incorrect instrument stamp')
