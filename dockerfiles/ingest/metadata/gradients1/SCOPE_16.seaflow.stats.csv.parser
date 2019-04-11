@@ -39,7 +39,7 @@ def parse_line(line):
     if len(fields) != 29:
         raise Exception('Incorrect column number found')
     # Only take 50% quantile
-    if int(fields[23]) != 50:
+    if int(float(fields[23])) != 50:
         return None
     date = pendulum.parse(fields[1])
     # Skip first column of file
