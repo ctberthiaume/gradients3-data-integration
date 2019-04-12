@@ -64,28 +64,28 @@ ORDER BY 1;
 " >>"$OUTDIR/flor.csv"
 
 echo "time,pop,lat,lon,temp,salinity,conductivity,par,stream_pressure,file_duration,event_rate,opp_evt_ratio,n_count,chl_small,pe,fsc_small,diam_mid,Qc_mid,quantile,flow_rate,abundance" >"$OUTDIR/seaflow740.csv"
-# psql -t -A -F"," -c "
-# SELECT
-#     time_bucket('1m', seaflow740_raw.time) AS time,
-#     pop,
-#     avg(stream_pressure) as stream_pressure,
-#     avg(file_duration) as file_duration,
-#     avg(event_rate) as event_rate,
-#     avg(opp_evt_ratio) as opp_evt_ratio,
-#     avg(n_count) as n_count,
-#     avg(chl_small) as chl_small,
-#     avg(pe) as pe,
-#     avg(fsc_small) as fsc_small,
-#     avg(diam_mid) as diam_mid,
-#     avg(Qc_mid) as Qc_mid,
-#     avg(quantile) as quantile,
-#     avg(flow_rate) as flow_rate,
-#     avg(abundance) as abundance
-# FROM seaflow740_raw
-# WHERE quantile = 50
-# GROUP BY 1, 2
-# ORDER BY 1;
-# " >>"$OUTDIR/seaflow740.csv"
+psql -t -A -F"," -c "
+SELECT
+    time_bucket('1m', seaflow740_raw.time) AS time,
+    pop,
+    avg(stream_pressure) as stream_pressure,
+    avg(file_duration) as file_duration,
+    avg(event_rate) as event_rate,
+    avg(opp_evt_ratio) as opp_evt_ratio,
+    avg(n_count) as n_count,
+    avg(chl_small) as chl_small,
+    avg(pe) as pe,
+    avg(fsc_small) as fsc_small,
+    avg(diam_mid) as diam_mid,
+    avg(Qc_mid) as Qc_mid,
+    avg(quantile) as quantile,
+    avg(flow_rate) as flow_rate,
+    avg(abundance) as abundance
+FROM seaflow740_raw
+WHERE quantile = 50
+GROUP BY 1, 2
+ORDER BY 1;
+" >>"$OUTDIR/seaflow740.csv"
 
 echo "time,pop,lat,lon,temp,salinity,conductivity,par,stream_pressure,file_duration,event_rate,opp_evt_ratio,n_count,chl_small,pe,fsc_small,diam_mid,Qc_mid,quantile,flow_rate,abundance" >"$OUTDIR/seaflow751.csv"
 # psql -t -A -F"," -c "
