@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS seaflow740 (
+CREATE TABLE IF NOT EXISTS seaflow740_raw (
   time TIMESTAMPTZ NOT NULL,
   lat DOUBLE PRECISION,
   lon DOUBLE PRECISION,
@@ -18,4 +18,4 @@ CREATE TABLE IF NOT EXISTS seaflow740 (
   abundance DOUBLE PRECISION
 );
 
-SELECT create_hypertable('seaflow740', 'time', if_not_exists := true);
+SELECT create_hypertable('seaflow740_raw', 'time', if_not_exists := true);
