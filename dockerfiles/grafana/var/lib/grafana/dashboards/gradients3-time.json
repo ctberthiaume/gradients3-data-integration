@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 2,
-  "iteration": 1555188081065,
+  "iteration": 1555194435007,
   "links": [],
   "panels": [
     {
@@ -1554,7 +1554,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Prochlorococcus adundance",
+      "title": "Prochlorococcus abundance",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1572,7 +1572,7 @@
         {
           "format": "short",
           "label": null,
-          "logBase": 1,
+          "logBase": 2,
           "max": null,
           "min": null,
           "show": true
@@ -1982,7 +1982,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Synechococcus adundance",
+      "title": "Synechococcus abundance",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -2000,7 +2000,7 @@
         {
           "format": "short",
           "label": null,
-          "logBase": 1,
+          "logBase": 2,
           "max": null,
           "min": null,
           "show": true
@@ -2410,7 +2410,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Picoeukaryotes adundance",
+      "title": "Picoeukaryotes abundance",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -2428,7 +2428,7 @@
         {
           "format": "short",
           "label": null,
-          "logBase": 1,
+          "logBase": 2,
           "max": null,
           "min": null,
           "show": true
@@ -2721,5 +2721,5 @@
   "timezone": "utc",
   "title": "Gradients3 by Time",
   "uid": "CEPLgPemk",
-  "version": 1
+  "version": 2
 }

@@ -15,8 +15,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 5,
-  "iteration": 1555188771844,
+  "id": 1,
+  "iteration": 1555194971226,
   "links": [],
   "panels": [
     {
@@ -1616,7 +1616,7 @@
       "yaxes": [
         {
           "format": "short",
-          "logBase": 1,
+          "logBase": 2,
           "show": true
         }
       ]
@@ -2056,7 +2056,7 @@
       "yaxes": [
         {
           "format": "short",
-          "logBase": 1,
+          "logBase": 2,
           "show": true
         }
       ]
@@ -2496,7 +2496,7 @@
       "yaxes": [
         {
           "format": "short",
-          "logBase": 1,
+          "logBase": 2,
           "show": true
         }
       ]
@@ -2781,5 +2781,5 @@
   "timezone": "utc",
   "title": "Gradients3 By Latitude",
   "uid": "Y17LzPeiz",
-  "version": 1
+  "version": 2
 }
