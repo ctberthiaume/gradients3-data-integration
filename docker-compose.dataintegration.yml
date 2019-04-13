@@ -20,15 +20,15 @@ services:
       ROUSER: ocean  # read-only user name for postgres
       ROPASSWORD__FILE: /run/secrets/postgres_ro_password  # postgres read-only user password
     networks:
-      - backend
+      - backend-public
     ports:
-      - "3000:3000"
+      - "3001:3000"
     secrets:
       - grafana_admin_password
       - postgres_ro_password
     volumes:
-      - grafana-storage:/var/lib/grafana
-      - grafana-config:/etc/grafana
+      - grafana-storage-public:/var/lib/grafana
+      - grafana-config-public:/etc/grafana
       - ./dockerfiles/grafana/:/app
   timescaledb:
     # use pg10, latest supported by grafana timescaledb plugin
@@ -42,13 +42,11 @@ services:
       POSTGRES_PASSWORD_FILE: /run/secrets/postgres_postgres_password
       TIMESCALEDB_TELEMETRY: 'off'
     networks:
-      - backend
-    ports:
-      - "5432:5432"
+      - backend-public
     secrets:
       - postgres_postgres_password
     volumes:
-      - timescaledb-storage:/var/lib/postgresql/data
+      - timescaledb-storage-public:/var/lib/postgresql/data
       - ./dockerfiles/timescaledb/:/app
   minio:
       image: minio/minio:RELEASE.2019-03-20T22-38-47Z
@@ -62,14 +60,14 @@ services:
         MINIO_ACCESS_KEY_FILE: minio_access_key
         MINIO_SECRET_KEY_FILE: minio_secret_key
       networks:
-        - backend
+        - backend-public
       ports:
-        - "9000:9000"
+        - "9001:9000"
       secrets:
         - minio_access_key
         - minio_secret_key
       volumes:
-        - minio-storage:/data
+        - minio-storage-public:/data
   ingest:
     image: ctberthiaume/ingest:gradients3
     deploy:
@@ -96,17 +94,17 @@ services:
       OUTPUT_DIR: /mnt/outputs  # don't change unless changing downstream-storage mount point
       DEBUG: 0  # set verbosity of parse and ingest python scripts
     networks:
-      - backend
+      - backend-public
     secrets:
       - postgres_postgres_password
       - postgres_ro_password
       - minio_access_key
       - minio_secret_key
     volumes:
-      - downstream-storage:/mnt/outputs
+      - downstream-storage-public:/mnt/outputs
       - ./dockerfiles/ingest/:/app/
-      - grafana-storage:/var/lib/grafana
-      - grafana-config:/etc/grafana
+      - grafana-storage-public:/var/lib/grafana
+      - grafana-config-public:/etc/grafana
   backup:
     image: ctberthiaume/backup:gradients3
     deploy:
@@ -123,32 +121,32 @@ services:
       BORG_REPO: /backup/minio_borg_repo
       GRAFANADB: /var/lib/grafana/grafana.db
     networks:
-      - backend
+      - backend-public
     secrets:
       - borg_passphrase
       - minio_access_key
       - minio_secret_key
     volumes:
       - ./dockerfiles/backup/:/app
-      - backup-storage:/backup
-      - grafana-storage:/var/lib/grafana
+      - backup-storage-public:/backup
+      - grafana-storage-public:/var/lib/grafana
 
 volumes:
-  grafana-storage:
+  grafana-storage-public:
     external: true
-  grafana-config:
+  grafana-config-public:
     external: true
-  timescaledb-storage:
+  timescaledb-storage-public:
     external: true
-  downstream-storage:
+  downstream-storage-public:
     external: true
-  minio-storage:
+  minio-storage-public:
     external: true
-  backup-storage:
+  backup-storage-public:
     external: true
 
 networks:
-  backend:
+  backend-public:
     driver: overlay
     attachable: true
 
