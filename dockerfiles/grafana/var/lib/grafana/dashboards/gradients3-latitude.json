@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 1,
-  "iteration": 1555194971226,
+  "iteration": 1555195463863,
   "links": [],
   "panels": [
     {
@@ -797,6 +797,7 @@
         {
           "format": "short",
           "logBase": 1,
+          "min": "33.5",
           "show": true
         }
       ]
@@ -997,6 +998,7 @@
         {
           "format": "short",
           "logBase": 1,
+          "min": "3",
           "show": true
         }
       ]
@@ -2781,5 +2783,5 @@
   "timezone": "utc",
   "title": "Gradients3 By Latitude",
   "uid": "Y17LzPeiz",
-  "version": 2
+  "version": 3
 }
