@@ -19,3 +19,13 @@ CREATE TABLE IF NOT EXISTS seaflow740_raw (
 );
 
 SELECT create_hypertable('seaflow740_raw', 'time', if_not_exists := true);
+
+CREATE OR REPLACE VIEW seaflow740 AS
+  SELECT *
+  FROM seaflow740_raw
+  ORDER BY seaflow740_raw.time;
+
+CREATE OR REPLACE VIEW seaflow740_geo AS
+  SELECT *
+  FROM seaflow740_raw
+  ORDER BY seaflow740_raw.time;
