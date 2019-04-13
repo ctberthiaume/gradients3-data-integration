@@ -63,10 +63,12 @@ GROUP BY 1
 ORDER BY 1;
 " >>"$OUTDIR/flor.csv"
 
-echo "time,pop,stream_pressure,file_duration,event_rate,opp_evt_ratio,n_count,chl_small,pe,fsc_small,diam_mid,Qc_mid,quantile,flow_rate,abundance" >"$OUTDIR/seaflow740.csv"
+echo "time,lat,lon,pop,stream_pressure,file_duration,event_rate,opp_evt_ratio,n_count,chl_small,pe,fsc_small,diam_mid,Qc_mid,quantile,flow_rate,abundance" >"$OUTDIR/seaflow740.csv"
 psql -t -A -F"," -c "
 SELECT
-    time_bucket('1m', seaflow740_raw.time) AS time,
+    time_bucket('1m', seaflow740_geo.time) AS time,
+    avg(lat) as lat,
+    avg(lon) as lon,
     pop,
     avg(stream_pressure) as stream_pressure,
     avg(file_duration) as file_duration,
@@ -81,9 +83,9 @@ SELECT
     avg(quantile) as quantile,
     avg(flow_rate) as flow_rate,
     avg(abundance) as abundance
-FROM seaflow740_raw
+FROM seaflow740_geo
 WHERE quantile = 50
-GROUP BY 1, 2
+GROUP BY 1, 4
 ORDER BY 1;
 " >>"$OUTDIR/seaflow740.csv"
 
