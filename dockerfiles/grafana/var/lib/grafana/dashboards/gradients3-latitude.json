@@ -15,8 +15,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 6,
-  "iteration": 1554790559545,
+  "id": 5,
+  "iteration": 1555188771844,
   "links": [],
   "panels": [
     {
@@ -611,11 +611,11 @@
         "y": 8
       },
       "id": 12,
-      "lines": true,
+      "lines": false,
       "linewidth": 1,
       "links": [],
-      "pointradius": 5,
-      "points": false,
+      "pointradius": 1,
+      "points": true,
       "range": {
         "from": null,
         "to": null
@@ -811,11 +811,11 @@
         "y": 8
       },
       "id": 10,
-      "lines": true,
+      "lines": false,
       "linewidth": 1,
       "links": [],
-      "pointradius": 5,
-      "points": false,
+      "pointradius": 1,
+      "points": true,
       "range": {
         "from": null,
         "to": null
@@ -1011,11 +1011,11 @@
         "y": 12
       },
       "id": 14,
-      "lines": true,
+      "lines": false,
       "linewidth": 1,
       "links": [],
-      "pointradius": 5,
-      "points": false,
+      "pointradius": 1,
+      "points": true,
       "range": {
         "from": null,
         "to": null
@@ -1211,11 +1211,11 @@
         "y": 12
       },
       "id": 8,
-      "lines": true,
+      "lines": false,
       "linewidth": 1,
       "links": [],
-      "pointradius": 5,
-      "points": false,
+      "pointradius": 1,
+      "points": true,
       "range": {
         "from": null,
         "to": null
@@ -1405,17 +1405,17 @@
       "datasource": "Gradients3",
       "fill": 1,
       "gridPos": {
-        "h": 7,
+        "h": 4,
         "w": 12,
         "x": 0,
         "y": 16
       },
       "id": 16,
-      "lines": true,
+      "lines": false,
       "linewidth": 1,
       "links": [],
-      "pointradius": 5,
-      "points": false,
+      "pointradius": 1,
+      "points": true,
       "range": {
         "from": null,
         "to": null
@@ -1434,7 +1434,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\navg(lat) AS \"lat\"\nFROM seaflow740_geo\nWHERE\n$__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(lat) AS \"lat\"\nFROM seaflow740_geo\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -1482,7 +1482,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\navg(abundance) AS \"pro N\"\nFROM seaflow740_geo\nWHERE\n$__timeFilter(\"time\") AND\n  pop = 'prochloro' AND\n  \"time\" <='$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(abundance) AS \"pro N\"\nFROM seaflow740_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'prochloro' AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
           "refId": "B",
           "select": [
             [
@@ -1550,7 +1550,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\navg(abundance) AS \"pro S\"\nFROM seaflow740_geo\nWHERE\n$__timeFilter(\"time\") AND\n  pop = 'prochloro' AND\n  \"time\" >='$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(abundance) AS \"pro S\"\nFROM seaflow740_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'prochloro' AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
           "refId": "C",
           "select": [
             [
@@ -1625,7 +1625,7 @@
       "datasource": "Gradients3",
       "fill": 1,
       "gridPos": {
-        "h": 7,
+        "h": 4,
         "w": 12,
         "x": 12,
         "y": 16
@@ -1654,7 +1654,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\navg(lat) AS \"lat\"\nFROM seaflow740_geo\nWHERE\n$__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(lat) AS \"lat\"\nFROM seaflow740_geo\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -1702,7 +1702,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\navg(diam_mid) AS \"pro N\"\nFROM seaflow740_geo\nWHERE\n$__timeFilter(\"time\") AND\n  pop = 'prochloro' AND\n  \"time\" <='$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(diam_mid) AS \"pro N\"\nFROM seaflow740_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'prochloro' AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
           "refId": "B",
           "select": [
             [
@@ -1770,7 +1770,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\navg(diam_mid) AS \"pro S\"\nFROM seaflow740_geo\nWHERE\n$__timeFilter(\"time\") AND\n  pop = 'prochloro' AND\n  \"time\" >='$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(diam_mid) AS \"pro S\"\nFROM seaflow740_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'prochloro' AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
           "refId": "C",
           "select": [
             [
@@ -1845,17 +1845,17 @@
       "datasource": "Gradients3",
       "fill": 1,
       "gridPos": {
-        "h": 8,
+        "h": 4,
         "w": 12,
         "x": 0,
-        "y": 23
+        "y": 20
       },
       "id": 20,
-      "lines": true,
+      "lines": false,
       "linewidth": 1,
       "links": [],
-      "pointradius": 5,
-      "points": false,
+      "pointradius": 1,
+      "points": true,
       "range": {
         "from": null,
         "to": null
@@ -1874,7 +1874,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\navg(lat) AS \"lat\"\nFROM seaflow740_geo\nWHERE\n$__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(lat) AS \"lat\"\nFROM seaflow740_geo\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -1922,7 +1922,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\navg(abundance) AS \"syn N\"\nFROM seaflow740_geo\nWHERE\n$__timeFilter(\"time\") AND\n  pop = 'synecho' AND\n  \"time\" <='$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(abundance) AS \"syn N\"\nFROM seaflow740_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'synecho' AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
           "refId": "B",
           "select": [
             [
@@ -1990,7 +1990,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\navg(abundance) AS \"syn S\"\nFROM seaflow740_geo\nWHERE\n$__timeFilter(\"time\") AND\n  pop = 'synecho' AND\n  \"time\" >='$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(abundance) AS \"syn S\"\nFROM seaflow740_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'synecho' AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
           "refId": "C",
           "select": [
             [
@@ -2065,17 +2065,17 @@
       "datasource": "Gradients3",
       "fill": 1,
       "gridPos": {
-        "h": 8,
+        "h": 4,
         "w": 12,
         "x": 12,
-        "y": 23
+        "y": 20
       },
       "id": 22,
-      "lines": true,
+      "lines": false,
       "linewidth": 1,
       "links": [],
-      "pointradius": 5,
-      "points": false,
+      "pointradius": 1,
+      "points": true,
       "range": {
         "from": null,
         "to": null
@@ -2094,7 +2094,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\navg(lat) AS \"lat\"\nFROM seaflow740_geo\nWHERE\n$__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(lat) AS \"lat\"\nFROM seaflow740_geo\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -2142,7 +2142,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\navg(diam_mid) AS \"syn N\"\nFROM seaflow740_geo\nWHERE\n$__timeFilter(\"time\") AND\n  pop = 'synecho' AND\n  \"time\" <='$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(diam_mid) AS \"syn N\"\nFROM seaflow740_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'synecho' AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
           "refId": "B",
           "select": [
             [
@@ -2210,7 +2210,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\navg(diam_mid) AS \"syn S\"\nFROM seaflow740_geo\nWHERE\n$__timeFilter(\"time\") AND\n  pop = 'synecho' AND\n  \"time\" >='$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(diam_mid) AS \"syn S\"\nFROM seaflow740_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'synecho' AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
           "refId": "C",
           "select": [
             [
@@ -2285,17 +2285,17 @@
       "datasource": "Gradients3",
       "fill": 1,
       "gridPos": {
-        "h": 8,
+        "h": 4,
         "w": 12,
         "x": 0,
-        "y": 31
+        "y": 24
       },
       "id": 24,
-      "lines": true,
+      "lines": false,
       "linewidth": 1,
       "links": [],
-      "pointradius": 5,
-      "points": false,
+      "pointradius": 1,
+      "points": true,
       "range": {
         "from": null,
         "to": null
@@ -2314,7 +2314,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\navg(lat) AS \"lat\"\nFROM seaflow740_geo\nWHERE\n$__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(lat) AS \"lat\"\nFROM seaflow740_geo\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -2362,7 +2362,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\navg(abundance) AS \"pico N\"\nFROM seaflow740_geo\nWHERE\n$__timeFilter(\"time\") AND\n  pop = 'picoeuk' AND\n  \"time\" <='$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(abundance) AS \"pico N\"\nFROM seaflow740_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'picoeuk' AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
           "refId": "B",
           "select": [
             [
@@ -2430,7 +2430,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\navg(abundance) AS \"pico S\"\nFROM seaflow740_geo\nWHERE\n$__timeFilter(\"time\") AND\n  pop = 'picoeuk' AND\n  \"time\" >='$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(abundance) AS \"pico S\"\nFROM seaflow740_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'picoeuk' AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
           "refId": "C",
           "select": [
             [
@@ -2505,17 +2505,17 @@
       "datasource": "Gradients3",
       "fill": 1,
       "gridPos": {
-        "h": 8,
+        "h": 4,
         "w": 12,
         "x": 12,
-        "y": 31
+        "y": 24
       },
       "id": 26,
-      "lines": true,
+      "lines": false,
       "linewidth": 1,
       "links": [],
-      "pointradius": 5,
-      "points": false,
+      "pointradius": 1,
+      "points": true,
       "range": {
         "from": null,
         "to": null
@@ -2534,7 +2534,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\navg(lat) AS \"lat\"\nFROM seaflow740_geo\nWHERE\n$__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(lat) AS \"lat\"\nFROM seaflow740_geo\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
           "refId": "A",
           "select": [
             [
@@ -2582,7 +2582,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\navg(diam_mid) AS \"pico N\"\nFROM seaflow740_geo\nWHERE\n$__timeFilter(\"time\") AND\n  pop = 'picoeuk' AND\n  \"time\" <='$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(diam_mid) AS \"pico N\"\nFROM seaflow740_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'picoeuk' AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
           "refId": "B",
           "select": [
             [
@@ -2650,7 +2650,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\navg(diam_mid) AS \"pico S\"\nFROM seaflow740_geo\nWHERE\n$__timeFilter(\"time\") AND\n  pop = 'picoeuk' AND\n  \"time\" >='$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(diam_mid) AS \"pico S\"\nFROM seaflow740_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'picoeuk' AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
           "refId": "C",
           "select": [
             [
@@ -2781,5 +2781,5 @@
   "timezone": "utc",
   "title": "Gradients3 By Latitude",
   "uid": "Y17LzPeiz",
-  "version": 3
+  "version": 1
 }
