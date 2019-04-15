@@ -15,8 +15,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 6,
-  "iteration": 1555295044992,
+  "id": 1,
+  "iteration": 1555295866010,
   "links": [],
   "panels": [
     {
@@ -998,7 +998,7 @@
         {
           "format": "short",
           "logBase": 1,
-          "min": "2",
+          "min": "3",
           "show": true
         }
       ]
@@ -1284,7 +1284,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(ocean_temp) AS \"TS\"\nFROM uthsl_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(ocean_temp) AS \"TS N\"\nFROM uthsl_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
           "refId": "B",
           "select": [
             [
@@ -1302,7 +1302,7 @@
               },
               {
                 "params": [
-                  "TS"
+                  "TS N"
                 ],
                 "type": "alias"
               }
@@ -1342,7 +1342,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(ocean_temp) AS \"TS\"\nFROM uthsl_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(ocean_temp) AS \"TS S\"\nFROM uthsl_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
           "refId": "C",
           "select": [
             [
@@ -1360,7 +1360,7 @@
               },
               {
                 "params": [
-                  "TS"
+                  "TS S"
                 ],
                 "type": "alias"
               }
@@ -1393,14 +1393,13 @@
       "title": "Temperature (y) vs Salinity (x)",
       "type": "armbrustlab-2dscatter-panel",
       "xaxis": {
-        "min": "33.5",
+        "min": "33.75",
         "show": true
       },
       "yaxes": [
         {
           "format": "short",
           "logBase": 1,
-          "min": null,
           "show": true
         }
       ]
@@ -1822,7 +1821,6 @@
           "format": "short",
           "logBase": 2,
           "max": "1000",
-          "min": null,
           "show": true
         }
       ]
@@ -2988,5 +2986,5 @@
   "timezone": "utc",
   "title": "Gradients3 By Latitude",
   "uid": "Y17LzPeiz",
-  "version": 10
+  "version": 5
 }
