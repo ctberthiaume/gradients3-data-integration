@@ -37,7 +37,7 @@ datasources:
   jsonData:
     postgresVersion: 1000
     timescaledb: true
-    maxOpenConns: unlimited
+    maxOpenConns: 30
     maxIdleConns: 2
     connMaxLifetime: 14400
     timeInterval: 1m
@@ -74,7 +74,7 @@ datasources:
   jsonData:
     postgresVersion: 1000
     timescaledb: true
-    maxOpenConns: unlimited
+    maxOpenConns: 30
     maxIdleConns: 2
     connMaxLifetime: 14400
     timeInterval: 1m
@@ -111,7 +111,7 @@ datasources:
   jsonData:
     postgresVersion: 1000
     timescaledb: true
-    maxOpenConns: unlimited
+    maxOpenConns: 30
     maxIdleConns: 2
     connMaxLifetime: 14400
     timeInterval: 1m

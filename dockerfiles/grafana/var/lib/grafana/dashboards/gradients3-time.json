@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 2,
-  "iteration": 1555195901758,
+  "iteration": 1555291598523,
   "links": [],
   "panels": [
     {
@@ -1573,7 +1573,7 @@
           "format": "short",
           "label": null,
           "logBase": 2,
-          "max": null,
+          "max": "1000",
           "min": null,
           "show": true
         },
@@ -2001,7 +2001,7 @@
           "format": "short",
           "label": null,
           "logBase": 2,
-          "max": null,
+          "max": "1000",
           "min": null,
           "show": true
         },
@@ -2721,5 +2721,5 @@
   "timezone": "utc",
   "title": "Gradients3 by Time",
   "uid": "CEPLgPemk",
-  "version": 3
+  "version": 5
 }

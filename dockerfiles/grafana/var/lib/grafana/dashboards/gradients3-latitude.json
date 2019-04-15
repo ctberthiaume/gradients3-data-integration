@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 1,
-  "iteration": 1555195463863,
+  "iteration": 1555291807189,
   "links": [],
   "panels": [
     {
@@ -1007,9 +1007,410 @@
       "datasource": "Gradients3",
       "fill": 1,
       "gridPos": {
-        "h": 4,
-        "w": 12,
+        "h": 7,
+        "w": 8,
         "x": 0,
+        "y": 12
+      },
+      "id": 8,
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "pointradius": 1,
+      "points": true,
+      "range": {
+        "from": null,
+        "to": null
+      },
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [
+            {
+              "params": [
+                "$__interval",
+                "none"
+              ],
+              "type": "time"
+            }
+          ],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(lat) AS \"lat\"\nFROM uthsl_geo\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "lat"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "avg"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "lat"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "uthsl_geo",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamptz",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [
+            {
+              "params": [
+                "$__interval",
+                "none"
+              ],
+              "type": "time"
+            }
+          ],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(ocean_temp) AS \"ocean_temp N\"\nFROM uthsl_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "refId": "B",
+          "select": [
+            [
+              {
+                "params": [
+                  "ocean_temp"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "avg"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "ocean_temp N"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "uthsl_geo",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamptz",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "timestamptz",
+              "name": "",
+              "params": [
+                "\"time\"",
+                "<=",
+                "'$turnaround'"
+              ],
+              "type": "expression"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [
+            {
+              "params": [
+                "$__interval",
+                "none"
+              ],
+              "type": "time"
+            }
+          ],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(ocean_temp) AS \"ocean_temp S\"\nFROM uthsl_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "refId": "C",
+          "select": [
+            [
+              {
+                "params": [
+                  "ocean_temp"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "avg"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "ocean_temp S"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "uthsl_geo",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamptz",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "timestamptz",
+              "name": "",
+              "params": [
+                "\"time\"",
+                ">=",
+                "'$turnaround'"
+              ],
+              "type": "expression"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Ocean Temperature",
+      "type": "armbrustlab-2dscatter-panel",
+      "xaxis": {
+        "show": true
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "logBase": 1,
+          "show": true
+        }
+      ]
+    },
+    {
+      "datasource": "Gradients3",
+      "fill": 1,
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 8,
+        "y": 12
+      },
+      "id": 28,
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "pointradius": 1,
+      "points": true,
+      "range": {
+        "from": null,
+        "to": null
+      },
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [
+            {
+              "params": [
+                "$__interval",
+                "none"
+              ],
+              "type": "time"
+            }
+          ],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(salinity) AS \"TS N\"\nFROM uthsl_geo\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "salinity"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "avg"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "TS N"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "uthsl_geo",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamptz",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [
+            {
+              "params": [
+                "$__interval",
+                "none"
+              ],
+              "type": "time"
+            }
+          ],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(ocean_temp) AS \"TS\"\nFROM uthsl_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "refId": "B",
+          "select": [
+            [
+              {
+                "params": [
+                  "ocean_temp"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "avg"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "TS"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "uthsl_geo",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamptz",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "timestamptz",
+              "name": "",
+              "params": [
+                "\"time\"",
+                "<=",
+                "'$turnaround'"
+              ],
+              "type": "expression"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [
+            {
+              "params": [
+                "$__interval",
+                "none"
+              ],
+              "type": "time"
+            }
+          ],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(ocean_temp) AS \"TS S\"\nFROM uthsl_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
+          "refId": "C",
+          "select": [
+            [
+              {
+                "params": [
+                  "ocean_temp"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "avg"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "TS S"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "uthsl_geo",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamptz",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "timestamptz",
+              "name": "",
+              "params": [
+                "\"time\"",
+                ">=",
+                "'$turnaround'"
+              ],
+              "type": "expression"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Temperature (y) vs Salinity (x)",
+      "type": "armbrustlab-2dscatter-panel",
+      "xaxis": {
+        "min": "33.75",
+        "show": true
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "logBase": 1,
+          "show": true
+        }
+      ]
+    },
+    {
+      "datasource": "Gradients3",
+      "fill": 1,
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 16,
         "y": 12
       },
       "id": 14,
@@ -1209,208 +1610,8 @@
       "gridPos": {
         "h": 4,
         "w": 12,
-        "x": 12,
-        "y": 12
-      },
-      "id": 8,
-      "lines": false,
-      "linewidth": 1,
-      "links": [],
-      "pointradius": 1,
-      "points": true,
-      "range": {
-        "from": null,
-        "to": null
-      },
-      "targets": [
-        {
-          "format": "time_series",
-          "group": [
-            {
-              "params": [
-                "$__interval",
-                "none"
-              ],
-              "type": "time"
-            }
-          ],
-          "metricColumn": "none",
-          "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(lat) AS \"lat\"\nFROM uthsl_geo\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "lat"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "avg"
-                ],
-                "type": "aggregate"
-              },
-              {
-                "params": [
-                  "lat"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "table": "uthsl_geo",
-          "timeColumn": "\"time\"",
-          "timeColumnType": "timestamptz",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        },
-        {
-          "format": "time_series",
-          "group": [
-            {
-              "params": [
-                "$__interval",
-                "none"
-              ],
-              "type": "time"
-            }
-          ],
-          "metricColumn": "none",
-          "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(ocean_temp) AS \"ocean_temp N\"\nFROM uthsl_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
-          "refId": "B",
-          "select": [
-            [
-              {
-                "params": [
-                  "ocean_temp"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "avg"
-                ],
-                "type": "aggregate"
-              },
-              {
-                "params": [
-                  "ocean_temp N"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "table": "uthsl_geo",
-          "timeColumn": "\"time\"",
-          "timeColumnType": "timestamptz",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            },
-            {
-              "datatype": "timestamptz",
-              "name": "",
-              "params": [
-                "\"time\"",
-                "<=",
-                "'$turnaround'"
-              ],
-              "type": "expression"
-            }
-          ]
-        },
-        {
-          "format": "time_series",
-          "group": [
-            {
-              "params": [
-                "$__interval",
-                "none"
-              ],
-              "type": "time"
-            }
-          ],
-          "metricColumn": "none",
-          "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(ocean_temp) AS \"ocean_temp S\"\nFROM uthsl_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" >= '$turnaround'\nGROUP BY 1\nORDER BY 1",
-          "refId": "C",
-          "select": [
-            [
-              {
-                "params": [
-                  "ocean_temp"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "avg"
-                ],
-                "type": "aggregate"
-              },
-              {
-                "params": [
-                  "ocean_temp S"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "table": "uthsl_geo",
-          "timeColumn": "\"time\"",
-          "timeColumnType": "timestamptz",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            },
-            {
-              "datatype": "timestamptz",
-              "name": "",
-              "params": [
-                "\"time\"",
-                ">=",
-                "'$turnaround'"
-              ],
-              "type": "expression"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Ocean Temperature",
-      "type": "armbrustlab-2dscatter-panel",
-      "xaxis": {
-        "show": true
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "logBase": 1,
-          "show": true
-        }
-      ]
-    },
-    {
-      "datasource": "Gradients3",
-      "fill": 1,
-      "gridPos": {
-        "h": 4,
-        "w": 12,
         "x": 0,
-        "y": 16
+        "y": 19
       },
       "id": 16,
       "lines": false,
@@ -1619,6 +1820,7 @@
         {
           "format": "short",
           "logBase": 2,
+          "max": "1000",
           "show": true
         }
       ]
@@ -1630,7 +1832,7 @@
         "h": 4,
         "w": 12,
         "x": 12,
-        "y": 16
+        "y": 19
       },
       "id": 18,
       "lines": false,
@@ -1850,7 +2052,7 @@
         "h": 4,
         "w": 12,
         "x": 0,
-        "y": 20
+        "y": 23
       },
       "id": 20,
       "lines": false,
@@ -2059,6 +2261,7 @@
         {
           "format": "short",
           "logBase": 2,
+          "max": "1000",
           "show": true
         }
       ]
@@ -2070,7 +2273,7 @@
         "h": 4,
         "w": 12,
         "x": 12,
-        "y": 20
+        "y": 23
       },
       "id": 22,
       "lines": false,
@@ -2290,7 +2493,7 @@
         "h": 4,
         "w": 12,
         "x": 0,
-        "y": 24
+        "y": 27
       },
       "id": 24,
       "lines": false,
@@ -2510,7 +2713,7 @@
         "h": 4,
         "w": 12,
         "x": 12,
-        "y": 24
+        "y": 27
       },
       "id": 26,
       "lines": false,
@@ -2783,5 +2986,5 @@
   "timezone": "utc",
   "title": "Gradients3 By Latitude",
   "uid": "Y17LzPeiz",
-  "version": 3
+  "version": 4
 }
