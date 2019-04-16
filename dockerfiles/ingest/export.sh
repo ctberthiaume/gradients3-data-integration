@@ -89,7 +89,7 @@ GROUP BY 1, 4
 ORDER BY 1;
 " >>"$OUTDIR/seaflow740.csv"
 
-echo "time,Lat,Lon,Temp,Sal,Biosat,O2conc,O2sat" >"$OUTDIR/g3_o2ar.txt.csv"
+echo "time,lat,lon,temp,sal,biosat,o2conc,o2sat" >"$OUTDIR/g3_o2ar.txt.csv"
 psql -t -A -F"," -c "
 SELECT
     time_bucket('30m', o2ar_raw.time) AS time,
@@ -105,7 +105,7 @@ GROUP BY 1
 ORDER BY 1;
 " >>"$OUTDIR/g3_o2ar.txt.csv"
 
-echo "time,CHL,cp650" >"$OUTDIR/KM1906_uw_prelim_acs.txt.csv"
+echo "time,chl,cp650" >"$OUTDIR/KM1906_uw_prelim_acs.txt.csv"
 psql -t -A -F"," -c "
 SELECT
     time_bucket('30m', acs_raw.time) AS time,
@@ -116,7 +116,7 @@ GROUP BY 1
 ORDER BY 1;
 " >>"$OUTDIR/KM1906_uw_prelim_acs.txt.csv"
 
-echo "time,CHL_F,bbp,cdom" >"$OUTDIR/KM1906_uw_prelim_ecotriplet.txt.csv"
+echo "time,chl_f,bbp,cdom" >"$OUTDIR/KM1906_uw_prelim_ecotriplet.txt.csv"
 psql -t -A -F"," -c "
 SELECT
     time_bucket('30m', eco_raw.time) AS time,
@@ -128,7 +128,7 @@ GROUP BY 1
 ORDER BY 1;
 " >>"$OUTDIR/KM1906_uw_prelim_ecotriplet.txt.csv"
 
-echo "time,CHL_F,bbp,cdom" >"$OUTDIR/KM1906_uw_prelim_LISST.txt.csv"
+echo "time,poc_1point25_2um,poc_2_20um,poc_20_100um" >"$OUTDIR/KM1906_uw_prelim_LISST.txt.csv"
 psql -t -A -F"," -c "
 SELECT
     time_bucket('30m', lisst_raw.time) AS time,
