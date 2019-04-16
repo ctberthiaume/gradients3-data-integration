@@ -1,0 +1,53 @@
+#!/usr/bin/env python3
+import click
+import os
+import pendulum
+import sys
+
+
+@click.command()
+@click.argument('infile', type=click.Path(exists=True), nargs=1)
+@click.argument('outfile', type=click.Path(), nargs=1)
+def main(infile, outfile):
+    header = ['time', 'CHL', 'cp650']
+
+    with open(infile, mode='r', encoding='utf-8') as fin:
+        with open(outfile, mode='w', encoding='utf-8') as fout:
+            fout.write(','.join(header) + '\n')
+            header_lines = 6
+            for line in fin:
+                if header_lines > 0:
+                    header_lines -= 1
+                    continue
+                try:
+                    outputs = parse_line(line)
+                except Exception as e:
+                    print(os.linesep.join(["Error with line:", line.rstrip(), str(e), '']), file=sys.stderr)
+                else:
+                    if outputs:
+                        fout.write(','.join(outputs) + '\n')
+
+
+def parse_line(line):
+    fields = line.rstrip().split()
+    if len(fields) != 3:
+        raise Exception('Incorrect column number found')
+
+    date = pendulum.parse(fields[0])
+    fields[1:] = na_norm(fields[1:])
+    _ = [float(x) for x in fields[1:] if x != 'NA']
+    return [date.isoformat()] + fields[1:]
+
+
+def na_norm(fields):
+    newfields = []
+    for f in fields:
+        if f == 'NA' or f == 'NaN':
+            newfields.append('NA')
+        else:
+            newfields.append(f)
+    return newfields
+
+
+if __name__ == '__main__':
+    main()
