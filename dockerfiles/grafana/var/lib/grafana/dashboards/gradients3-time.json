@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 5,
-  "iteration": 1555376442946,
+  "iteration": 1555422430170,
   "links": [],
   "panels": [
     {
@@ -1422,22 +1422,42 @@
       "targets": [
         {
           "format": "time_series",
-          "group": [],
+          "group": [
+            {
+              "params": [
+                "$__interval",
+                "none"
+              ],
+              "type": "time"
+            }
+          ],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  biosat\nFROM o2ar\nWHERE\n  $__timeFilter(\"time\")\nORDER BY 1",
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(cp650) AS \"cp650 N\"\nFROM acs\nWHERE\n  $__timeFilter(\"time\") AND\n  \"time\" <= '$turnaround'\nGROUP BY 1\nORDER BY 1",
           "refId": "A",
           "select": [
             [
               {
                 "params": [
-                  "biosat"
+                  "cp650"
                 ],
                 "type": "column"
+              },
+              {
+                "params": [
+                  "avg"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "cp650 N"
+                ],
+                "type": "alias"
               }
             ]
           ],
-          "table": "o2ar",
+          "table": "acs",
           "timeColumn": "\"time\"",
           "timeColumnType": "timestamptz",
           "where": [
@@ -1445,6 +1465,16 @@
               "name": "$__timeFilter",
               "params": [],
               "type": "macro"
+            },
+            {
+              "datatype": "timestamptz",
+              "name": "",
+              "params": [
+                "\"time\"",
+                "<=",
+                "'$turnaround'"
+              ],
+              "type": "expression"
             }
           ]
         },
@@ -4638,5 +4668,5 @@
   "timezone": "utc",
   "title": "Gradients3 by Time",
   "uid": "CEPLgPemk",
-  "version": 21
+  "version": 24
 }
