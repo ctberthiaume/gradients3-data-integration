@@ -89,56 +89,56 @@ GROUP BY 1, 4
 ORDER BY 1;
 " >>"$OUTDIR/seaflow740.csv"
 
-# echo "time,Lat,Lon,Temp,Sal,Biosat,O2conc,O2sat" >"$OUTDIR/g3_o2ar.txt.csv"
-# psql -t -A -F"," -c "
-# SELECT
-#     time_bucket('30m', o2ar_raw.time) AS time,
-#     avg(Lat) as Lat,
-#     avg(Lon) as Lon,
-#     avg(Temp) as Temp,
-#     avg(Sal) as Sal,
-#     avg(Biosat) as Biosat,
-#     avg(O2conc) as O2conc,
-#     avg(O2sat) as O2sat
-# FROM o2ar_raw
-# GROUP BY 1
-# ORDER BY 1;
-# " >>"$OUTDIR/g3_o2ar.txt.csv"
+echo "time,Lat,Lon,Temp,Sal,Biosat,O2conc,O2sat" >"$OUTDIR/g3_o2ar.txt.csv"
+psql -t -A -F"," -c "
+SELECT
+    time_bucket('30m', o2ar_raw.time) AS time,
+    avg(Lat) as Lat,
+    avg(Lon) as Lon,
+    avg(Temp) as Temp,
+    avg(Sal) as Sal,
+    avg(Biosat) as Biosat,
+    avg(O2conc) as O2conc,
+    avg(O2sat) as O2sat
+FROM o2ar_raw
+GROUP BY 1
+ORDER BY 1;
+" >>"$OUTDIR/g3_o2ar.txt.csv"
 
-# echo "time,CHL,cp650" >"$OUTDIR/KM1906_uw_prelim_acs.txt.csv"
-# psql -t -A -F"," -c "
-# SELECT
-#     time_bucket('30m', acs_raw.time) AS time,
-#     avg(CHL) as CHL,
-#     avg(cp650) as cp650
-# FROM acs_raw
-# GROUP BY 1
-# ORDER BY 1;
-# " >>"$OUTDIR/KM1906_uw_prelim_acs.txt.csv"
+echo "time,CHL,cp650" >"$OUTDIR/KM1906_uw_prelim_acs.txt.csv"
+psql -t -A -F"," -c "
+SELECT
+    time_bucket('30m', acs_raw.time) AS time,
+    avg(CHL) as CHL,
+    avg(cp650) as cp650
+FROM acs_raw
+GROUP BY 1
+ORDER BY 1;
+" >>"$OUTDIR/KM1906_uw_prelim_acs.txt.csv"
 
-# echo "time,CHL_F,bbp,cdom" >"$OUTDIR/KM1906_uw_prelim_ecotriplet.txt.csv"
-# psql -t -A -F"," -c "
-# SELECT
-#     time_bucket('30m', eco_raw.time) AS time,
-#     avg(CHL_F) as CHL_F,
-#     avg(bbp) as bbp,
-#     avg(cdom) as cdom
-# FROM eco_raw
-# GROUP BY 1
-# ORDER BY 1;
-# " >>"$OUTDIR/KM1906_uw_prelim_ecotriplet.txt.csv"
+echo "time,CHL_F,bbp,cdom" >"$OUTDIR/KM1906_uw_prelim_ecotriplet.txt.csv"
+psql -t -A -F"," -c "
+SELECT
+    time_bucket('30m', eco_raw.time) AS time,
+    avg(CHL_F) as CHL_F,
+    avg(bbp) as bbp,
+    avg(cdom) as cdom
+FROM eco_raw
+GROUP BY 1
+ORDER BY 1;
+" >>"$OUTDIR/KM1906_uw_prelim_ecotriplet.txt.csv"
 
-# echo "time,CHL_F,bbp,cdom" >"$OUTDIR/KM1906_uw_prelim_LISST.txt.csv"
-# psql -t -A -F"," -c "
-# SELECT
-#     time_bucket('30m', lisst_raw.time) AS time,
-#     avg(POC_1point25_2um) as POC_1point25_2um,
-#     avg(POC_2_20um) as POC_2_20um,
-#     avg(POC_20_100um) as POC_20_100um
-# FROM lisst_raw
-# GROUP BY 1
-# ORDER BY 1;
-# " >>"$OUTDIR/KM1906_uw_prelim_LISST.txt.csv"
+echo "time,CHL_F,bbp,cdom" >"$OUTDIR/KM1906_uw_prelim_LISST.txt.csv"
+psql -t -A -F"," -c "
+SELECT
+    time_bucket('30m', lisst_raw.time) AS time,
+    avg(POC_1point25_2um) as POC_1point25_2um,
+    avg(POC_2_20um) as POC_2_20um,
+    avg(POC_20_100um) as POC_20_100um
+FROM lisst_raw
+GROUP BY 1
+ORDER BY 1;
+" >>"$OUTDIR/KM1906_uw_prelim_LISST.txt.csv"
 
 mc cp --recursive -q "$OUTDIR"/*.csv minio/"$MINIO_BINNED_BUCKET/"
 
