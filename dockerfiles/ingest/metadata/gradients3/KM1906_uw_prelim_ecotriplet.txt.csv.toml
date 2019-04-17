@@ -1,0 +1,22 @@
+table = "eco"
+[[fields]]
+index = 0
+name = "time"
+type = "time"
+
+[[fields]]
+index = 1
+name = "CHL_F"
+type = "real"
+
+[[fields]]
+index = 2
+name = "bbp"
+type = "real"
+
+[[fields]]
+index = 3
+name = "cdom"
+type = "real"
+
+

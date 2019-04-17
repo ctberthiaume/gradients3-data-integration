@@ -1,0 +1,17 @@
+table = "acs"
+[[fields]]
+index = 0
+name = "time"
+type = "time"
+
+[[fields]]
+index = 1
+name = "CHL"
+type = "real"
+
+[[fields]]
+index = 2
+name = "cp650"
+type = "real"
+
+

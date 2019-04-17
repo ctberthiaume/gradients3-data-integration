@@ -9,7 +9,7 @@ import sys
 @click.argument('infile', type=click.Path(exists=True), nargs=1)
 @click.argument('outfile', type=click.Path(), nargs=1)
 def main(infile, outfile):
-    shutil.copyfile(infile, outfile)    
+    shutil.copyfile(infile, outfile)
 
 
 if __name__ == '__main__':

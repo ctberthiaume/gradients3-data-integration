@@ -1,0 +1,22 @@
+table = "lisst"
+[[fields]]
+index = 0
+name = "time"
+type = "time"
+
+[[fields]]
+index = 1
+name = "POC_1point25_2um"
+type = "real"
+
+[[fields]]
+index = 2
+name = "POC_2_20um"
+type = "real"
+
+[[fields]]
+index = 3
+name = "POC_20_100um"
+type = "real"
+
+
