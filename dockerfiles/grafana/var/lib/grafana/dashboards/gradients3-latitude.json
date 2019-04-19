@@ -15,8 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 6,
-  "iteration": 1555386013310,
+  "iteration": 1555701297458,
   "links": [],
   "panels": [
     {
@@ -4734,8 +4733,8 @@
     "list": [
       {
         "current": {
-          "text": "2019-04-30T00:00:00Z",
-          "value": "2019-04-30T00:00:00Z"
+          "text": "2019-04-18T22:20:00Z",
+          "value": "2019-04-18T22:20:00Z"
         },
         "hide": 0,
         "label": "Timestamp of North/South track change",
@@ -4743,11 +4742,11 @@
         "options": [
           {
             "selected": true,
-            "text": "2019-04-30T00:00:00Z",
-            "value": "2019-04-30T00:00:00Z"
+            "text": "2019-04-18T22:20:00Z",
+            "value": "2019-04-18T22:20:00Z"
           }
         ],
-        "query": "2019-04-30T00:00:00Z",
+        "query": "2019-04-18T22:20:00Z",
         "skipUrlSync": false,
         "type": "constant"
       }
@@ -4785,5 +4784,5 @@
   "timezone": "utc",
   "title": "Gradients3 By Latitude",
   "uid": "Y17LzPeiz",
-  "version": 12
+  "version": 6
 }
