@@ -15,7 +15,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "iteration": 1555701297458,
+  "id": 1,
+  "iteration": 1555701698870,
   "links": [],
   "panels": [
     {
@@ -2926,12 +2927,271 @@
     },
     {
       "datasource": "Gradients3",
+      "fill": 0,
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 31
+      },
+      "id": 50,
+      "lines": true,
+      "linewidth": 2,
+      "links": [],
+      "pointradius": 1,
+      "points": true,
+      "range": {
+        "from": null,
+        "to": null
+      },
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [
+            {
+              "params": [
+                "$__interval",
+                "none"
+              ],
+              "type": "time"
+            }
+          ],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(lat) AS \"lat\"\nFROM seaflow740_geo\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "lat"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "avg"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "lat"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "seaflow740_geo",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamptz",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [
+            {
+              "params": [
+                "$__interval",
+                "none"
+              ],
+              "type": "time"
+            }
+          ],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(abundance) AS \"pro\"\nFROM seaflow740_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'prochloro'\nGROUP BY 1\nORDER BY 1",
+          "refId": "B",
+          "select": [
+            [
+              {
+                "params": [
+                  "abundance"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "avg"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "pro"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "seaflow740_geo",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamptz",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "text",
+              "name": "",
+              "params": [
+                "pop",
+                "=",
+                "'prochloro'"
+              ],
+              "type": "expression"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [
+            {
+              "params": [
+                "$__interval",
+                "none"
+              ],
+              "type": "time"
+            }
+          ],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(abundance) AS \"synecho\"\nFROM seaflow740_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'synecho'\nGROUP BY 1\nORDER BY 1",
+          "refId": "C",
+          "select": [
+            [
+              {
+                "params": [
+                  "abundance"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "avg"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "synecho"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "seaflow740_geo",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamptz",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "text",
+              "name": "",
+              "params": [
+                "pop",
+                "=",
+                "'synecho'"
+              ],
+              "type": "expression"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [
+            {
+              "params": [
+                "$__interval",
+                "none"
+              ],
+              "type": "time"
+            }
+          ],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(abundance) AS \"pico\"\nFROM seaflow740_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'picoeuk'\nGROUP BY 1\nORDER BY 1",
+          "refId": "D",
+          "select": [
+            [
+              {
+                "params": [
+                  "abundance"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "avg"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "pico"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "seaflow740_geo",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamptz",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "text",
+              "name": "",
+              "params": [
+                "pop",
+                "=",
+                "'picoeuk'"
+              ],
+              "type": "expression"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Pro Syn Pico abundances",
+      "type": "armbrustlab-2dscatter-panel",
+      "xaxis": {
+        "show": true
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "logBase": 10,
+          "max": "1000",
+          "show": true
+        }
+      ]
+    },
+    {
+      "datasource": "Gradients3",
       "fill": 1,
       "gridPos": {
         "h": 5,
         "w": 8,
         "x": 0,
-        "y": 31
+        "y": 37
       },
       "id": 32,
       "lines": false,
@@ -3131,7 +3391,7 @@
         "h": 5,
         "w": 8,
         "x": 8,
-        "y": 31
+        "y": 37
       },
       "id": 34,
       "lines": false,
@@ -3331,7 +3591,7 @@
         "h": 5,
         "w": 8,
         "x": 16,
-        "y": 31
+        "y": 37
       },
       "id": 36,
       "lines": false,
@@ -3531,7 +3791,7 @@
         "h": 5,
         "w": 8,
         "x": 0,
-        "y": 36
+        "y": 42
       },
       "id": 38,
       "lines": false,
@@ -3731,7 +3991,7 @@
         "h": 5,
         "w": 8,
         "x": 8,
-        "y": 36
+        "y": 42
       },
       "id": 40,
       "lines": false,
@@ -3931,7 +4191,7 @@
         "h": 5,
         "w": 8,
         "x": 16,
-        "y": 36
+        "y": 42
       },
       "id": 42,
       "lines": false,
@@ -4131,7 +4391,7 @@
         "h": 5,
         "w": 8,
         "x": 0,
-        "y": 41
+        "y": 47
       },
       "id": 44,
       "lines": false,
@@ -4331,7 +4591,7 @@
         "h": 5,
         "w": 8,
         "x": 8,
-        "y": 41
+        "y": 47
       },
       "id": 46,
       "lines": false,
@@ -4531,7 +4791,7 @@
         "h": 5,
         "w": 8,
         "x": 16,
-        "y": 41
+        "y": 47
       },
       "id": 48,
       "lines": false,
@@ -4784,5 +5044,5 @@
   "timezone": "utc",
   "title": "Gradients3 By Latitude",
   "uid": "Y17LzPeiz",
-  "version": 6
+  "version": 7
 }
