@@ -86,7 +86,7 @@ SELECT
 FROM seaflow740_geo
 WHERE quantile = 50
 GROUP BY 1, 4
-ORDER BY 1;
+ORDER BY 1, 4;
 " >>"$OUTDIR/seaflow740.csv"
 
 echo "time,lat,lon,temp,sal,biosat,o2conc,o2sat" >"$OUTDIR/g3_o2ar.txt.csv"
