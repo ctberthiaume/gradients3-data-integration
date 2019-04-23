@@ -66,7 +66,7 @@ ORDER BY 1;
 echo "time,lat,lon,pop,stream_pressure,file_duration,event_rate,opp_evt_ratio,n_count,chl_small,pe,fsc_small,diam_mid,Qc_mid,quantile,flow_rate,abundance" >"$OUTDIR/seaflow740.csv"
 psql -t -A -F"," -c "
 SELECT
-    time_bucket('1m', seaflow740_geo.time) AS time,
+    time_bucket('30m', seaflow740_geo.time) AS time,
     avg(lat) as lat,
     avg(lon) as lon,
     pop,
