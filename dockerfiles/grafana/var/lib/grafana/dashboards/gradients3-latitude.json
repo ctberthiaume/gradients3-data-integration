@@ -797,7 +797,7 @@
         {
           "format": "short",
           "logBase": 1,
-          "min": "33.5",
+          "min": "33",
           "show": true
         }
       ]
