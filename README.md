@@ -45,7 +45,9 @@ To finish provisioning Grafana with any custom dashboards, datasources, plugins
 located in `./dockerfiles/grafana/{etc,var}`, run bash as root on the Grafana container
 and run `/app/provision.sh`. Assuming the stack is named `di` this runs the provisioning script and restarts Grafana.
 
-```docker exec -it --user root $(docker ps | grep di_grafana | awk '{print $1}') bash -c '/app/provision.sh' && docker service scale di_grafana=0 && docker service scale di_grafana=1```
+```
+docker exec -it --user root $(docker ps | grep di_grafana | awk '{print $1}') bash -c '/app/provision.sh' && docker service scale di_grafana=0 && docker service scale di_grafana=1
+```
 
 The official Timescaledb image warns that there aren't enough background workers.
 See https://docs.timescale.com/v1.2/getting-started/configuring#workers.
@@ -65,11 +67,15 @@ docker exec -it $(docker ps | grep di_timescaledb | awk '{print $1}') bash -c '/
 
 Bring up stack without querying a remote server to resolve image digest
 
-```docker stack deploy --resolve-image never -c docker-compose.dataintegration.yml di```
+```
+docker stack deploy --resolve-image never -c docker-compose.dataintegration.yml di
+```
 
 To change the current cruise name
 
-```docker service update --env-add CURRENT_CRUISE=gradients1 di_ingest```
+```
+docker service update --env-add CURRENT_CRUISE=gradients1 di_ingest
+```
 
 This will restart the ingest service with a new CURRENT_CRUISE env var
 
@@ -77,11 +83,15 @@ To change the polling frequency of the ingest service, update `dockerfiles/inges
 and then send SIGUSR2 signal to the main process in ingest (supercronic).
 This will restart the service
 
-```docker kill --signal SIGUSR2 container```
+```sh
+docker kill --signal SIGUSR2 container
+```
 
 Bring down stack
 
-```docker stack rm di```
+```
+docker stack rm di
+```
 
 Sometimes Docker leaves behind exited containers. Check with `docker container ls -a` and remove manually.
 
@@ -89,11 +99,15 @@ Sometimes Docker leaves behind exited containers. Check with `docker container l
 
 Mount a temporary container with an existing named storage volume
 
-```docker run -it --rm --mount type=bind,src=$(pwd),dst=/mnt --mount type=volume,src=grafana-storage,dst=/gs ubuntu bash```
+```
+docker run -it --rm --mount type=bind,src=$(pwd),dst=/mnt --mount type=volume,src=grafana-storage,dst=/gs ubuntu bash
+```
 
 Use previous ephemeral docker container to add plugin files to grafana, starting from the plugin git repo containing a dist/ directory. Restart grafana after copy.
 
-```docker run -it --rm --mount type=bind,src=$(pwd),dst=/mnt --mount type=volume,src=grafana-storage,dst=/gs ubuntu bash -c "rm -rf /gs/plugins/$(basename $(pwd))/* && cp -r /mnt/dist /gs/plugins/$(basename $(pwd)) && chown -R 472:472 /gs/plugins/$(basename $(pwd))"```
+```
+docker run -it --rm --mount type=bind,src=$(pwd),dst=/mnt --mount type=volume,src=grafana-storage,dst=/gs ubuntu bash -c "rm -rf /gs/plugins/$(basename $(pwd))/* && cp -r /mnt/dist /gs/plugins/$(basename $(pwd)) && chown -R 472:472 /gs/plugins/$(basename $(pwd))"
+```
 
 Start a temporary container to connect to postgres
 
@@ -111,7 +125,8 @@ psql -h localhost -U postgres
 
 Fast CSV importer
 
-```go get github.com/timescale/timescaledb-parallel-copy/cmd/timescaledb-parallel-copy
+```
+go get github.com/timescale/timescaledb-parallel-copy/cmd/timescaledb-parallel-copy
 
 PGPASSWORD=password timescaledb-parallel-copy --copy-options "NULL 'NA' CSV HEADER" -db-name gradients2 -table seaflow -file instrument-files/seaflow_MGL1704/prelim-stat.csv --truncate
 
@@ -119,4 +134,3 @@ PGPASSWORD=password timescaledb-parallel-copy --copy-options "CSV HEADER" -db-na
 
 PGPASSWORD=password timescaledb-parallel-copy --copy-options "CSV HEADER" -db-name gradients2 -table par -file instrument-files/par.csv --truncate
 ```
-
