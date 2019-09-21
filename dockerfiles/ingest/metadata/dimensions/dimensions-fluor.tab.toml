@@ -1,0 +1,10 @@
+table = "flor"
+[[fields]]
+index = 0
+name = "time"
+type = "time"
+
+[[fields]]
+index = 1
+name = "flor"
+type = "real"

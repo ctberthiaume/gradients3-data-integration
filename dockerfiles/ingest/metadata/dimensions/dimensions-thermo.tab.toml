@@ -1,0 +1,25 @@
+table = "uthsl"
+[[fields]]
+index = 0
+name = "time"
+type = "time"
+
+[[fields]]
+index = 1
+name = "bow_temp"
+type = "real"
+
+[[fields]]
+index = 2
+name = "conductivity"
+type = "real"
+
+[[fields]]
+index = 3
+name = "salinity"
+type = "real"
+
+[[fields]]
+index = 4
+name = "lab_temp"
+type = "real"

@@ -1,0 +1,10 @@
+table = "par"
+[[fields]]
+index = 0
+name = "time"
+type = "time"
+
+[[fields]]
+index = 1
+name = "par"
+type = "real"

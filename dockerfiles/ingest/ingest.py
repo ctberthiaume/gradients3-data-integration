@@ -11,7 +11,7 @@ def main(verbose):
     """
     Import CSV data to Postgres database.
 
-    For each CSV file OUTPUT_DIR/parsed/CURRENT_CRUISE/<a.csv>, import into
+    For each CSV file OUTPUT_DIR/CURRENT_CRUISE/parsed/<a.csv>, import into
     $PGDATABASE based on SQL schema METADATA_DIR/CURRENT_CRUISE/<a.sql>
     and table listed in TOML file METADATA_DIR/CURRENT_CRUISE/<a.toml>.
     If matching SQL and TOML are missing skip ingest for that CSV.
