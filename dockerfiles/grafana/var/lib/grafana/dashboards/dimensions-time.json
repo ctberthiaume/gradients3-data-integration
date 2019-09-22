@@ -1,0 +1,1515 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": "-- Grafana --",
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "gnetId": null,
+    "graphTooltip": 0,
+    "id": 8,
+    "links": [],
+    "panels": [
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "Dimensions",
+        "fill": 1,
+        "gridPos": {
+          "h": 4,
+          "w": 24,
+          "x": 0,
+          "y": 0
+        },
+        "id": 4,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "paceLength": 10,
+        "percentage": false,
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "format": "time_series",
+            "group": [
+              {
+                "params": [
+                  "$__interval",
+                  "none"
+                ],
+                "type": "time"
+              }
+            ],
+            "metricColumn": "none",
+            "rawQuery": false,
+            "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(par) AS \"par\"\nFROM par\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "par"
+                  ],
+                  "type": "column"
+                },
+                {
+                  "params": [
+                    "avg"
+                  ],
+                  "type": "aggregate"
+                },
+                {
+                  "params": [
+                    "par"
+                  ],
+                  "type": "alias"
+                }
+              ]
+            ],
+            "table": "par",
+            "timeColumn": "\"time\"",
+            "timeColumnType": "timestamptz",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "PAR (mVolts)",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "Dimensions",
+        "fill": 1,
+        "gridPos": {
+          "h": 4,
+          "w": 24,
+          "x": 0,
+          "y": 4
+        },
+        "id": 6,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "paceLength": 10,
+        "percentage": false,
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "format": "time_series",
+            "group": [
+              {
+                "params": [
+                  "$__interval",
+                  "none"
+                ],
+                "type": "time"
+              }
+            ],
+            "metricColumn": "none",
+            "rawQuery": false,
+            "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(knots) AS \"knots\"\nFROM track\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "knots"
+                  ],
+                  "type": "column"
+                },
+                {
+                  "params": [
+                    "avg"
+                  ],
+                  "type": "aggregate"
+                },
+                {
+                  "params": [
+                    "knots"
+                  ],
+                  "type": "alias"
+                }
+              ]
+            ],
+            "table": "track",
+            "timeColumn": "\"time\"",
+            "timeColumnType": "timestamptz",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Speed (knots)",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "Dimensions",
+        "fill": 1,
+        "gridPos": {
+          "h": 4,
+          "w": 12,
+          "x": 0,
+          "y": 8
+        },
+        "id": 8,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": false,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "paceLength": 10,
+        "percentage": false,
+        "pointradius": 1,
+        "points": true,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "format": "time_series",
+            "group": [
+              {
+                "params": [
+                  "$__interval",
+                  "none"
+                ],
+                "type": "time"
+              }
+            ],
+            "metricColumn": "none",
+            "rawQuery": false,
+            "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(bow_temp) AS \"bow_temp\"\nFROM uthsl\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "bow_temp"
+                  ],
+                  "type": "column"
+                },
+                {
+                  "params": [
+                    "avg"
+                  ],
+                  "type": "aggregate"
+                },
+                {
+                  "params": [
+                    "bow_temp"
+                  ],
+                  "type": "alias"
+                }
+              ]
+            ],
+            "table": "uthsl",
+            "timeColumn": "\"time\"",
+            "timeColumnType": "timestamptz",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Ocean Temperature",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "Dimensions",
+        "fill": 1,
+        "gridPos": {
+          "h": 4,
+          "w": 12,
+          "x": 12,
+          "y": 8
+        },
+        "id": 10,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": false,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "paceLength": 10,
+        "percentage": false,
+        "pointradius": 1,
+        "points": true,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "format": "time_series",
+            "group": [
+              {
+                "params": [
+                  "$__interval",
+                  "none"
+                ],
+                "type": "time"
+              }
+            ],
+            "metricColumn": "none",
+            "rawQuery": false,
+            "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(salinity) AS \"salinity\"\nFROM uthsl\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "salinity"
+                  ],
+                  "type": "column"
+                },
+                {
+                  "params": [
+                    "avg"
+                  ],
+                  "type": "aggregate"
+                },
+                {
+                  "params": [
+                    "salinity"
+                  ],
+                  "type": "alias"
+                }
+              ]
+            ],
+            "table": "uthsl",
+            "timeColumn": "\"time\"",
+            "timeColumnType": "timestamptz",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Salinity (PSU)",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": "33",
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "datasource": "Dimensions",
+        "fill": 1,
+        "gridPos": {
+          "h": 8,
+          "w": 8,
+          "x": 8,
+          "y": 12
+        },
+        "id": 28,
+        "lines": false,
+        "linewidth": 1,
+        "links": [],
+        "pointradius": 1,
+        "points": true,
+        "range": {
+          "from": null,
+          "to": null
+        },
+        "targets": [
+          {
+            "format": "time_series",
+            "group": [
+              {
+                "params": [
+                  "$__interval",
+                  "none"
+                ],
+                "type": "time"
+              }
+            ],
+            "metricColumn": "none",
+            "rawQuery": false,
+            "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(salinity) AS \"TS\"\nFROM uthsl_geo\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "salinity"
+                  ],
+                  "type": "column"
+                },
+                {
+                  "params": [
+                    "avg"
+                  ],
+                  "type": "aggregate"
+                },
+                {
+                  "params": [
+                    "TS"
+                  ],
+                  "type": "alias"
+                }
+              ]
+            ],
+            "table": "uthsl_geo",
+            "timeColumn": "\"time\"",
+            "timeColumnType": "timestamptz",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          },
+          {
+            "format": "time_series",
+            "group": [
+              {
+                "params": [
+                  "$__interval",
+                  "none"
+                ],
+                "type": "time"
+              }
+            ],
+            "metricColumn": "none",
+            "rawQuery": false,
+            "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(bow_temp) AS \"TS\"\nFROM uthsl_geo\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
+            "refId": "B",
+            "select": [
+              [
+                {
+                  "params": [
+                    "bow_temp"
+                  ],
+                  "type": "column"
+                },
+                {
+                  "params": [
+                    "avg"
+                  ],
+                  "type": "aggregate"
+                },
+                {
+                  "params": [
+                    "TS"
+                  ],
+                  "type": "alias"
+                }
+              ]
+            ],
+            "table": "uthsl_geo",
+            "timeColumn": "\"time\"",
+            "timeColumnType": "timestamptz",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Temperature (y) vs Salinity (x)",
+        "type": "armbrustlab-2dscatter-panel",
+        "xaxis": {
+          "min": "33.75",
+          "show": true
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "logBase": 1,
+            "show": true
+          }
+        ]
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "Dimensions",
+        "fill": 1,
+        "gridPos": {
+          "h": 5,
+          "w": 12,
+          "x": 0,
+          "y": 20
+        },
+        "id": 16,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": false,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "paceLength": 10,
+        "percentage": false,
+        "pointradius": 1,
+        "points": true,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "format": "time_series",
+            "group": [
+              {
+                "params": [
+                  "$__interval",
+                  "none"
+                ],
+                "type": "time"
+              }
+            ],
+            "metricColumn": "none",
+            "rawQuery": false,
+            "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(abundance) AS \"pro\"\nFROM seaflow740\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'prochloro'\nGROUP BY 1\nORDER BY 1",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "abundance"
+                  ],
+                  "type": "column"
+                },
+                {
+                  "params": [
+                    "avg"
+                  ],
+                  "type": "aggregate"
+                },
+                {
+                  "params": [
+                    "pro"
+                  ],
+                  "type": "alias"
+                }
+              ]
+            ],
+            "table": "seaflow740",
+            "timeColumn": "\"time\"",
+            "timeColumnType": "timestamptz",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              },
+              {
+                "datatype": "text",
+                "name": "",
+                "params": [
+                  "pop",
+                  "=",
+                  "'prochloro'"
+                ],
+                "type": "expression"
+              }
+            ]
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Prochlorococcus abundance",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 10,
+            "max": "1000",
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "Dimensions",
+        "fill": 1,
+        "gridPos": {
+          "h": 5,
+          "w": 12,
+          "x": 12,
+          "y": 20
+        },
+        "id": 18,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": false,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "paceLength": 10,
+        "percentage": false,
+        "pointradius": 1,
+        "points": true,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "format": "time_series",
+            "group": [
+              {
+                "params": [
+                  "$__interval",
+                  "none"
+                ],
+                "type": "time"
+              }
+            ],
+            "metricColumn": "none",
+            "rawQuery": false,
+            "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(diameter) AS \"pro\"\nFROM seaflow740\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'prochloro'\nGROUP BY 1\nORDER BY 1",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "diameter"
+                  ],
+                  "type": "column"
+                },
+                {
+                  "params": [
+                    "avg"
+                  ],
+                  "type": "aggregate"
+                },
+                {
+                  "params": [
+                    "pro"
+                  ],
+                  "type": "alias"
+                }
+              ]
+            ],
+            "table": "seaflow740",
+            "timeColumn": "\"time\"",
+            "timeColumnType": "timestamptz",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              },
+              {
+                "datatype": "text",
+                "name": "",
+                "params": [
+                  "pop",
+                  "=",
+                  "'prochloro'"
+                ],
+                "type": "expression"
+              }
+            ]
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Prochlorococcus diameter",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "Dimensions",
+        "fill": 1,
+        "gridPos": {
+          "h": 5,
+          "w": 12,
+          "x": 0,
+          "y": 25
+        },
+        "id": 20,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": false,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "paceLength": 10,
+        "percentage": false,
+        "pointradius": 1,
+        "points": true,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "format": "time_series",
+            "group": [
+              {
+                "params": [
+                  "$__interval",
+                  "none"
+                ],
+                "type": "time"
+              }
+            ],
+            "metricColumn": "none",
+            "rawQuery": false,
+            "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(abundance) AS \"syn\"\nFROM seaflow740\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'synecho'\nGROUP BY 1\nORDER BY 1",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "abundance"
+                  ],
+                  "type": "column"
+                },
+                {
+                  "params": [
+                    "avg"
+                  ],
+                  "type": "aggregate"
+                },
+                {
+                  "params": [
+                    "syn"
+                  ],
+                  "type": "alias"
+                }
+              ]
+            ],
+            "table": "seaflow740",
+            "timeColumn": "\"time\"",
+            "timeColumnType": "timestamptz",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              },
+              {
+                "datatype": "text",
+                "name": "",
+                "params": [
+                  "pop",
+                  "=",
+                  "'synecho'"
+                ],
+                "type": "expression"
+              }
+            ]
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Synechococcus abundance",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 10,
+            "max": "1000",
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "Dimensions",
+        "fill": 1,
+        "gridPos": {
+          "h": 5,
+          "w": 12,
+          "x": 12,
+          "y": 25
+        },
+        "id": 22,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": false,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "paceLength": 10,
+        "percentage": false,
+        "pointradius": 1,
+        "points": true,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "format": "time_series",
+            "group": [
+              {
+                "params": [
+                  "$__interval",
+                  "none"
+                ],
+                "type": "time"
+              }
+            ],
+            "metricColumn": "none",
+            "rawQuery": false,
+            "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(diameter) AS \"syn\"\nFROM seaflow740\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'synecho'\nGROUP BY 1\nORDER BY 1",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "diameter"
+                  ],
+                  "type": "column"
+                },
+                {
+                  "params": [
+                    "avg"
+                  ],
+                  "type": "aggregate"
+                },
+                {
+                  "params": [
+                    "syn"
+                  ],
+                  "type": "alias"
+                }
+              ]
+            ],
+            "table": "seaflow740",
+            "timeColumn": "\"time\"",
+            "timeColumnType": "timestamptz",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              },
+              {
+                "datatype": "text",
+                "name": "",
+                "params": [
+                  "pop",
+                  "=",
+                  "'synecho'"
+                ],
+                "type": "expression"
+              }
+            ]
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Synechococcus diameter",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "Dimensions",
+        "fill": 1,
+        "gridPos": {
+          "h": 5,
+          "w": 12,
+          "x": 0,
+          "y": 30
+        },
+        "id": 24,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": false,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "paceLength": 10,
+        "percentage": false,
+        "pointradius": 1,
+        "points": true,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "format": "time_series",
+            "group": [
+              {
+                "params": [
+                  "$__interval",
+                  "none"
+                ],
+                "type": "time"
+              }
+            ],
+            "metricColumn": "none",
+            "rawQuery": false,
+            "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(abundance_picoeuk) AS \"pico\"\nFROM seaflow740\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'picoeuk'\nGROUP BY 1\nORDER BY 1",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "abundance_picoeuk"
+                  ],
+                  "type": "column"
+                },
+                {
+                  "params": [
+                    "avg"
+                  ],
+                  "type": "aggregate"
+                },
+                {
+                  "params": [
+                    "pico"
+                  ],
+                  "type": "alias"
+                }
+              ]
+            ],
+            "table": "seaflow740",
+            "timeColumn": "\"time\"",
+            "timeColumnType": "timestamptz",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              },
+              {
+                "datatype": "text",
+                "name": "",
+                "params": [
+                  "pop",
+                  "=",
+                  "'picoeuk'"
+                ],
+                "type": "expression"
+              }
+            ]
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Picoeukaryotes abundance",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 10,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "Dimensions",
+        "fill": 1,
+        "gridPos": {
+          "h": 5,
+          "w": 12,
+          "x": 12,
+          "y": 30
+        },
+        "id": 26,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": false,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "paceLength": 10,
+        "percentage": false,
+        "pointradius": 1,
+        "points": true,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "format": "time_series",
+            "group": [
+              {
+                "params": [
+                  "$__interval",
+                  "none"
+                ],
+                "type": "time"
+              }
+            ],
+            "metricColumn": "none",
+            "rawQuery": false,
+            "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(diameter) AS \"pico\"\nFROM seaflow740\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'picoeuk'\nGROUP BY 1\nORDER BY 1",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "diameter"
+                  ],
+                  "type": "column"
+                },
+                {
+                  "params": [
+                    "avg"
+                  ],
+                  "type": "aggregate"
+                },
+                {
+                  "params": [
+                    "pico"
+                  ],
+                  "type": "alias"
+                }
+              ]
+            ],
+            "table": "seaflow740",
+            "timeColumn": "\"time\"",
+            "timeColumnType": "timestamptz",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              },
+              {
+                "datatype": "text",
+                "name": "",
+                "params": [
+                  "pop",
+                  "=",
+                  "'picoeuk'"
+                ],
+                "type": "expression"
+              }
+            ]
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Picoeukaryotes diameter",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      }
+    ],
+    "refresh": false,
+    "schemaVersion": 18,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": []
+    },
+    "time": {
+      "from": "2019-09-21T00:00:00.000Z",
+      "to": "now"
+    },
+    "timepicker": {
+      "refresh_intervals": [
+        "5s",
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ],
+      "time_options": [
+        "5m",
+        "15m",
+        "1h",
+        "6h",
+        "12h",
+        "24h",
+        "2d",
+        "7d",
+        "30d"
+      ]
+    },
+    "timezone": "utc",
+    "title": "Dimensions by Time",
+    "uid": "CEPAgPema",
+    "version": 4
+  }

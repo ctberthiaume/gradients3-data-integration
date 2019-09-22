@@ -1,0 +1,15 @@
+table = "track"
+[[fields]]
+index = 0
+name = "time"
+type = "time"
+
+[[fields]]
+index = 1
+name = "heading_true_north"
+type = "real"
+
+[[fields]]
+index = 2
+name = "knots"
+type = "real"

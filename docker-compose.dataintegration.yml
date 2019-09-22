@@ -76,7 +76,7 @@ services:
         delay: 5s
         window: 60s
     environment:
-      CURRENT_CRUISE: hot_2019_06_30  # current cruise name, subfolder of metadata, should be in DBNAMES_FILE
+      CURRENT_CRUISE: dimensions  # current cruise name, subfolder of metadata, should be in DBNAMES_FILE
       PGHOST: timescaledb
       PGUSER: postgres  # admin user name
       ROUSER: ocean  # read-only user name

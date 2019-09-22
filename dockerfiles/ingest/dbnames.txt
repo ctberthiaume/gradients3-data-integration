@@ -1,3 +1,3 @@
 # database names, should correspond to cruises
-DBNAMES=(gradients1 gradients2 gradients3 hot_2019_06_30)
+DBNAMES=(gradients1 gradients2 gradients3 hot_2019_06_30 dimensions)
 
