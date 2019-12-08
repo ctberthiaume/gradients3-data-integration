@@ -13,14 +13,3 @@ type = "real"
 index = 2
 name = "lon"
 type = "real"
-
-[[fields]]
-index = 3
-name = "alt"
-type = "real"
-
-[[fields]]
-index = 4
-name = "sat"
-type = "real"
-

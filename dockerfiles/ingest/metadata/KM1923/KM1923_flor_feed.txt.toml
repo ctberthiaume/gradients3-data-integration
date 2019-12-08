@@ -1,4 +1,4 @@
-table = "flor"
+table = "fluor"
 [[fields]]
 index = 0
 name = "time"
@@ -6,7 +6,7 @@ type = "time"
 
 [[fields]]
 index = 1
-name = "flor"
+name = "fluor"
 type = "real"
 
 

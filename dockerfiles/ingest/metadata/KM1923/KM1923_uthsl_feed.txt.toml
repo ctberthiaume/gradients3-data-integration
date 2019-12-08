@@ -6,7 +6,7 @@ type = "time"
 
 [[fields]]
 index = 1
-name = "ocean_temp"
+name = "bow_temp"
 type = "real"
 
 [[fields]]
@@ -21,7 +21,7 @@ type = "real"
 
 [[fields]]
 index = 4
-name = "remote_temp"
+name = "lab_temp"
 type = "real"
 
 

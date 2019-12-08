@@ -9,14 +9,12 @@ OUTDIR="$OUTPUT_DIR/$MINIO_BINNED_BUCKET"
 [ ! -d "$OUTDIR" ] && mkdir "$OUTDIR"
 rm "$OUTDIR"/*.csv 2>/dev/null
 
-echo "time,lat,lon,alt,sat" >"$OUTDIR/nav.csv"
+echo "time,lat,lon" >"$OUTDIR/nav.csv"
 psql -t -A -F"," -c "
 SELECT
     time_bucket('30m', geo_raw.time) AS time,
     avg(lat) as lat,
-    avg(lon) as lon,
-    avg(alt) as alt,
-    avg(sat) as sat
+    avg(lon) as lon
 FROM geo_raw
 GROUP BY 1
 ORDER BY 1;
@@ -32,14 +30,14 @@ GROUP BY 1
 ORDER BY 1;
 " >>"$OUTDIR/track.csv"
 
-echo "time,ocean_temp,conductivity,salinity,remote_temp" >"$OUTDIR/uthsl.csv"
+echo "time,bow_temp,conductivity,salinity,lab_temp" >"$OUTDIR/uthsl.csv"
 psql -t -A -F"," -c "
 SELECT
     time_bucket('30m', uthsl_raw.time) AS time,
-    avg(ocean_temp) as ocean_temp,
+    avg(bow_temp) as bow_temp,
     avg(conductivity) as conductivity,
     avg(salinity) as salinity,
-    avg(remote_temp) as remote_temp
+    avg(lab_temp) as lab_temp
 FROM uthsl_raw
 GROUP BY 1
 ORDER BY 1;
@@ -55,12 +53,12 @@ GROUP BY 1
 ORDER BY 1;
 " >>"$OUTDIR/par.csv"
 
-echo "time,flor" >"$OUTDIR/flor.csv"
+echo "time,fluor" >"$OUTDIR/flor.csv"
 psql -t -A -F"," -c "
 SELECT
     time_bucket('30m', flor_raw.time) AS time,
-    avg(flor) as flor
-FROM flor_raw
+    avg(fluor) as fluor
+FROM fluor_raw
 GROUP BY 1
 ORDER BY 1;
 " >>"$OUTDIR/flor.csv"
