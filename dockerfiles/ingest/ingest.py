@@ -11,7 +11,7 @@ def main(verbose):
     """
     Import CSV data to Postgres database.
 
-    For each CSV file OUTPUT_DIR/parsed/CURRENT_CRUISE/<a.csv>, import into
+    For each CSV file OUTPUT_DIR/CURRENT_CRUISE/parsed/<a.csv>, import into
     $PGDATABASE based on SQL schema METADATA_DIR/CURRENT_CRUISE/<a.sql>
     and table listed in TOML file METADATA_DIR/CURRENT_CRUISE/<a.toml>.
     If matching SQL and TOML are missing skip ingest for that CSV.
@@ -66,7 +66,7 @@ def main(verbose):
         debug('Importing {}'.format(f))
         try:
             output = subprocess.check_output(
-                'psql $CURRENT_CRUISE < "{}"'.format(sql),
+                'psql $PGDATABASE < "{}"'.format(sql),
                 stderr=subprocess.STDOUT,
                 shell=True,
                 universal_newlines=True,
@@ -88,7 +88,7 @@ def main(verbose):
         }
         copy_cmd = 'timescaledb-parallel-copy --truncate --workers 2 --batch-size 5000 --verbose \
             --connection "host=$PGHOST user=$PGUSER sslmode=disable" \
-            --db-name $CURRENT_CRUISE --table {table}_raw --file "{file}" --copy-options "{copyoptions}"'.format(**format_args)
+            --db-name $PGDATABASE --table {table}_raw --file "{file}" --copy-options "{copyoptions}"'.format(**format_args)
         try:
             output = subprocess.check_output(
                 copy_cmd,

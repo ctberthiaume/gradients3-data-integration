@@ -16,6 +16,8 @@ fi
 # into environment, but file path can.
 . "$DBNAMES_FILE"
 for DBNAME in "${DBNAMES[@]}"; do
+    # postgresql normalizes db names to lowercase, do so here
+    DBNAME=$(echo "$DBNAME" | tr '[:upper:]' '[:lower:]')
     # Make the database
     # Bit of a hack to do "IF NOT EXISTS"
     dbexists=$(psql postgres -tc "SELECT count(1) FROM pg_catalog.pg_database WHERE datname = '$DBNAME'")
@@ -45,4 +47,3 @@ done
 
 # # Make par table
 # #./csv2table.py par instrument-files/par.csv
-
