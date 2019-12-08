@@ -1,0 +1,60 @@
+#!/usr/bin/env python3
+import click
+import os
+import pendulum
+import sys
+
+
+@click.command()
+@click.argument('infile', type=click.Path(exists=True), nargs=1)
+@click.argument('outfile', type=click.Path(), nargs=1)
+def main(infile, outfile):
+    header = ['time', 'par']
+
+    with open(infile, mode='r', encoding='utf-8') as fin:
+        with open(outfile, mode='w', encoding='utf-8') as fout:
+            fout.write(','.join(header) + '\n')
+            # Data file is about every 1 second read every 20 lines
+            # to sample 3 times a minute
+            for line in subsample(fin, 20):
+                try:
+                    outputs = parse_line(line)
+                except Exception as e:
+                    print(os.linesep.join(['Error with line:', line.rstrip(), str(e), '']), file=sys.stderr)
+                else:
+                    if outputs:
+                        fout.write(','.join(outputs) + '\n')
+
+def subsample(lines, n):
+    """subsample every n line from lines"""
+    i = 0
+    for line in lines:
+        if i % n == 0:
+            yield line
+        i += 1
+
+def parse_line(line):
+    cols = line.rstrip().split()
+    # This feed is space separated with padding for alignment, and
+    # sometimes column 24 comes and goes, either blank or R-. These
+    # two factors make column counting difficult. Rather than count
+    # columns, just make sure there are at least 19 columns since we
+    # only need columns 1-6 and 19.
+    if len(cols) < 19:
+        raise Exception('Incorrect column number found')
+    if cols[6] != 'met':
+        raise Exception('Incorrect instrument stamp')
+    time = parse_time(*cols[:6])
+    par = cols[18]
+    _ = float(par)
+    return [time.isoformat(), par]
+
+
+def parse_time(y, doy, h, m, s, ms):
+    dt = pendulum.datetime(int(y), 1, 1, hour=int(h), minute=int(m), second=int(s), microsecond=1000*int(ms))
+    dt = dt.add(days=int(doy)-1)
+    return dt
+
+
+if __name__ == '__main__':
+    main()
