@@ -3,32 +3,69 @@
 export PGPASSWORD=$ROPASSWORD
 export PGUSER=$ROUSER
 # Should have been set elsewhere by the time export runs
-#PGDATABASE=$CURRENT_CRUISE
+#export PGDATABASE=$CURRENT_CRUISE
 OUTDIR="$OUTPUT_DIR/$MINIO_BINNED_BUCKET"
 
 [ ! -d "$OUTDIR" ] && mkdir "$OUTDIR"
 rm "$OUTDIR"/*.csv 2>/dev/null
 
-echo "time,par,lat,lon,heading,speed,bow_temp,conductivity,salinity,lab_temp,fluor" >"$OUTDIR/underway.csv"
+echo "time,lat,lon,alt,sat" >"$OUTDIR/nav.csv"
 psql -t -A -F"," -c "
 SELECT
-    time_bucket('30m', underway_raw.time) AS time,
-    avg(par) as par,
+    time_bucket('30m', geo_raw.time) AS time,
     avg(lat) as lat,
     avg(lon) as lon,
-    avg(heading) as heading,
-    avg(speed) as speed,
-    avg(bow_temp) as bow_temp,
-    avg(conductivity) as conductivity,
-    avg(salinity) as salinity,
-    avg(lab_temp) as lab_temp,
-    avg(fluor) as fluor
-FROM underway_raw
+    avg(alt) as alt,
+    avg(sat) as sat
+FROM geo_raw
 GROUP BY 1
 ORDER BY 1;
-" >>"$OUTDIR/underway.csv"
+" >>"$OUTDIR/nav.csv"
 
-echo "time,lat,lon,pop,stream_pressure,file_duration,event_rate,opp_evt_ratio,n_count,chl,pe,fsc,diameter,Qc,quantile,flow_rate" >"$OUTDIR/seaflow751.csv"
+echo "time,knots" >"$OUTDIR/track.csv"
+psql -t -A -F"," -c "
+SELECT
+    time_bucket('30m', track_raw.time) AS time,
+    avg(knots) as knots
+FROM track_raw
+GROUP BY 1
+ORDER BY 1;
+" >>"$OUTDIR/track.csv"
+
+echo "time,ocean_temp,conductivity,salinity,remote_temp" >"$OUTDIR/uthsl.csv"
+psql -t -A -F"," -c "
+SELECT
+    time_bucket('30m', uthsl_raw.time) AS time,
+    avg(ocean_temp) as ocean_temp,
+    avg(conductivity) as conductivity,
+    avg(salinity) as salinity,
+    avg(remote_temp) as remote_temp
+FROM uthsl_raw
+GROUP BY 1
+ORDER BY 1;
+" >>"$OUTDIR/uthsl.csv"
+
+echo "time,par" >"$OUTDIR/par.csv"
+psql -t -A -F"," -c "
+SELECT
+    time_bucket('30m', par_raw.time) AS time,
+    avg(par) as par
+FROM par_raw
+GROUP BY 1
+ORDER BY 1;
+" >>"$OUTDIR/par.csv"
+
+echo "time,flor" >"$OUTDIR/flor.csv"
+psql -t -A -F"," -c "
+SELECT
+    time_bucket('30m', flor_raw.time) AS time,
+    avg(flor) as flor
+FROM flor_raw
+GROUP BY 1
+ORDER BY 1;
+" >>"$OUTDIR/flor.csv"
+
+echo "time,lat,lon,pop,stream_pressure,file_duration,event_rate,opp_evt_ratio,n_count,chl_small,pe,fsc_small,diam_mid,Qc_mid,quantile,flow_rate,abundance" >"$OUTDIR/seaflow751.csv"
 psql -t -A -F"," -c "
 SELECT
     time_bucket('30m', seaflow751_geo.time) AS time,
@@ -40,13 +77,14 @@ SELECT
     avg(event_rate) as event_rate,
     avg(opp_evt_ratio) as opp_evt_ratio,
     avg(n_count) as n_count,
-    avg(chl) as chl,
+    avg(chl_small) as chl_small,
     avg(pe) as pe,
-    avg(fsc) as fsc,
-    avg(diameter) as diameter,
-    avg(Qc) as Qc,
+    avg(fsc_small) as fsc_small,
+    avg(diam_mid) as diam_mid,
+    avg(Qc_mid) as Qc_mid,
     avg(quantile) as quantile,
-    avg(flow_rate) as flow_rate
+    avg(flow_rate) as flow_rate,
+    avg(abundance) as abundance
 FROM seaflow751_geo
 WHERE quantile = 50
 GROUP BY 1, 4
