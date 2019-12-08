@@ -56,6 +56,8 @@ if [ "$matchfound" -ne 1 ]; then
     echo "CURRENT_CRUISE value $CURRENT_CRUISE is not in DBNAMES"
     exit 1
 fi
-export PGDATABASE=CURRENT_CRUISE
+# postgresql only supports lower case db names
+PGDATABASE=$(echo "$CURRENT_CRUISE" | tr '[:upper:]' '[:lower:]')
+export PGDATABASE
 
 exec /usr/local/bin/supercronic /app/crontab

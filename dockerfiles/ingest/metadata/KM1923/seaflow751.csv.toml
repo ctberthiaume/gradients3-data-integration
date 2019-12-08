@@ -1,0 +1,82 @@
+table = "seaflow751"
+null = "NA"
+[[fields]]
+index = 0
+name = "time"
+type = "time"
+
+[[fields]]
+index = 1
+name = "lat"
+type = "real"
+
+[[fields]]
+index = 2
+name = "lon"
+type = "real"
+
+[[fields]]
+index = 3
+name = "pop"
+type = "text"
+groupby = true
+
+[[fields]]
+index = 4
+name = "stream_pressure"
+type = "real"
+
+[[fields]]
+index = 5
+name = "file_duration"
+type = "real"
+
+[[fields]]
+index = 6
+name = "event_rate"
+type = "real"
+
+[[fields]]
+index = 7
+name = "opp_evt_ratio"
+type = "real"
+
+[[fields]]
+index = 8
+name = "n_count"
+type = "real"
+
+[[fields]]
+index = 9
+name = "chl_med"
+type = "real"
+
+[[fields]]
+index = 10
+name = "pe_med"
+type = "real"
+
+[[fields]]
+index = 11
+name = "fsc_med"
+type = "real"
+
+[[fields]]
+index = 12
+name = "diam_mid_med"
+type = "real"
+
+[[fields]]
+index = 13
+name = "Qc_mid_med"
+type = "real"
+
+[[fields]]
+index = 14
+name = "quantile"
+type = "real"
+
+[[fields]]
+index = 15
+name = "flow_rate"
+type = "real"
