@@ -53,15 +53,15 @@ GROUP BY 1
 ORDER BY 1;
 " >>"$OUTDIR/par.csv"
 
-echo "time,fluor" >"$OUTDIR/flor.csv"
-psql -t -A -F"," -c "
-SELECT
-    time_bucket('30m', flor_raw.time) AS time,
-    avg(fluor) as fluor
-FROM fluor_raw
-GROUP BY 1
-ORDER BY 1;
-" >>"$OUTDIR/flor.csv"
+# echo "time,fluor" >"$OUTDIR/flor.csv"
+# psql -t -A -F"," -c "
+# SELECT
+#     time_bucket('30m', flor_raw.time) AS time,
+#     avg(fluor) as fluor
+# FROM fluor_raw
+# GROUP BY 1
+# ORDER BY 1;
+# " >>"$OUTDIR/flor.csv"
 
 echo "time,lat,lon,pop,stream_pressure,file_duration,event_rate,opp_evt_ratio,n_count,chl_small,pe,fsc_small,diam_mid,Qc_mid,quantile,flow_rate,abundance" >"$OUTDIR/seaflow751.csv"
 psql -t -A -F"," -c "
@@ -75,14 +75,13 @@ SELECT
     avg(event_rate) as event_rate,
     avg(opp_evt_ratio) as opp_evt_ratio,
     avg(n_count) as n_count,
-    avg(chl_small) as chl_small,
-    avg(pe) as pe,
-    avg(fsc_small) as fsc_small,
-    avg(diam_mid) as diam_mid,
-    avg(Qc_mid) as Qc_mid,
+    avg(chl_med) as chl_med,
+    avg(pe_med) as pe_med,
+    avg(fsc_med) as fsc_med,
+    avg(diam_mid_med) as diam_mid_med,
+    avg(Qc_mid_med) as Qc_mid_med,
     avg(quantile) as quantile,
-    avg(flow_rate) as flow_rate,
-    avg(abundance) as abundance
+    avg(flow_rate) as flow_rate
 FROM seaflow751_geo
 WHERE quantile = 50
 GROUP BY 1, 4
