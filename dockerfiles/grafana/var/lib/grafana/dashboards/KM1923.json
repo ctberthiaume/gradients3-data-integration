@@ -15,7 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 9,
+  "id": 14,
   "links": [],
   "panels": [
     {
@@ -27,7 +27,7 @@
       "fill": 1,
       "gridPos": {
         "h": 4,
-        "w": 24,
+        "w": 12,
         "x": 0,
         "y": 0
       },
@@ -154,134 +154,8 @@
       "gridPos": {
         "h": 4,
         "w": 12,
-        "x": 0,
-        "y": 4
-      },
-      "id": 6,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "paceLength": 10,
-      "percentage": false,
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "format": "time_series",
-          "group": [
-            {
-              "params": [
-                "$__interval",
-                "none"
-              ],
-              "type": "time"
-            }
-          ],
-          "metricColumn": "none",
-          "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(knots) AS \"knots\"\nFROM track\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "knots"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "avg"
-                ],
-                "type": "aggregate"
-              },
-              {
-                "params": [
-                  "knots"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "table": "track",
-          "timeColumn": "\"time\"",
-          "timeColumnType": "timestamptz",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Speed (knots)",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "KM1923",
-      "fill": 1,
-      "gridPos": {
-        "h": 4,
-        "w": 12,
         "x": 12,
-        "y": 4
+        "y": 0
       },
       "id": 29,
       "legend": {
@@ -393,7 +267,7 @@
         "h": 4,
         "w": 12,
         "x": 0,
-        "y": 8
+        "y": 4
       },
       "id": 8,
       "legend": {
@@ -519,7 +393,7 @@
         "h": 4,
         "w": 12,
         "x": 12,
-        "y": 8
+        "y": 4
       },
       "id": 10,
       "legend": {
@@ -617,7 +491,133 @@
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": "33",
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "KM1923",
+      "fill": 1,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "id": 6,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "paceLength": 10,
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [
+            {
+              "params": [
+                "$__interval",
+                "none"
+              ],
+              "type": "time"
+            }
+          ],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(knots) AS \"knots\"\nFROM track\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "knots"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "avg"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "knots"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "track",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamptz",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Speed (knots)",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
           "show": true
         },
         {
@@ -639,9 +639,9 @@
       "fill": 1,
       "gridPos": {
         "h": 8,
-        "w": 8,
-        "x": 8,
-        "y": 12
+        "w": 12,
+        "x": 12,
+        "y": 8
       },
       "id": 28,
       "lines": false,
@@ -756,7 +756,7 @@
       "title": "Temperature (y) vs Salinity (x)",
       "type": "armbrustlab-2dscatter-panel",
       "xaxis": {
-        "min": "33.75",
+        "min": null,
         "show": true
       },
       "yaxes": [
@@ -778,7 +778,7 @@
         "h": 5,
         "w": 12,
         "x": 0,
-        "y": 20
+        "y": 16
       },
       "id": 16,
       "legend": {
@@ -864,8 +864,8 @@
         {
           "format": "short",
           "label": null,
-          "logBase": 10,
-          "max": "1000",
+          "logBase": 1,
+          "max": null,
           "min": null,
           "show": true
         },
@@ -894,7 +894,7 @@
         "h": 5,
         "w": 12,
         "x": 12,
-        "y": 20
+        "y": 16
       },
       "id": 18,
       "legend": {
@@ -1016,7 +1016,7 @@
         "h": 5,
         "w": 12,
         "x": 0,
-        "y": 25
+        "y": 21
       },
       "id": 20,
       "legend": {
@@ -1103,7 +1103,7 @@
           "format": "short",
           "label": null,
           "logBase": 10,
-          "max": "1000",
+          "max": null,
           "min": null,
           "show": true
         },
@@ -1132,7 +1132,7 @@
         "h": 5,
         "w": 12,
         "x": 12,
-        "y": 25
+        "y": 21
       },
       "id": 22,
       "legend": {
@@ -1254,7 +1254,7 @@
         "h": 5,
         "w": 12,
         "x": 0,
-        "y": 30
+        "y": 26
       },
       "id": 24,
       "legend": {
@@ -1370,7 +1370,7 @@
         "h": 5,
         "w": 12,
         "x": 12,
-        "y": 30
+        "y": 26
       },
       "id": 26,
       "legend": {
@@ -1490,7 +1490,7 @@
     "list": []
   },
   "time": {
-    "from": "2019-12-07T00:00:00Z",
+    "from": "2019-12-07T00:00:00.000Z",
     "to": "now"
   },
   "timepicker": {
