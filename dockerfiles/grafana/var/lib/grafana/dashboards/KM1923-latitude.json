@@ -15,7 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 9,
+  "id": 13,
   "links": [],
   "panels": [
     {
@@ -257,10 +257,6 @@
       }
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": "KM1923",
       "fill": 1,
       "gridPos": {
@@ -270,43 +266,51 @@
         "y": 4
       },
       "id": 8,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
       "lines": false,
       "linewidth": 1,
       "links": [],
-      "nullPointMode": "null",
-      "paceLength": 10,
-      "percentage": false,
       "pointradius": 1,
       "points": true,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "stack": false,
-      "steppedLine": false,
+      "range": {
+        "from": null,
+        "to": null
+      },
       "targets": [
         {
           "format": "time_series",
-          "group": [
-            {
-              "params": [
-                "$__interval",
-                "none"
-              ],
-              "type": "time"
-            }
-          ],
+          "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(bow_temp) AS \"ocean_temp\"\nFROM uthsl\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  lat\nFROM uthsl_geo\nWHERE\n  $__timeFilter(\"time\")\nORDER BY 1",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "lat"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "uthsl_geo",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamptz",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  bow_temp\nFROM uthsl_geo\nWHERE\n  $__timeFilter(\"time\")\nORDER BY 1",
+          "refId": "B",
           "select": [
             [
               {
@@ -314,22 +318,10 @@
                   "bow_temp"
                 ],
                 "type": "column"
-              },
-              {
-                "params": [
-                  "avg"
-                ],
-                "type": "aggregate"
-              },
-              {
-                "params": [
-                  "ocean_temp"
-                ],
-                "type": "alias"
               }
             ]
           ],
-          "table": "uthsl",
+          "table": "uthsl_geo",
           "timeColumn": "\"time\"",
           "timeColumnType": "timestamptz",
           "where": [
@@ -341,52 +333,23 @@
           ]
         }
       ],
-      "thresholds": [],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
       "title": "Ocean Temperature",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
+      "type": "armbrustlab-2dscatter-panel",
       "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
+        "show": true
       },
       "yaxes": [
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
+          "min": "29",
           "show": true
         }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
+      ]
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": "KM1923",
       "fill": 1,
       "gridPos": {
@@ -396,43 +359,51 @@
         "y": 4
       },
       "id": 10,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
       "lines": false,
       "linewidth": 1,
       "links": [],
-      "nullPointMode": "null",
-      "paceLength": 10,
-      "percentage": false,
       "pointradius": 1,
       "points": true,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "stack": false,
-      "steppedLine": false,
+      "range": {
+        "from": null,
+        "to": null
+      },
       "targets": [
         {
           "format": "time_series",
-          "group": [
-            {
-              "params": [
-                "$__interval",
-                "none"
-              ],
-              "type": "time"
-            }
-          ],
+          "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(salinity) AS \"salinity\"\nFROM uthsl\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  lat\nFROM uthsl_geo\nWHERE\n  $__timeFilter(\"time\")\nORDER BY 1",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "lat"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "uthsl_geo",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamptz",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  salinity\nFROM uthsl_geo\nWHERE\n  $__timeFilter(\"time\")\nORDER BY 1",
+          "refId": "B",
           "select": [
             [
               {
@@ -440,22 +411,10 @@
                   "salinity"
                 ],
                 "type": "column"
-              },
-              {
-                "params": [
-                  "avg"
-                ],
-                "type": "aggregate"
-              },
-              {
-                "params": [
-                  "salinity"
-                ],
-                "type": "alias"
               }
             ]
           ],
-          "table": "uthsl",
+          "table": "uthsl_geo",
           "timeColumn": "\"time\"",
           "timeColumnType": "timestamptz",
           "where": [
@@ -467,52 +426,22 @@
           ]
         }
       ],
-      "thresholds": [],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
       "title": "Salinity (PSU)",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
+      "type": "armbrustlab-2dscatter-panel",
       "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
+        "show": true
       },
       "yaxes": [
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
+      ]
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": "KM1923",
       "fill": 1,
       "gridPos": {
@@ -522,43 +451,51 @@
         "y": 8
       },
       "id": 6,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
       "lines": true,
       "linewidth": 1,
       "links": [],
-      "nullPointMode": "null",
-      "paceLength": 10,
-      "percentage": false,
-      "pointradius": 2,
+      "pointradius": 5,
       "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "stack": false,
-      "steppedLine": false,
+      "range": {
+        "from": null,
+        "to": null
+      },
       "targets": [
         {
           "format": "time_series",
-          "group": [
-            {
-              "params": [
-                "$__interval",
-                "none"
-              ],
-              "type": "time"
-            }
-          ],
+          "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"time\",$__interval),\n  avg(knots) AS \"knots\"\nFROM track\nWHERE\n  $__timeFilter(\"time\")\nGROUP BY 1\nORDER BY 1",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  lat\nFROM track_geo\nWHERE\n  $__timeFilter(\"time\")\nORDER BY 1",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "lat"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "track_geo",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamptz",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  knots\nFROM track_geo\nWHERE\n  $__timeFilter(\"time\")\nORDER BY 1",
+          "refId": "B",
           "select": [
             [
               {
@@ -566,22 +503,10 @@
                   "knots"
                 ],
                 "type": "column"
-              },
-              {
-                "params": [
-                  "avg"
-                ],
-                "type": "aggregate"
-              },
-              {
-                "params": [
-                  "knots"
-                ],
-                "type": "alias"
               }
             ]
           ],
-          "table": "track",
+          "table": "track_geo",
           "timeColumn": "\"time\"",
           "timeColumnType": "timestamptz",
           "where": [
@@ -593,46 +518,20 @@
           ]
         }
       ],
-      "thresholds": [],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
       "title": "Speed (knots)",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
+      "type": "armbrustlab-2dscatter-panel",
       "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
+        "show": true
       },
       "yaxes": [
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
+      ]
     },
     {
       "datasource": "KM1923",
@@ -768,10 +667,6 @@
       ]
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": "KM1923",
       "fill": 1,
       "gridPos": {
@@ -781,35 +676,61 @@
         "y": 16
       },
       "id": 16,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
       "lines": false,
       "linewidth": 1,
       "links": [],
-      "nullPointMode": "null",
-      "paceLength": 10,
-      "percentage": false,
       "pointradius": 1,
       "points": true,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "stack": false,
-      "steppedLine": false,
+      "range": {
+        "from": null,
+        "to": null
+      },
       "targets": [
         {
           "format": "time_series",
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  abundance\nFROM seaflow751\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'prochloro'\nORDER BY 1",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  lat\nFROM seaflow751_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'prochloro'\nORDER BY 1",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "lat"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "seaflow751_geo",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamptz",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "text",
+              "name": "",
+              "params": [
+                "pop",
+                "=",
+                "'prochloro'"
+              ],
+              "type": "expression"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  abundance\nFROM seaflow751_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'prochloro'\nORDER BY 1",
+          "refId": "B",
           "select": [
             [
               {
@@ -820,7 +741,7 @@
               }
             ]
           ],
-          "table": "seaflow751",
+          "table": "seaflow751_geo",
           "timeColumn": "\"time\"",
           "timeColumnType": "timestamptz",
           "where": [
@@ -842,52 +763,22 @@
           ]
         }
       ],
-      "thresholds": [],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
       "title": "Prochlorococcus abundance",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
+      "type": "armbrustlab-2dscatter-panel",
       "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
+        "show": true
       },
       "yaxes": [
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
+      ]
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": "KM1923",
       "fill": 1,
       "gridPos": {
@@ -896,36 +787,62 @@
         "x": 12,
         "y": 16
       },
-      "id": 18,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
+      "id": 32,
       "lines": false,
       "linewidth": 1,
       "links": [],
-      "nullPointMode": "null",
-      "paceLength": 10,
-      "percentage": false,
       "pointradius": 1,
       "points": true,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "stack": false,
-      "steppedLine": false,
+      "range": {
+        "from": null,
+        "to": null
+      },
       "targets": [
         {
           "format": "time_series",
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  diam_mid_med AS \"diameter\"\nFROM seaflow751\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'prochloro'\nORDER BY 1",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  lat\nFROM seaflow751_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'prochloro'\nORDER BY 1",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "lat"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "seaflow751_geo",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamptz",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "text",
+              "name": "",
+              "params": [
+                "pop",
+                "=",
+                "'prochloro'"
+              ],
+              "type": "expression"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  diam_mid_med\nFROM seaflow751_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'prochloro'\nORDER BY 1",
+          "refId": "B",
           "select": [
             [
               {
@@ -933,16 +850,10 @@
                   "diam_mid_med"
                 ],
                 "type": "column"
-              },
-              {
-                "params": [
-                  "diameter"
-                ],
-                "type": "alias"
               }
             ]
           ],
-          "table": "seaflow751",
+          "table": "seaflow751_geo",
           "timeColumn": "\"time\"",
           "timeColumnType": "timestamptz",
           "where": [
@@ -964,52 +875,22 @@
           ]
         }
       ],
-      "thresholds": [],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
       "title": "Prochlorococcus diameter",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
+      "type": "armbrustlab-2dscatter-panel",
       "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
+        "show": true
       },
       "yaxes": [
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
+      ]
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": "KM1923",
       "fill": 1,
       "gridPos": {
@@ -1018,36 +899,62 @@
         "x": 0,
         "y": 21
       },
-      "id": 20,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
+      "id": 30,
       "lines": false,
       "linewidth": 1,
       "links": [],
-      "nullPointMode": "null",
-      "paceLength": 10,
-      "percentage": false,
       "pointradius": 1,
       "points": true,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "stack": false,
-      "steppedLine": false,
+      "range": {
+        "from": null,
+        "to": null
+      },
       "targets": [
         {
           "format": "time_series",
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  abundance\nFROM seaflow751\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'synecho'\nORDER BY 1",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  lat\nFROM seaflow751_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'synecho'\nORDER BY 1",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "lat"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "seaflow751_geo",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamptz",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "text",
+              "name": "",
+              "params": [
+                "pop",
+                "=",
+                "'synecho'"
+              ],
+              "type": "expression"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  abundance\nFROM seaflow751_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'synecho'\nORDER BY 1",
+          "refId": "B",
           "select": [
             [
               {
@@ -1058,7 +965,7 @@
               }
             ]
           ],
-          "table": "seaflow751",
+          "table": "seaflow751_geo",
           "timeColumn": "\"time\"",
           "timeColumnType": "timestamptz",
           "where": [
@@ -1080,52 +987,22 @@
           ]
         }
       ],
-      "thresholds": [],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
       "title": "Synechococcus abundance",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
+      "type": "armbrustlab-2dscatter-panel",
       "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
+        "show": true
       },
       "yaxes": [
         {
           "format": "short",
-          "label": null,
-          "logBase": 10,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
+      ]
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": "KM1923",
       "fill": 1,
       "gridPos": {
@@ -1134,36 +1011,62 @@
         "x": 12,
         "y": 21
       },
-      "id": 22,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
+      "id": 33,
       "lines": false,
       "linewidth": 1,
       "links": [],
-      "nullPointMode": "null",
-      "paceLength": 10,
-      "percentage": false,
       "pointradius": 1,
       "points": true,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "stack": false,
-      "steppedLine": false,
+      "range": {
+        "from": null,
+        "to": null
+      },
       "targets": [
         {
           "format": "time_series",
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  diam_mid_med AS \"diameter\"\nFROM seaflow751\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'synecho'\nORDER BY 1",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  lat\nFROM seaflow751_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'synecho'\nORDER BY 1",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "lat"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "seaflow751_geo",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamptz",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "text",
+              "name": "",
+              "params": [
+                "pop",
+                "=",
+                "'synecho'"
+              ],
+              "type": "expression"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  diam_mid_med\nFROM seaflow751_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'synecho'\nORDER BY 1",
+          "refId": "B",
           "select": [
             [
               {
@@ -1171,16 +1074,10 @@
                   "diam_mid_med"
                 ],
                 "type": "column"
-              },
-              {
-                "params": [
-                  "diameter"
-                ],
-                "type": "alias"
               }
             ]
           ],
-          "table": "seaflow751",
+          "table": "seaflow751_geo",
           "timeColumn": "\"time\"",
           "timeColumnType": "timestamptz",
           "where": [
@@ -1202,52 +1099,22 @@
           ]
         }
       ],
-      "thresholds": [],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
       "title": "Synechococcus diameter",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
+      "type": "armbrustlab-2dscatter-panel",
       "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
+        "show": true
       },
       "yaxes": [
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
+      ]
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": "KM1923",
       "fill": 1,
       "gridPos": {
@@ -1256,36 +1123,62 @@
         "x": 0,
         "y": 26
       },
-      "id": 24,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
+      "id": 31,
       "lines": false,
       "linewidth": 1,
       "links": [],
-      "nullPointMode": "null",
-      "paceLength": 10,
-      "percentage": false,
       "pointradius": 1,
       "points": true,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "stack": false,
-      "steppedLine": false,
+      "range": {
+        "from": null,
+        "to": null
+      },
       "targets": [
         {
           "format": "time_series",
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  abundance_picoeuk\nFROM seaflow751\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'picoeuk'\nORDER BY 1",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  lat\nFROM seaflow751_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'picoeuk'\nORDER BY 1",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "lat"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "seaflow751_geo",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamptz",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "text",
+              "name": "",
+              "params": [
+                "pop",
+                "=",
+                "'picoeuk'"
+              ],
+              "type": "expression"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  abundance_picoeuk\nFROM seaflow751_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'picoeuk'\nORDER BY 1",
+          "refId": "B",
           "select": [
             [
               {
@@ -1296,7 +1189,7 @@
               }
             ]
           ],
-          "table": "seaflow751",
+          "table": "seaflow751_geo",
           "timeColumn": "\"time\"",
           "timeColumnType": "timestamptz",
           "where": [
@@ -1318,52 +1211,22 @@
           ]
         }
       ],
-      "thresholds": [],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
-      "title": "Picoeukaryotes abundance",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
+      "title": "PicoEukaryotes abundance",
+      "type": "armbrustlab-2dscatter-panel",
       "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
+        "show": true
       },
       "yaxes": [
         {
           "format": "short",
-          "label": null,
-          "logBase": 10,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
+      ]
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": "KM1923",
       "fill": 1,
       "gridPos": {
@@ -1372,36 +1235,62 @@
         "x": 12,
         "y": 26
       },
-      "id": 26,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
+      "id": 34,
       "lines": false,
       "linewidth": 1,
       "links": [],
-      "nullPointMode": "null",
-      "paceLength": 10,
-      "percentage": false,
       "pointradius": 1,
       "points": true,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "stack": false,
-      "steppedLine": false,
+      "range": {
+        "from": null,
+        "to": null
+      },
       "targets": [
         {
           "format": "time_series",
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  diam_mid_med AS \"diameter\"\nFROM seaflow751\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'picoeuk'\nORDER BY 1",
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  lat\nFROM seaflow751_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'picoeuk'\nORDER BY 1",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "lat"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "seaflow751_geo",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamptz",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "text",
+              "name": "",
+              "params": [
+                "pop",
+                "=",
+                "'picoeuk'"
+              ],
+              "type": "expression"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  \"time\" AS \"time\",\n  diam_mid_med\nFROM seaflow751_geo\nWHERE\n  $__timeFilter(\"time\") AND\n  pop = 'picoeuk'\nORDER BY 1",
+          "refId": "B",
           "select": [
             [
               {
@@ -1409,16 +1298,10 @@
                   "diam_mid_med"
                 ],
                 "type": "column"
-              },
-              {
-                "params": [
-                  "diameter"
-                ],
-                "type": "alias"
               }
             ]
           ],
-          "table": "seaflow751",
+          "table": "seaflow751_geo",
           "timeColumn": "\"time\"",
           "timeColumnType": "timestamptz",
           "where": [
@@ -1440,46 +1323,20 @@
           ]
         }
       ],
-      "thresholds": [],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
-      "title": "Picoeukaryotes diameter",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
+      "title": "PicoEukaryotes diameter",
+      "type": "armbrustlab-2dscatter-panel",
       "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
+        "show": true
       },
       "yaxes": [
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
+      ]
     }
   ],
   "refresh": false,
@@ -1519,7 +1376,7 @@
     ]
   },
   "timezone": "utc",
-  "title": "KM1923 by Time",
-  "uid": "CEPLgxema",
-  "version": 3
+  "title": "KM1923 by Latitude",
+  "uid": "CEPLlxema",
+  "version": 1
 }
